@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="Scenario">
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xf20b4a5bebc3ce461be98f0e734c5b7ca0c7" ControlName="Button 6">
+      <Property Name="Name">Xf20b4a5bebc3ce461be98f0e734c5b7ca0c7</Property>
+      <Property Name="Size">48, 66</Property>
+      <Property Name="Location">270, 173</Property>
+      <Property Name="TabIndex">7</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
+      <Property Name="Text">3</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xdd572bb7e2cb8e49ebe8755effa15031b338" ControlName="Button 5">
+      <Property Name="Name">Xdd572bb7e2cb8e49ebe8755effa15031b338</Property>
+      <Property Name="Size">48, 66</Property>
+      <Property Name="Location">226, 173</Property>
+      <Property Name="TabIndex">6</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
+      <Property Name="Text">2</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X3ba113beecfbfe435be9d2ee617fabdfb63f" ControlName="Button 4">
+      <Property Name="Name">X3ba113beecfbfe435be9d2ee617fabdfb63f</Property>
+      <Property Name="Size">48, 66</Property>
+      <Property Name="Location">178, 173</Property>
+      <Property Name="TabIndex">5</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
+      <Property Name="Text">1</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xf347da90e4022e44a7e8388e8b6db134b0bb" ControlName="Button 3">
+      <Property Name="Name">Xf347da90e4022e44a7e8388e8b6db134b0bb</Property>
+      <Property Name="Size">140, 66</Property>
+      <Property Name="Location">178, 107</Property>
+      <Property Name="TabIndex">4</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
+      <Property Name="Text">끼어들기</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X85948607e299ce409aeacfce44a9e7362250" ControlName="Button 2">
+      <Property Name="Name">X85948607e299ce409aeacfce44a9e7362250</Property>
+      <Property Name="Size">140, 66</Property>
+      <Property Name="Location">12, 107</Property>
+      <Property Name="TabIndex">3</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
+      <Property Name="Text">후방 충돌</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xcde3d5b7e786fe4adfe9b61e072c17eb76e0" ControlName="Button 1">
+      <Property Name="Name">Xcde3d5b7e786fe4adfe9b61e072c17eb76e0</Property>
+      <Property Name="Size">140, 66</Property>
+      <Property Name="Location">178, 12</Property>
+      <Property Name="TabIndex">2</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
+      <Property Name="Text">선행차 등장</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X68a9fe4dedc0be461aebcb5ee7c755e54d76" ControlName="Button 8">
+      <Property Name="Name">X68a9fe4dedc0be461aebcb5ee7c755e54d76</Property>
+      <Property Name="Size">140, 66</Property>
+      <Property Name="Location">12, 12</Property>
+      <Property Name="TabIndex">1</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
+      <Property Name="Text">이용자 탑승</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">330, 255</Property>
+    <Property Name="Location">0, 0</Property>
+    <Property Name="BackColor">255, 255, 255, 255</Property>
+  </Object>
+</Panel>

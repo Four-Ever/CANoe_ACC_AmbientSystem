@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="Cluster">
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X7b805cdfe2983e45e0eaf22e6f21928e0a68" ControlName="Switch / Indicator 1">
+      <Property Name="Name">X7b805cdfe2983e45e0eaf22e6f21928e0a68</Property>
+      <Property Name="Size">483, 45</Property>
+      <Property Name="Location">110, 131</Property>
+      <Property Name="SymbolConfiguration"></Property>
+      <Property Name="ImageFile">Bitmaps\AML_status.png</Property>
+      <Property Name="TransparentColor">White</Property>
+      <Property Name="IsProportional">False</Property>
+      <Property Name="TabIndex">2</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="StateCnt">7</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;7&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;&lt;RxValue&gt;2&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;2&lt;/TxValue&gt;&lt;RxValue&gt;3&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;3&lt;/TxValue&gt;&lt;RxValue&gt;4&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;4&lt;/TxValue&gt;&lt;RxValue&gt;5&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;5&lt;/TxValue&gt;&lt;RxValue&gt;6&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;6&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;7;0/Lower/0;1/Lower/1;2/Lower/2;3/Lower/3;4/Lower/4;5/Lower/5;6/Lower/6</Property>
+      <Property Name="SwitchValues">1;7;0;1;2;3;4;5;6</Property>
+      <Property Name="SwitchValuesRx">1;7;0;1;2;3;4;5;6</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.NumericUpDownControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xcc9862d7e1ef6e4c50e857decfbf0c50f0c1" ControlName="Numeric Up/Down 1">
+      <Property Name="Name">Xcc9862d7e1ef6e4c50e857decfbf0c50f0c1</Property>
+      <Property Name="Size">28, 18</Property>
+      <Property Name="Location">583, 46</Property>
+      <Property Name="Maximum">6</Property>
+      <Property Name="TabIndex">1</Property>
+      <Property Name="SymbolConfiguration">8;16;scenario;;;four_status;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.PictureBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X0a57220de6e1fe4d62e907defa4a1c11bdae" ControlName="Picture Box 1">
+      <Property Name="Name">X0a57220de6e1fe4d62e907defa4a1c11bdae</Property>
+      <Property Name="Size">694, 410</Property>
+      <Property Name="Location">0, 0</Property>
+      <Property Name="ImageFile">Bitmaps\DashboardCombi.png</Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">695, 415</Property>
+    <Property Name="Location">0, 0</Property>
+    <Property Name="BackColor">255, 255, 255, 255</Property>
+  </Object>
+</Panel>

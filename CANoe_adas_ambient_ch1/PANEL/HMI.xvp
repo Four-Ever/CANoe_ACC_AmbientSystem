@@ -1,9 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null">
   <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="HMI">
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X9b9a6c74e81dde42b1e9eb5e05331e1fd0be" ControlName="Static Text 6">
+      <Property Name="Name">X9b9a6c74e81dde42b1e9eb5e05331e1fd0be</Property>
+      <Property Name="Size">50, 15</Property>
+      <Property Name="Location">47, 146</Property>
+      <Property Name="Text">POWER</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X81281ccce13e7e4104ea14ae4e85fdb15e6e" ControlName="Switch / Indicator 3">
+      <Property Name="Name">X81281ccce13e7e4104ea14ae4e85fdb15e6e</Property>
+      <Property Name="Size">51, 49</Property>
+      <Property Name="Location">200, 92</Property>
+      <Property Name="SymbolConfiguration"></Property>
+      <Property Name="ImageFile">Bitmaps\WindowDownLeft.bmp</Property>
+      <Property Name="IsProportional">False</Property>
+      <Property Name="TabIndex">13</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X8e4f418ee19dce4228ea3d1ec85eb6be8624" ControlName="Switch / Indicator 1">
+      <Property Name="Name">X8e4f418ee19dce4228ea3d1ec85eb6be8624</Property>
+      <Property Name="Size">51, 49</Property>
+      <Property Name="Location">200, 49</Property>
+      <Property Name="SymbolConfiguration"></Property>
+      <Property Name="ImageFile">Bitmaps\WindowUpLeft.bmp</Property>
+      <Property Name="IsProportional">False</Property>
+      <Property Name="TabIndex">12</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+    </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xfdaacf98e82a9e41d1eb089e50402b3c38d9" ControlName="Button 1">
       <Property Name="Name">Xfdaacf98e82a9e41d1eb089e50402b3c38d9</Property>
-      <Property Name="Size">110, 25</Property>
+      <Property Name="Size">102, 25</Property>
       <Property Name="Location">149, 24</Property>
       <Property Name="UseWindowsStyle">False</Property>
       <Property Name="BackColor">255, 89, 89, 89</Property>
@@ -14,38 +44,40 @@
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xeb76778ee99abe4a43e97ede43b50257ee83" ControlName="Static Text 5">
       <Property Name="Name">Xeb76778ee99abe4a43e97ede43b50257ee83</Property>
-      <Property Name="Size">75, 15</Property>
-      <Property Name="Location">200, 147</Property>
+      <Property Name="Size">69, 14</Property>
+      <Property Name="Location">194, 147</Property>
+      <Property Name="Font">Microsoft Sans Serif, 7.5pt</Property>
       <Property Name="Text">Target Speed</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X60e1076be4e79e4821eb2eeee4a137e18af5" ControlName="Static Text 4">
       <Property Name="Name">X60e1076be4e79e4821eb2eeee4a137e18af5</Property>
-      <Property Name="Size">61, 15</Property>
-      <Property Name="Location">139, 147</Property>
+      <Property Name="Size">56, 14</Property>
+      <Property Name="Location">144, 147</Property>
+      <Property Name="Font">Microsoft Sans Serif, 7.5pt</Property>
       <Property Name="Text">ACC Level</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X279677e1ea413e4902eaf33e2e1c0b3f72a2" ControlName="Static Text 3">
       <Property Name="Name">X279677e1ea413e4902eaf33e2e1c0b3f72a2</Property>
       <Property Name="Size">64, 15</Property>
-      <Property Name="Location">464, 147</Property>
+      <Property Name="Location">442, 146</Property>
       <Property Name="Text">Accelerator</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X74b6951cece3ae466fe9d28ed6a92eca58f3" ControlName="Static Text 2">
       <Property Name="Name">X74b6951cece3ae466fe9d28ed6a92eca58f3</Property>
       <Property Name="Size">37, 15</Property>
-      <Property Name="Location">413, 147</Property>
+      <Property Name="Location">391, 146</Property>
       <Property Name="Text">Brake</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X95e406a1e4be4e4048e83d4ea6352d03736f" ControlName="Static Text 1">
       <Property Name="Name">X95e406a1e4be4e4048e83d4ea6352d03736f</Property>
       <Property Name="Size">58, 15</Property>
-      <Property Name="Location">310, 147</Property>
+      <Property Name="Location">297, 146</Property>
       <Property Name="Text">Full Brake</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xf6dda5ebeede6e47fce9d29ed51df910b277" ControlName="Switch / Indicator 9">
       <Property Name="Name">Xf6dda5ebeede6e47fce9d29ed51df910b277</Property>
       <Property Name="Size">59, 77</Property>
-      <Property Name="Location">464, 64</Property>
+      <Property Name="Location">442, 64</Property>
       <Property Name="SymbolConfiguration"></Property>
       <Property Name="ImageFile">Bitmaps\Accelerator.bmp</Property>
       <Property Name="TabIndex">10</Property>
@@ -60,7 +92,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X3d4b0f9eeb699e49f1ea4cee803c197ba2f5" ControlName="Switch / Indicator 7">
       <Property Name="Name">X3d4b0f9eeb699e49f1ea4cee803c197ba2f5</Property>
       <Property Name="Size">96, 126</Property>
-      <Property Name="Location">297, 15</Property>
+      <Property Name="Location">275, 15</Property>
       <Property Name="SymbolConfiguration"></Property>
       <Property Name="ImageFile">Bitmaps\Brake.bmp</Property>
       <Property Name="TabIndex">8</Property>
@@ -71,7 +103,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xa6f74361e7876e4b49eaff3e2337a324559f" ControlName="Switch / Indicator 2">
       <Property Name="Name">Xa6f74361e7876e4b49eaff3e2337a324559f</Property>
       <Property Name="Size">59, 77</Property>
-      <Property Name="Location">399, 64</Property>
+      <Property Name="Location">377, 64</Property>
       <Property Name="SymbolConfiguration"></Property>
       <Property Name="ImageFile">Bitmaps\Brake.bmp</Property>
       <Property Name="TabIndex">7</Property>
@@ -85,10 +117,11 @@
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xa9841ee1efa5fe4854e9ad7ecdd6805e7d57" ControlName="Switch / Indicator 6">
       <Property Name="Name">Xa9841ee1efa5fe4854e9ad7ecdd6805e7d57</Property>
-      <Property Name="Size">38, 49</Property>
+      <Property Name="Size">51, 49</Property>
       <Property Name="Location">149, 49</Property>
       <Property Name="SymbolConfiguration"></Property>
       <Property Name="ImageFile">Bitmaps\WindowUpLeft.bmp</Property>
+      <Property Name="IsProportional">False</Property>
       <Property Name="TabIndex">6</Property>
       <Property Name="Epsilon">0</Property>
       <Property Name="Increment">1</Property>
@@ -96,10 +129,11 @@
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xfd1542bae9f9de4f35eaf80eb1686e721cc5" ControlName="Switch / Indicator 4">
       <Property Name="Name">Xfd1542bae9f9de4f35eaf80eb1686e721cc5</Property>
-      <Property Name="Size">108, 141</Property>
-      <Property Name="Location">25, 24</Property>
+      <Property Name="Size">139, 127</Property>
+      <Property Name="Location">5, 15</Property>
       <Property Name="SymbolConfiguration"></Property>
       <Property Name="ImageFile">Bitmaps\Engine_Start.png</Property>
+      <Property Name="IsProportional">False</Property>
       <Property Name="TabIndex">5</Property>
       <Property Name="Epsilon">0</Property>
       <Property Name="Increment">1</Property>
@@ -109,34 +143,13 @@
       <Property Name="SwitchValues">1;2;0;1</Property>
       <Property Name="SwitchValuesRx">1;2;0;1</Property>
     </Object>
-    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X678c6248ea650e4f4ceb554eae2a6b86028b" ControlName="Switch / Indicator 3">
-      <Property Name="Name">X678c6248ea650e4f4ceb554eae2a6b86028b</Property>
-      <Property Name="Size">38, 49</Property>
-      <Property Name="Location">221, 49</Property>
-      <Property Name="SymbolConfiguration"></Property>
-      <Property Name="ImageFile">Bitmaps\WindowUpLeft.bmp</Property>
-      <Property Name="TabIndex">4</Property>
-      <Property Name="Epsilon">0</Property>
-      <Property Name="Increment">1</Property>
-      <Property Name="StartValue">0</Property>
-    </Object>
-    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X63f83729ee1dde49fae9760ec9dcb55d81d6" ControlName="Switch / Indicator 1">
-      <Property Name="Name">X63f83729ee1dde49fae9760ec9dcb55d81d6</Property>
-      <Property Name="Size">38, 49</Property>
-      <Property Name="Location">221, 92</Property>
-      <Property Name="SymbolConfiguration"></Property>
-      <Property Name="ImageFile">Bitmaps\WindowDownLeft.bmp</Property>
-      <Property Name="TabIndex">2</Property>
-      <Property Name="Epsilon">0</Property>
-      <Property Name="Increment">1</Property>
-      <Property Name="StartValue">0</Property>
-    </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xcb8203e4eafcce440eead18e67c09941f3d5" ControlName="Switch / Indicator 5">
       <Property Name="Name">Xcb8203e4eafcce440eead18e67c09941f3d5</Property>
-      <Property Name="Size">38, 49</Property>
+      <Property Name="Size">51, 49</Property>
       <Property Name="Location">149, 92</Property>
       <Property Name="SymbolConfiguration"></Property>
       <Property Name="ImageFile">Bitmaps\WindowDownLeft.bmp</Property>
+      <Property Name="IsProportional">False</Property>
       <Property Name="TabIndex">1</Property>
       <Property Name="Epsilon">0</Property>
       <Property Name="Increment">1</Property>
