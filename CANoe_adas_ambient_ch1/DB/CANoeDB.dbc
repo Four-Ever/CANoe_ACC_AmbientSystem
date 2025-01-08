@@ -65,8 +65,8 @@ BO_ 1363 CGW_100ms_msg: 3 CGW
  SG_ ACC_des_speed_kmh : 16|8@1+ (1,0) [0|0] ""  CLU,BCU
  SG_ ACC_des_dis_m : 8|8@1+ (1,0) [0|0] ""  CLU,BCU
  SG_ ACC_level : 2|2@1+ (1,0) [0|1] ""  CLU,BCU
- SG_ BCM_CLU_passseatwarning : 1|1@1+ (1,0) [0|1] ""  CLU,BCU
- SG_ BCM_CLU_drseatwarning : 0|1@1+ (1,0) [0|1] ""  CLU,BCU
+ SG_ BCU_CLU_passseatwarning : 1|1@1+ (1,0) [0|1] ""  CLU,BCU
+ SG_ BCU_CLU_drseatwarning : 0|1@1+ (1,0) [0|1] ""  CLU,BCU
 
 BO_ 1381 CGW_30ms_msg: 4 CGW
  SG_ SCU_Frdis_m : 24|8@1+ (1,0) [0|0] ""  SCU,CLU
@@ -92,10 +92,10 @@ BO_ 1204 CGW_VCU_BWake_msg: 1 CGW
  SG_ VCU_AML_wakeup : 0|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
 
 BO_ 1041 CGW_AEB_Airbag_msg: 1 CGW
- SG_ AEB_BCM_airbagctrl_req : 0|1@1+ (1,0) [0|1] ""  BCU
+ SG_ AEB_BCU_airbagctrl_req : 0|1@1+ (1,0) [0|1] ""  BCU
 
 BO_ 1233 CGW_AEB_Color_msg: 1 CGW
- SG_ AEB_BCM_amlctrl_req : 0|1@1+ (1,0) [0|1] ""  BCU
+ SG_ AEB_BCU_amlctrl_req : 0|1@1+ (1,0) [0|1] ""  BCU
 
 BO_ 1107 CGW_ACC_DState_msg1: 1 CGW
  SG_ ACC_brk_off : 0|1@1+ (1,0) [0|1] ""  CLU,BCU
@@ -196,12 +196,12 @@ BO_ 339 CGW_ACC_AlterSpeed_msg: 2 CGW
  SG_ ACC_accel_trk : 0|8@1+ (1,0) [0|0] ""  CCM
 
 BO_ 274 CGW_BCU_Seat_msg: 1 CGW
- SG_ BCM_pass_seatstate : 1|1@1+ (1,0) [0|1] ""  VCU
- SG_ BCM_dr_seatstate : 0|1@1+ (1,0) [0|1] ""  VCU
+ SG_ BCU_pass_seatstate : 1|1@1+ (1,0) [0|1] ""  VCU
+ SG_ BCU_dr_seatstate : 0|1@1+ (1,0) [0|1] ""  VCU
 
 BO_ 273 CGW_BCU_Airbag_msg: 1 CGW
- SG_ BCM_pass_airbagstate : 1|1@1+ (1,0) [0|1] ""  VCU
- SG_ BCM_dr_airbagstate : 0|1@1+ (1,0) [0|1] ""  VCU
+ SG_ BCU_pass_airbagstate : 1|1@1+ (1,0) [0|1] ""  VCU
+ SG_ BCU_dr_airbagstate : 0|1@1+ (1,0) [0|1] ""  VCU
 
 BO_ 321 CGW_ACL_Accel_msg: 1 CGW
  SG_ ACL_ped_per : 0|8@1+ (1,0) [0|0] ""  VCU
@@ -287,10 +287,10 @@ BO_ 1002 AEB_DTC_msg: 4 AEB
  SG_ AEB_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  CGW
 
 BO_ 785 AEB_Airbag_msg: 1 AEB
- SG_ AEB_BCM_airbagctrl_req : 0|1@1+ (1,0) [0|1] ""  CGW
+ SG_ AEB_BCU_airbagctrl_req : 0|1@1+ (1,0) [0|1] ""  CGW
 
 BO_ 977 AEB_Color_msg: 1 AEB
- SG_ AEB_BCM_amlctrl_req : 0|1@1+ (1,0) [0|1] ""  CGW
+ SG_ AEB_BCU_amlctrl_req : 0|1@1+ (1,0) [0|1] ""  CGW
 
 BO_ 801 AEB_Brk_msg: 1 AEB
  SG_ AEB_VCU_brk_pbar : 0|1@1+ (1,0) [0|1] ""  CGW
@@ -351,24 +351,24 @@ BO_ 1254 BCU_DTC_msg: 4 BCU
  SG_ BCU_diagnosis : 0|32@1+ (1,0) [0|0] ""  CGW
 
 BO_ 1153 BCU_CLU_msg: 1 BCU
- SG_ BCM_CLU_passseatwarning : 1|1@1+ (1,0) [0|1] ""  CGW
- SG_ BCM_CLU_drseatwarning : 0|1@1+ (1,0) [0|1] ""  CGW
+ SG_ BCU_CLU_passseatwarning : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ BCU_CLU_drseatwarning : 0|1@1+ (1,0) [0|1] ""  CGW
 
 BO_ 1043 BCU_Seat_msg: 1 BCU
- SG_ BCM_pass_seatstate : 1|1@1+ (1,0) [0|1] ""  SEAT,CGW
- SG_ BCM_dr_seatstate : 0|1@1+ (1,0) [0|1] ""  SEAT,CGW
+ SG_ BCU_pass_seatstate : 1|1@1+ (1,0) [0|1] ""  SEAT,CGW
+ SG_ BCU_dr_seatstate : 0|1@1+ (1,0) [0|1] ""  SEAT,CGW
 
 BO_ 1042 BCU_Airbag_msg: 1 BCU
- SG_ BCM_pass_airbagstate : 1|1@1+ (1,0) [0|1] ""  CGW,AIRBAG
- SG_ BCM_dr_airbagstate : 0|1@1+ (1,0) [0|1] ""  CGW,AIRBAG
+ SG_ BCU_pass_airbagstate : 1|1@1+ (1,0) [0|1] ""  CGW,AIRBAG
+ SG_ BCU_dr_airbagstate : 0|1@1+ (1,0) [0|1] ""  CGW,AIRBAG
 
 BO_ 1234 BCU_Color_msg: 1 BCU
- SG_ BCM_redlight_off : 5|1@1+ (1,0) [0|1] ""  AML
- SG_ BCM_lightdefault_G : 4|1@1+ (1,0) [0|1] ""  AML
- SG_ BCM_lightP : 3|1@1+ (1,0) [0|1] ""  AML
- SG_ BCM_lightB : 2|1@1+ (1,0) [0|1] ""  AML
- SG_ BCM_lightSB : 1|1@1+ (1,0) [0|1] ""  AML
- SG_ BCM_lightR : 0|1@1+ (1,0) [0|1] ""  AML
+ SG_ BCU_redlight_off : 5|1@1+ (1,0) [0|1] ""  AML
+ SG_ BCU_lightdefault_G : 4|1@1+ (1,0) [0|1] ""  AML
+ SG_ BCU_lightP : 3|1@1+ (1,0) [0|1] ""  AML
+ SG_ BCU_lightB : 2|1@1+ (1,0) [0|1] ""  AML
+ SG_ BCU_lightSB : 1|1@1+ (1,0) [0|1] ""  AML
+ SG_ BCU_lightR : 0|1@1+ (1,0) [0|1] ""  AML
 
 BO_ 1253 AML_DTC_msg: 4 AML
  SG_ AML_diagnosis : 0|32@1+ (1,0) [0|0] ""  CGW
