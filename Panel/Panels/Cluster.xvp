@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="Cluster">
+    <Object Type="Vector.CANalyzer.Panels.Design.NumericUpDownControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xcc9862d7e1ef6e4c50e857decfbf0c50f0c1" ControlName="Numeric Up/Down 1">
+      <Property Name="Name">Xcc9862d7e1ef6e4c50e857decfbf0c50f0c1</Property>
+      <Property Name="Size">28, 18</Property>
+      <Property Name="Location">583, 46</Property>
+      <Property Name="Minimum">1</Property>
+      <Property Name="Maximum">4</Property>
+      <Property Name="TabIndex">1</Property>
+      <Property Name="SymbolConfiguration">8;16;scenario;;;four_status;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.LEDBand, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X62b30a43ebd85e4960eac4de8566ab0268ba" ControlName="LED Band 3">
+      <Property Name="Name">X62b30a43ebd85e4960eac4de8566ab0268ba</Property>
+      <Property Name="Size">21, 410</Property>
+      <Property Name="Location">685, 4</Property>
+      <Property Name="LedBandHeight">10</Property>
+      <Property Name="Rotation">90</Property>
+      <Property Name="ValueInterpretation">eRGBA</Property>
+      <Property Name="Color">Green</Property>
+      <Property Name="LedBandLength">390</Property>
+      <Property Name="StartingPoint">10;400</Property>
+      <Property Name="SymbolConfiguration">8;16;scenario;;;four_status;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.LEDBand, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X9fc6cbe3eef34e43eeebd28e0b8c22683def" ControlName="LED Band 4">
+      <Property Name="Name">X9fc6cbe3eef34e43eeebd28e0b8c22683def</Property>
+      <Property Name="Size">21, 410</Property>
+      <Property Name="Location">0, 0</Property>
+      <Property Name="LedBandHeight">10</Property>
+      <Property Name="Rotation">90</Property>
+      <Property Name="Color">Green</Property>
+      <Property Name="LedBandLength">390</Property>
+      <Property Name="StartingPoint">10;400</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.LEDBand, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X2062ba59e97c4e4639ebfc3e5345ed516505" ControlName="LED Band 2">
+      <Property Name="Name">X2062ba59e97c4e4639ebfc3e5345ed516505</Property>
+      <Property Name="Size">700, 20</Property>
+      <Property Name="Location">0, 399</Property>
+      <Property Name="LedBandHeight">10</Property>
+      <Property Name="Color">Green</Property>
+      <Property Name="LedBandLength">680</Property>
+      <Property Name="StartingPoint">10;10</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.LEDBand, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xe91a755fef7ade4e57ea44be5e5b10cfb53f" ControlName="LED Band 1">
+      <Property Name="Name">Xe91a755fef7ade4e57ea44be5e5b10cfb53f</Property>
+      <Property Name="Size">700, 20</Property>
+      <Property Name="Location">0, 0</Property>
+      <Property Name="LedBandHeight">10</Property>
+      <Property Name="Color">Green</Property>
+      <Property Name="LedBandLength">680</Property>
+      <Property Name="StartingPoint">10;10</Property>
+      <Property Name="SymbolConfiguration"></Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.PictureBoxControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X0a57220de6e1fe4d62e907defa4a1c11bdae" ControlName="Picture Box 1">
+      <Property Name="Name">X0a57220de6e1fe4d62e907defa4a1c11bdae</Property>
+      <Property Name="Size">692, 409</Property>
+      <Property Name="Location">5, 5</Property>
+      <Property Name="ImageFile">Bitmaps\DashboardCombi.png</Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">911, 419</Property>
+    <Property Name="Location">0, 0</Property>
+    <Property Name="BackColor">255, 255, 255, 255</Property>
+  </Object>
+</Panel>
