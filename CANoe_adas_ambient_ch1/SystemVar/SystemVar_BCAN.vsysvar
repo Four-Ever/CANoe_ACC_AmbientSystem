@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="AIRBAG_Value" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="dr_airbag_condi" comment="운전자 에어백 동작 가능 상태" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="dr_airbag_state" comment="운전자 에어백 상태" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="pass_airbag_condi" comment="조수석 에어백 동작 가능 상태" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="pass_airbag_state" comment="조수석 에어백 상태" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+    </namespace>
+    <namespace name="AML_Value" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="now_light_state" comment="AML Color State" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="4" minValue="0" minValuePhys="0" maxValue="8" maxValuePhys="8" />
+    </namespace>
+    <namespace name="Dev_Option" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="DEBUG_PRINT" comment="" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="1" minValue="0" minValuePhys="0" maxValue="2" maxValuePhys="2">
+        <valuetable name="On_Off" definesMinMax="true">
+          <valuetableentry value="0" lowerBound="0" upperBound="0" description="Off" displayString="Off" />
+          <valuetableentry value="1" lowerBound="1" upperBound="1" description="On" displayString="On" />
+          <valuetableentry value="2" lowerBound="2" upperBound="2" description="Invalid" displayString="Invalid" />
+        </valuetable>
+      </variable>
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Timer_Enable" comment="IL로 사용시 비활성화" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="1" minValue="0" minValuePhys="0" maxValue="2" maxValuePhys="2">
+        <valuetable name="On_Off" definesMinMax="true">
+          <valuetableentry value="0" lowerBound="0" upperBound="0" description="Off" displayString="Off" />
+          <valuetableentry value="1" lowerBound="1" upperBound="1" description="On" displayString="On" />
+          <valuetableentry value="2" lowerBound="2" upperBound="2" description="Invalid" displayString="Invalid" />
+        </valuetable>
+      </variable>
+    </namespace>
+    <namespace name="SEAT_Value" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="dr_seat_Belt_state" comment="운전자 벨트 상태" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="dr_seat_condi" comment="운전자 시트 동작 가능 상태" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="dr_seat_OCC" comment="운전자 착석 여부" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="dr_seat_state" comment="운전자 시트 상태" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="pass_seat_Belt_state" comment="조수석 벨트 상태" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="pass_seat_condi" comment="조수석 시트 동작 가능 상태" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="pass_seat_OCC" comment="조수석 착석 여부" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="pass_seat_state" comment="조수석 시트 상태" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+    </namespace>
+  </namespace>
+</systemvariables>
