@@ -106,19 +106,20 @@ on timer SEAT_Ast_Condi_timer{ // 조수석 좌석시트 동작 가능 상태
 }
 ///////////////////////////////
 
-on message BCU_Seat_msg // 충돌에 의한 좌석 제어 요청 (BCU -> Seat)
+on message can1.BCU_Seat_msg // 충돌에 의한 좌석 제어 요청 (BCU -> Seat)
 {
-  if(Power_on_off_flag){
+//  if(Power_on_off_flag)
+//  {
+//  }
      if($SEAT_drvseatOCC == 1 && this.BCU_dr_seatstate){ // 운전자 착석 상태
       @sysvar::SEAT_Value::dr_seat_state = accident_state;
     }
     if($SEAT_astseatOCC == 1 && this.BCU_pass_seatstate){ // 조수석 착석 상태
       @sysvar::SEAT_Value::pass_seat_state = accident_state;
     }
-  }
 }
 
-on message CGW_VCU_BWake_msg // Seat ECU 작동 시작
+on message can1.CGW_VCU_BWake_msg // Seat ECU 작동 시작
 {
   //if($CGW::VCU_Seat_wakeup==1){
   //}
@@ -130,12 +131,12 @@ on message CGW_VCU_BWake_msg // Seat ECU 작동 시작
   @sysvar::SEAT_Value::pass_seat_state = default_state;
   @sysvar::SEAT_Value::dr_seat_OCC = True; // 시동이 걸렸으므로 운전자 탑승하고 있다고 판단
 }
-on message CGW_VCU_BSleep_msg // Seat ECU 작동 종료
+on message can1.CGW_VCU_BSleep_msg // Seat ECU 작동 종료
 {
   Power_on_off_flag = False;
   
 }
-on message CGW_PANEL_BDTC_msg // Seat ECU 진단 정보 요청
+on message can1.CGW_PANEL_BDTC_msg // Seat ECU 진단 정보 요청
 {
   if($CGW::Scenario_Seatrequest == 1)
   {
@@ -148,6 +149,7 @@ on message CGW_PANEL_BDTC_msg // Seat ECU 진단 정보 요청
 
 void init()
 {
+  // 시스템 변수 및 전역변수 초기화
   Power_on_off_flag = False;
   @sysvar::SEAT_Value::dr_seat_condi = normal;
   @sysvar::SEAT_Value::pass_seat_condi = normal;

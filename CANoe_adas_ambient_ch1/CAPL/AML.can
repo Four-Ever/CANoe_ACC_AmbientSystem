@@ -78,17 +78,17 @@ on signal_update BCU_redlight_off
     }
 }
 
-on message CGW_VCU_BWake_msg // AML ECU 작동 시작
+on message can1.CGW_VCU_BWake_msg // AML ECU 작동 시작
 {
   Power_on_off_flag = True;
   @sysvar::AML_Value::now_light_state = color_default;
 }
-on message CGW_VCU_BSleep_msg // AML ECU 작동 종료
+on message can1.CGW_VCU_BSleep_msg // AML ECU 작동 종료
 {
   Power_on_off_flag = False;
   @sysvar::AML_Value::now_light_state = ctrl_off;
 }
-on message CGW_PANEL_BDTC_msg // AML 진단 정보 요청
+on message can1.CGW_PANEL_BDTC_msg // AML 진단 정보 요청
 {
   if($CGW::Scenario_AMLrequest == 1)
   {
@@ -99,6 +99,7 @@ on message CGW_PANEL_BDTC_msg // AML 진단 정보 요청
   }
 }
 void init(){
+  // 시스템 변수 및 전역변수 초기화
   Power_on_off_flag = False;
   @sysvar::AML_Value::now_light_state = ctrl_off; // 불 OFF
 }
