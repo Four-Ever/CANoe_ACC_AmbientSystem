@@ -1,0 +1,643 @@
+﻿/*@!Encoding:65001*/
+includes
+{
+  
+}
+
+variables
+{
+  msTimer cycle1ms;
+  msTimer cycle10ms;
+  int gCount10ms;
+  message P_CAN::CGW_BRK_Brk_msg G_BB; // ok 
+  message P_CAN::CGW_ACL_Accel_msg G_ACL_A; // ok
+  message P_CAN::CGW_ACC_AlterSpeed_msg G_ACC_AS; // ok
+  message A_CAN::CGW_VCU_Speed_Overr_msg G_VSO; //ok
+  message B_CAN::CGW_Speed_Rear_msg G_SR; // ok
+  message B_CAN::CGW_ACC_level_msg G_ACC_LV; // ok
+  message B_CAN::CGW_AEB_Color_msg G_AEB_C; // ok
+  message UI_CAN::CGW_30ms_msg G_30ms; // ok 
+  message UI_CAN::CGW_100ms_msg G_100ms; // ok
+  
+  int BRK_Brk_msg_flag = 0, ACL_Accel_msg_flag = 0;
+  //int ACC_Accel_msg_flag = 0, ACC_Brk_msg_flag = 0;
+}
+
+on Start
+{
+  setTimerCyclic(cycle1ms,1);
+  setTimerCyclic(cycle10ms,10);
+}
+
+void send1ms()
+{
+//  if(BRK_Brk_msg_flag == 1){
+    G_BB.can = 3;//PCAN
+    output(G_BB);
+//  }
+  
+//  if(ACL_Accel_msg_flag == 1){
+    G_ACL_A.can = 3; //PCAN
+    output(G_ACL_A);
+//  }
+}
+
+void send10ms()
+{
+  //if(ACC_Accel_msg_flag == 1 && 
+  //    ACC_Brk_msg_flag == 1)
+  //{
+    G_ACC_AS.can = 3; //PCAN
+    output(G_ACC_AS);
+  //}
+}
+
+void send30ms()
+{
+  //G_30ms.can = 6; // A-CAN
+  //output(G_30ms);
+  //G_30ms.can = 1; // B-CAN
+  //output(G_30ms);
+  G_30ms.can = 4; // UI-CAN
+  output(G_30ms);
+
+  G_VSO.can = 6; // A-CAN
+  output(G_VSO);
+  //G_VSO.can = 1; // B-CAN
+  //output(G_VSO);
+  //G_VSO.can = 4; // UI-CAN
+  //output(G_VSO);
+  
+  //G_SR.can = 6; // A 
+  //output(G_SR);
+  G_SR.can = 1; // B 
+  output(G_SR);
+  //G_SR.can = 4; // UI
+  //output(G_SR);
+}
+
+void send100ms()
+{
+  //G_100ms.can = 1; // B
+  //output(G_100ms);
+  G_100ms.can = 4; // UI
+  output(G_100ms);
+  
+  G_ACC_LV.can = 1; // B
+  output(G_ACC_LV);
+  //G_ACC_LV.can = 4; // UI
+  //output(G_ACC_LV);
+}
+
+void send200ms()
+{
+  G_AEB_C.can = 1; //B
+  output(G_AEB_C);
+}
+
+on Timer cycle1ms{
+
+  // 1ms 주기 메시지 송신 
+  send1ms();
+    
+}
+
+
+
+on Timer cycle10ms{
+ 
+  gCount10ms++;
+  
+  send10ms();
+  
+  
+  if(gCount10ms%3==0){
+   //30ms 주기 메시지 송신 
+    send30ms();
+  }
+  
+  if(gCount10ms%10==0){
+    //100ms 주기 메시지 송신
+    send100ms();
+  }
+  
+  if(gCount10ms%20==0){
+    //200ms 주기 메시지 송신
+    send200ms();
+  }
+  
+  if(gCount10ms>=3000){
+    //카운터 초기화
+    gCount10ms = 0; 
+  }
+}
+
+
+on message C_CAN.*
+{
+  if(this.can==2){
+     switch (this.id) {
+        case C_CAN::BRK_Brk_msg.id:
+          //BRK_Brk_msg_flag = 1;
+          G_BB = this; //G_BB 완료
+          
+          break;
+          
+        case C_CAN::ACL_Accel_msg.id: // 수신 메시지 ID1 처리
+          //ACL_Accel_msg_flag = 1;
+          G_ACL_A = this; // 수신 메시지를 송신 메시지로 복사 // G_ACL_A 완료
+
+          break;  
+     }
+    }
+  }
+  
+on message P_CAN.*{
+  message P_CAN::VCU_State_msg V_State;
+  message P_CAN::VCU_ACCAccel_msg V_AA;
+  if(this.can==3){
+    switch (this.id) {
+      case VCU_State_msg.id: 
+        //VCU_State_msg_flag = 1;
+        V_State = this;
+        G_30ms.VCU_speed_kph = V_State.VCU_speed_kph;
+        G_SR.VCU_speed_kph = V_State.VCU_speed_kph;
+        G_VSO.VCU_speed_kph = V_State.VCU_speed_kph;
+          
+        G_30ms.VCU_rpm = V_State.VCU_rpm;
+        break;
+  
+      case VCU_ACCAccel_msg.id:
+        V_AA = this;
+        G_VSO.VCU_ACC_override = V_AA.VCU_ACC_override; // G_VSO 완료 
+        break;
+        
+      default :
+        break;
+    }
+  }
+}
+
+on message A_CAN.* {
+  message A_CAN::ACC_Accel_msg ACC_A;
+  message A_CAN::ACC_Brk_msg ACC_B;
+  message A_CAN::SCU_Rear_msg SCU_R;
+  message A_CAN::ACC_level_msg ACC_LV;
+  message A_CAN::SCU_Front_msg SCU_F;
+  message A_CAN::AEB_State_msg AEB_State;
+  message A_CAN::ACC_Des_msg ACC_Des;
+
+  if(this.can == 6){
+    switch (this.id) {
+      case ACC_Accel_msg.id:
+        //ACC_Accel_msg_flag = 1;
+        ACC_A = this;
+        G_ACC_AS.ACC_accel_trk = ACC_A.ACC_accel_trk;
+        break;
+        
+      case ACC_Brk_msg.id:
+        //ACC_Brk_msg_flag = 1;
+        ACC_B = this;
+        G_ACC_AS.ACC_brk_pbar = ACC_B.ACC_brk_pbar; //G_ACC_AS 완료
+        break;
+  
+      case SCU_Rear_msg.id:
+        SCU_R = this;
+        G_SR.SCU_Rcrash_ns = SCU_R.SCU_Rcrash_ns; // G_SR ok
+        break;
+      
+      case ACC_level_msg.id:
+        G_ACC_LV = this; // G_ACC_LV ok
+        
+        ACC_LV = this;
+        G_100ms.ACC_level = ACC_LV.ACC_level;
+        break;
+      
+      case AEB_Color_msg.id:
+        G_AEB_C = this; // G_AEB ok
+        break;
+      
+      case SCU_Front_msg.id:
+        SCU_F = this;
+        G_30ms.SCU_Frdis_m = SCU_F.SCU_Frdis_m; // G_30 ok
+        break;
+        
+      case AEB_State_msg.id:
+        AEB_State = this;
+        G_100ms.AEB_CLU_aebled = AEB_State.AEB_CLU_aebled;
+        break;
+        
+      case ACC_Des_msg.id:
+        ACC_Des = this;
+        G_100ms.ACC_des_dis_m = ACC_Des.ACC_des_dis_m;
+        G_100ms.ACC_des_speed_kmh = ACC_Des.ACC_des_speed_kmh; // G_100 ok
+        break;
+        
+      default :
+        break;
+    }
+  }
+}
+
+
+on message B_CAN.* {
+  
+  message B_CAN::BCU_CLU_msg BCU_2CLU;
+  if(this.can==1){
+    switch (this.id) {
+  
+      case BCU_CLU_msg.id:
+        BCU_2CLU = this;
+        G_100ms.BCU_CLU_drseatwarning = BCU_2CLU.BCU_CLU_drseatwarning;
+        G_100ms.BCU_CLU_passseatwarning = BCU_2CLU.BCU_CLU_passseatwarning;
+        break;
+        
+  
+      default: // 정의되지 않은 메시지 처리
+        //write("Unhandled message ID: %d", this.id);
+        break;
+    }
+  }
+}
+
+
+// PCAN start
+on message can2.C_CAN::BRK_FBrk_msg
+{
+  message P_CAN::CGW_BRK_FBrk_msg msgOut;
+  msgOut.BRK_fullstatus = this.BRK_fullstatus;
+  msgOut.can = 3;
+  output(msgOut);
+}
+
+on message can1.B_CAN::BCU_Airbag_msg
+{
+  message P_CAN::CGW_BCU_Airbag_msg msgOut;
+  msgOut.BCU_dr_airbagstate = this.BCU_dr_airbagstate;
+  msgOut.BCU_pass_airbagstate = this.BCU_pass_airbagstate;
+  msgOut.can = 3;
+  output(msgOut);
+}
+
+on message can1.B_CAN::BCU_Seat_msg
+{
+  message P_CAN::CGW_BCU_Seat_msg msgOut;
+  msgOut.BCU_dr_seatstate = this.BCU_dr_seatstate;
+  msgOut.BCU_pass_seatstate = this.BCU_pass_seatstate;
+  msgOut.can =3;
+  output(msgOut);
+  
+}
+
+on message can6.A_CAN::AEB_Brk_msg
+{
+  message P_CAN::CGW_AEB_Brk_msg msgOut;
+  msgOut.AEB_VCU_brk_pbar = this.AEB_VCU_brk_pbar;
+  msgOut.can =3;
+  output(msgOut);  
+}
+
+on message can4.UI_CAN::HMI_VCU_Power_msg
+{
+  message P_CAN::CGW_HMI_VCU_Power_msg msgOut;
+  msgOut.HMI_Engine_start = this.HMI_Engine_start;
+  msgOut.HMI_Engine_sleep = this.HMI_Engine_sleep;
+  msgOut.can = 3;
+  output(msgOut);
+}
+
+on message can4.UI_CAN::PANEL_PDTC_msg
+{
+  message P_CAN::CGW_PANEL_PDTC_msg msgOut;
+  msgOut.Scenario_CCMrequest = this.Scenario_CCMrequest;
+  msgOut.Scenario_VCUrequest = this.Scenario_VCUrequest;
+  msgOut.can = 3;
+  output(msgOut);
+}
+
+//BCAN start
+
+on message can6.A_CAN::ACC_DState_msg
+{
+  message B_CAN::CGW_ACC_DState_msg1 msgOut;
+  msgOut.ACC_brk_off = this.ACC_brk_off;
+  msgOut.can = 1;
+  output(msgOut);
+}
+
+on message can6.A_CAN::AEB_Airbag_msg
+{
+  message B_CAN::CGW_AEB_Airbag_msg msgOut;
+  msgOut.AEB_BCU_airbagctrl_req = this.AEB_BCU_airbagctrl_req;
+  msgOut.can = 1;
+  output(msgOut);
+}
+
+on message can3.P_CAN::VCU_BWake_msg
+{
+  message B_CAN::CGW_VCU_BWake_msg msgOut;
+  msgOut.VCU_AML_wakeup = this.VCU_AML_wakeup;
+  msgOut.VCU_Airbag_wakeup = this.VCU_Airbag_wakeup;
+  msgOut.VCU_BCU_wakeup = this.VCU_BCU_wakeup;
+  msgOut.VCU_Seat_wakeup = this.VCU_Seat_wakeup;
+  msgOut.can = 1;
+  output(msgOut);
+}
+
+on message can3.P_CAN::VCU_BSleep_msg
+{
+  message B_CAN::CGW_VCU_BSleep_msg msgOut;
+  msgOut.VCU_AML_sleep = this.VCU_AML_sleep;
+  msgOut.VCU_Airbag_sleep = this.VCU_Airbag_sleep;
+  msgOut.VCU_BCU_sleep = this.VCU_BCU_sleep;
+  msgOut.VCU_Seat_sleep = this.VCU_Seat_sleep;
+  msgOut.can = 1;
+  output(msgOut); 
+}
+
+on message can4.UI_CAN::PANEL_BDTC_msg
+{
+  message B_CAN::CGW_PANEL_BDTC_msg msgOut;
+  msgOut.Scenario_AMLrequest = this.Scenario_AMLrequest;
+  msgOut.Scenario_Airbagrequest = this.Scenario_Airbagrequest;
+  msgOut.Scenario_BCUrequest = this.Scenario_BCUrequest;
+  msgOut.Scenario_Seatrequest = this.Scenario_Seatrequest;
+  msgOut.can = 1;
+  output(msgOut);   
+}
+
+
+
+//OBD_CAN ver 1;
+on message can3.P_CAN::VCU_DTC_msg
+{
+  message OBD_CAN::CGW_PCAN_DTC_msg1 msgOut;
+  msgOut.VCU_diagnosis = this.VCU_diagnosis;
+  msgOut.CCM_diagnosis = 0;
+  msgOut.can = 5;
+  output(msgOut); 
+}
+
+on message can3.P_CAN::CCM_DTC_msg
+{
+  message OBD_CAN::CGW_PCAN_DTC_msg1 msgOut;
+  msgOut.VCU_diagnosis = 0;
+  msgOut.CCM_diagnosis = this.CCM_diagnosis;
+  msgOut.can = 5;
+  output(msgOut); 
+}
+
+on message can2.C_CAN::BRK_DTC_msg
+{
+  message OBD_CAN::CGW_CCAN_DTC_msg1 msgOut;
+  msgOut.BRK_diagnosis = this.BRK_diagnosis;
+  msgOut.ACL_diagnosis = 0;
+  msgOut.can = 5;
+  output(msgOut);
+}
+
+on message can2.C_CAN::ACL_DTC_msg
+{
+  message OBD_CAN::CGW_CCAN_DTC_msg1 msgOut;
+  msgOut.BRK_diagnosis = 0;
+  msgOut.ACL_diagnosis = this.ACL_diagnosis;
+  msgOut.can = 5;
+  output(msgOut);
+}
+
+on message can1.B_CAN::AML_DTC_msg
+{
+  message OBD_CAN::CGW_BCAN_DTC_msg1 msgOut;
+  msgOut.AML_diagnosis = this.AML_diagnosis;
+  msgOut.BCU_diagnosis = 0;
+  msgOut.can = 5;
+  output(msgOut);
+}
+
+on message can1.B_CAN::BCU_DTC_msg
+{
+  message OBD_CAN::CGW_BCAN_DTC_msg1 msgOut;
+  msgOut.AML_diagnosis = 0;
+  msgOut.BCU_diagnosis = this.BCU_diagnosis;
+  msgOut.can = 5;
+  output(msgOut);
+}
+
+on message can1.B_CAN::SEAT_DTC_msg
+{
+  message OBD_CAN::CGW_BCAN_DTC_msg2 msgOut;
+  msgOut.SEAT_diagnosis = this.SEAT_diagnosis;
+  msgOut.Airbag_diagnosis = 0;
+  msgOut.can = 5;
+  output(msgOut);
+}
+
+on message can1.B_CAN::Airbag_DTC_msg
+{
+  message OBD_CAN::CGW_BCAN_DTC_msg2 msgOut;
+  msgOut.SEAT_diagnosis = 0;
+  msgOut.Airbag_diagnosis = this.Airbag_diagnosis;
+  msgOut.can = 5;
+  output(msgOut);
+}
+
+on message can6.A_CAN::ACC_DTC_msg
+{
+  message OBD_CAN::CGW_ACAN_DTC_msg1 msgOut;
+  msgOut.ACC_diagnosis = this.ACC_diagnosis;
+  msgOut.AEB_diagnosis = 0;
+  msgOut.can =5;
+  output(msgOut);
+}
+
+on message can6.A_CAN::AEB_DTC_msg
+{
+  message OBD_CAN::CGW_ACAN_DTC_msg1 msgOut;
+  msgOut.ACC_diagnosis = 0;
+  msgOut.AEB_diagnosis = this.AEB_diagnosis;
+  msgOut.can =5;
+  output(msgOut);
+}
+
+on message can6.A_CAN::SCU_DTC_msg
+{
+  message OBD_CAN::CGW_ACAN_DTC_msg2 msgOut;
+  msgOut.SCU_diagnosis = this.SCU_diagnosis;
+  msgOut.can =5;
+  output(msgOut);
+}
+
+on message can4.UI_CAN::HMI_DTC_msg//UI_CAN::HMI_DTC_msg
+{
+  message OBD_CAN::CGW_UICAN_DTC_msg1 msgOut;
+  msgOut.HMI_diagnosis = this.HMI_diagnosis;
+  msgOut.CLU_diagnosis = 0;
+  msgOut.can =5;
+  output(msgOut);
+}
+
+
+on message can4.UI_CAN::CLU_DTC_msg
+{
+  message OBD_CAN::CGW_UICAN_DTC_msg1 msgOut;
+  msgOut.HMI_diagnosis = 0;
+  msgOut.CLU_diagnosis = this.CLU_diagnosis;
+  msgOut.can =5;
+  output(msgOut);
+}
+
+//C_CAN start
+on message can3.P_CAN::VCU_CWake_msg
+{  
+  message C_CAN::CGW_VCU_CWake_msg msgOut;
+  msgOut.VCU_BRK_wakeup= this.VCU_BRK_wakeup;
+  msgOut.VCU_ACL_wakeup= this.VCU_ACL_wakeup;
+  msgOut.can = 2;
+  output(msgOut);
+}
+
+on message can3.P_CAN::VCU_CSleep_msg
+{  
+  message C_CAN::CGW_VCU_CSleep_msg msgOut;
+  msgOut.VCU_BRK_sleep= this.VCU_BRK_sleep;
+  msgOut.VCU_ACL_sleep= this.VCU_ACL_sleep;
+  msgOut.can = 2;
+  output(msgOut);
+}
+
+//UI_CAN start
+
+on message can3.P_CAN::VCU_UWake_msg
+{  
+  message UI_CAN::CGW_VCU_UWake_msg msgOut;
+  msgOut.VCU_CLU_wakeup= this.VCU_CLU_wakeup;
+  msgOut.VCU_HMI_wakeup= this.VCU_HMI_wakeup;
+  msgOut.VCU_Panel_wakeup= this.VCU_Panel_wakeup;
+  msgOut.can = 4;
+  output(msgOut);
+}
+
+on message can3.P_CAN::VCU_USleep_msg
+{  
+  message UI_CAN::CGW_VCU_USleep_msg msgOut;
+  msgOut.VCU_CLU_sleep= this.VCU_CLU_sleep;
+  msgOut.VCU_HMI_sleep= this.VCU_HMI_sleep;
+  msgOut.VCU_Panel_sleep= this.VCU_Panel_sleep; 
+  msgOut.can = 4;
+  output(msgOut);
+}
+
+on message can3.P_CAN::ACC_DState_msg
+{  
+  message UI_CAN::CGW_ACC_DState_msg2 msgOut;
+  msgOut.ACC_brk_off= this.ACC_brk_off;
+  msgOut.can = 4;
+  output(msgOut);
+}
+
+// A_CAN start
+
+on message can3.P_CAN::VCU_AWake_msg  ////P_CAN::VCU_AWake_msg
+{
+  message A_CAN::CGW_VCU_AWake_msg msgOut;
+  msgOut.VCU_ACC_wakeup= this.VCU_ACC_wakeup;
+  msgOut.VCU_AEB_wakeup= this.VCU_AEB_wakeup;
+  msgOut.VCU_SCU_wakeup= this.VCU_SCU_wakeup;
+  msgOut.can = 6;
+  output(msgOut);
+}
+//A_CAN::VCU::VCU_ASleep_msg::VCU_AEB_sleepA_CAN::VCU::VCU_ASleep_msg::VCU_SCU_sleep
+on message can3.P_CAN::VCU_ASleep_msg
+{  
+  message A_CAN::CGW_VCU_ASleep_msg msgOut;
+  msgOut.VCU_ACC_sleep= this.VCU_ACC_sleep;
+  msgOut.VCU_AEB_sleep= this.VCU_AEB_sleep;
+  msgOut.VCU_SCU_sleep= this.VCU_SCU_sleep;
+  msgOut.can = 6;
+  output(msgOut);
+}
+on message can3.P_CAN::VCU_ACCBrk_msg
+{  
+  message A_CAN::CGW_VCU_ACCBrk_msg msgOut;
+  msgOut.VCU_ACC_brksleep = this.VCU_ACC_brksleep;
+  msgOut.can = 6;
+  output(msgOut);
+}
+
+
+on message can4.UI_CAN::HMI_ACC_Level_msg
+{  
+  message A_CAN::CGW_HMI_ACC_Level_msg msgOut;
+  msgOut.HMI_ACC_levelup= this.HMI_ACC_levelup;
+  msgOut.HMI_ACC_leveldown= this.HMI_ACC_leveldown;
+  msgOut.can = 6;
+  output(msgOut);
+}
+
+on message can4.UI_CAN::HMI_ACC_Speed_msg
+{  
+  message A_CAN::CGW_HMI_ACC_Speed_msg msgOut;
+  msgOut.HMI_ACC_speedup= this.HMI_ACC_speedup;
+  msgOut.HMI_ACC_speeddown= this.HMI_ACC_speeddown;
+  msgOut.can = 6;
+  output(msgOut);
+}
+
+on message can4.UI_CAN::HMI_ACC_Power_msg
+{  
+  message A_CAN::CGW_HMI_ACC_Power_msg msgOut;
+  msgOut.HMI_ACC_on= this.HMI_ACC_on;
+  msgOut.HMI_ACC_off= this.HMI_ACC_off;
+  msgOut.can = 6;
+  output(msgOut);
+}
+
+on message can4.UI_CAN::PANEL_FCar_msg
+{  
+  message A_CAN::CGW_PANEL_FCar_msg msgOut;
+  msgOut.Scenario_Leading_car= this.Scenario_Leading_car;
+  msgOut.can = 6;
+  output(msgOut);
+}
+
+on message can4.UI_CAN::PANEL_FColl_msg
+{ 
+  message A_CAN::CGW_PANEL_FColl_msg msgOut;
+  msgOut.Scenario_Interruptingcar1= this.Scenario_Interruptingcar1;
+  msgOut.can = 6;
+  output(msgOut);
+}
+
+on message can4.UI_CAN::PANEL_AEB_msg
+{  
+  message A_CAN::CGW_PANEL_AEB_msg msgOut;
+  msgOut.Scenario_Interruptingcar2= this.Scenario_Interruptingcar2;
+  msgOut.can = 6;
+  output(msgOut);
+}
+
+on message can4.UI_CAN::PANEL_ACC_msg
+{  
+  message A_CAN::CGW_PANEL_ACC_msg msgOut;
+  msgOut.Scenario_Interruptingcar3= this.Scenario_Interruptingcar3;
+  msgOut.can = 6;
+  output(msgOut);
+}
+
+on message can4.UI_CAN::PANEL_RColl_msg
+{  
+  message A_CAN::CGW_PANEL_RColl_msg msgOut;
+  msgOut.Scenario_Rear_collision= this.Scenario_Rear_collision;
+  msgOut.can = 6;
+  output(msgOut);
+}
+
+on message can4.UI_CAN::PANEL_ADTC_msg
+{  
+  message A_CAN::CGW_PANEL_ADTC_msg msgOut;
+  msgOut.Scenario_ACCrequest= this.Scenario_ACCrequest;
+  msgOut.Scenario_AEBrequest= this.Scenario_AEBrequest;
+  msgOut.Scenario_ECUrequest= this.Scenario_ECUrequest;
+  msgOut.can = 6;
+  output(msgOut);
+}
