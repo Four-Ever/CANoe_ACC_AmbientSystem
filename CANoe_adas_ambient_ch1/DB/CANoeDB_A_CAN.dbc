@@ -1,0 +1,617 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: CGW DTC PANEL CLU HMI SCU AEB ACC AIRBAG SEAT BCU AML ACL BRK CCM VCU
+
+
+BO_ 676 CGW_VCU_CSleep_msg: 1 CGW
+ SG_ VCU_ACL_sleep : 1|1@1+ (1,0) [0|1] ""  BRK,ACL
+ SG_ VCU_BRK_sleep : 0|1@1+ (1,0) [0|1] ""  BRK,ACL
+
+BO_ 692 CGW_VCU_CWake_msg: 1 CGW
+ SG_ VCU_ACL_wakeup : 1|1@1+ (1,0) [0|1] ""  BRK,ACL
+ SG_ VCU_BRK_wakeup : 0|1@1+ (1,0) [0|1] ""  BRK,ACL
+
+BO_ 1020 CGW_PANEL_RColl_msg: 1 CGW
+ SG_ Scenario_Rear_collision : 0|1@1+ (1,0) [0|1] ""  SCU
+
+BO_ 1362 CGW_ACC_DState_msg2: 1 CGW
+ SG_ ACC_brk_off : 0|1@1+ (1,0) [0|1] ""  CLU
+
+BO_ 1444 CGW_VCU_USleep_msg: 1 CGW
+ SG_ VCU_Panel_sleep : 2|1@1+ (1,0) [0|1] ""  PANEL,HMI,CLU
+ SG_ VCU_HMI_sleep : 1|1@1+ (1,0) [0|1] ""  PANEL,HMI,CLU
+ SG_ VCU_CLU_sleep : 0|1@1+ (1,0) [0|1] ""  PANEL,HMI,CLU
+
+BO_ 1460 CGW_VCU_UWake_msg: 1 CGW
+ SG_ VCU_Panel_wakeup : 2|1@1+ (1,0) [0|1] ""  PANEL,HMI,CLU
+ SG_ VCU_HMI_wakeup : 1|1@1+ (1,0) [0|1] ""  PANEL,HMI,CLU
+ SG_ VCU_CLU_wakeup : 0|1@1+ (1,0) [0|1] ""  PANEL,HMI,CLU
+
+BO_ 1363 CGW_100ms_msg: 3 CGW
+ SG_ AEB_CLU_aebled : 4|1@1+ (1,0) [0|1] ""  CLU,BCU
+ SG_ ACC_des_speed_kmh : 16|8@1+ (1,0) [0|0] ""  CLU,BCU
+ SG_ ACC_des_dis_m : 8|8@1+ (1,0) [0|0] ""  CLU,BCU
+ SG_ ACC_level : 2|2@1+ (1,0) [0|1] ""  CLU,BCU
+ SG_ BCU_CLU_passseatwarning : 1|1@1+ (1,0) [0|1] ""  CLU,BCU
+ SG_ BCU_CLU_drseatwarning : 0|1@1+ (1,0) [0|1] ""  CLU,BCU
+
+BO_ 1381 CGW_30ms_msg: 4 CGW
+ SG_ SCU_Frdis_m : 24|8@1+ (1,0) [0|0] ""  SCU,CLU
+ SG_ VCU_rpm : 8|13@1+ (1,0) [0|8191] ""  SCU,CLU
+ SG_ VCU_speed_kph : 0|8@1+ (1,0) [0|0] ""  SCU,CLU
+
+BO_ 1262 CGW_PANEL_BDTC_msg: 1 CGW
+ SG_ Scenario_Airbagrequest : 3|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+ SG_ Scenario_Seatrequest : 2|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+ SG_ Scenario_BCUrequest : 1|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+ SG_ Scenario_AMLrequest : 0|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+
+BO_ 1188 CGW_VCU_BSleep_msg: 1 CGW
+ SG_ VCU_Airbag_sleep : 3|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+ SG_ VCU_Seat_sleep : 2|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+ SG_ VCU_AML_sleep : 1|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+ SG_ VCU_BCU_sleep : 0|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+
+BO_ 1204 CGW_VCU_BWake_msg: 1 CGW
+ SG_ VCU_Airbag_wakeup : 3|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+ SG_ VCU_Seat_wakeup : 2|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+ SG_ VCU_BCU_wakeup : 1|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+ SG_ VCU_AML_wakeup : 0|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
+
+BO_ 1041 CGW_AEB_Airbag_msg: 1 CGW
+ SG_ AEB_BCU_airbagctrl_req : 0|1@1+ (1,0) [0|1] ""  BCU
+
+BO_ 1233 CGW_AEB_Color_msg: 1 CGW
+ SG_ AEB_BCU_amlctrl_req : 0|1@1+ (1,0) [0|1] ""  BCU
+
+BO_ 1107 CGW_ACC_DState_msg1: 1 CGW
+ SG_ ACC_brk_off : 0|1@1+ (1,0) [0|1] ""  CLU,BCU
+
+BO_ 1110 CGW_ACC_level_msg: 1 CGW
+ SG_ ACC_level : 0|2@1+ (1,0) [0|1] ""  CLU,BCU
+
+BO_ 1122 CGW_Speed_Rear_msg: 2 CGW
+ SG_ SCU_Rcrash_ns : 8|8@1+ (1,0) [0|0] ""  SCU,CLU,BCU,AEB,ACC
+ SG_ VCU_speed_kph : 0|8@1+ (1,0) [0|0] ""  SCU,CLU,BCU,AEB,ACC
+
+BO_ 1767 CGW_UICAN_DTC_msg1: 8 CGW
+ SG_ CLU_diagnosis : 32|32@1+ (1,0) [0|4294967295] ""  DTC
+ SG_ HMI_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  DTC
+
+BO_ 1764 CGW_ACAN_DTC_msg2: 4 CGW
+ SG_ SCU_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  DTC
+
+BO_ 1763 CGW_ACAN_DTC_msg1: 8 CGW
+ SG_ AEB_diagnosis : 32|32@1+ (1,0) [0|4294967295] ""  DTC
+ SG_ ACC_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  DTC
+
+BO_ 1766 CGW_BCAN_DTC_msg2: 8 CGW
+ SG_ Airbag_diagnosis : 32|32@1+ (1,0) [0|4294967295] ""  DTC
+ SG_ SEAT_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  DTC
+
+BO_ 1765 CGW_BCAN_DTC_msg1: 8 CGW
+ SG_ BCU_diagnosis : 32|32@1+ (1,0) [0|0] ""  DTC
+ SG_ AML_diagnosis : 0|32@1+ (1,0) [0|0] ""  DTC
+
+BO_ 1762 CGW_CCAN_DTC_msg1: 8 CGW
+ SG_ ACL_diagnosis : 32|32@1+ (1,0) [0|0] ""  DTC
+ SG_ BRK_diagnosis : 0|32@1+ (1,0) [0|0] ""  DTC
+
+BO_ 1761 CGW_PCAN_DTC_msg1: 8 CGW
+ SG_ CCM_diagnosis : 32|32@1+ (1,0) [0|0] ""  DTC
+ SG_ VCU_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  DTC
+
+BO_ 1006 CGW_PANEL_ADTC_msg: 1 CGW
+ SG_ Scenario_ECUrequest : 2|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
+ SG_ Scenario_AEBrequest : 1|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
+ SG_ Scenario_ACCrequest : 0|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
+
+BO_ 1019 CGW_PANEL_ACC_msg: 1 CGW
+ SG_ Scenario_Interruptingcar3 : 0|1@1+ (1,0) [0|1] ""  SCU
+
+BO_ 1018 CGW_PANEL_AEB_msg: 1 CGW
+ SG_ Scenario_Interruptingcar2 : 0|1@1+ (1,0) [0|1] ""  SCU
+
+BO_ 1017 CGW_PANEL_FColl_msg: 1 CGW
+ SG_ Scenario_Interruptingcar1 : 0|1@1+ (1,0) [0|1] ""  SCU
+
+BO_ 1016 CGW_PANEL_FCar_msg: 1 CGW
+ SG_ Scenario_Leading_car : 0|1@1+ (1,0) [0|1] ""  SCU
+
+BO_ 858 CGW_HMI_ACC_Power_msg: 1 CGW
+ SG_ HMI_ACC_off : 1|1@1+ (1,0) [0|1] ""  ACC
+ SG_ HMI_ACC_on : 0|1@1+ (1,0) [0|1] ""  ACC
+
+BO_ 852 CGW_HMI_ACC_Speed_msg: 1 CGW
+ SG_ HMI_ACC_speeddown : 1|1@1+ (1,0) [0|1] ""  ACC
+ SG_ HMI_ACC_speedup : 0|1@1+ (1,0) [0|1] ""  ACC
+
+BO_ 853 CGW_HMI_ACC_Level_msg: 1 CGW
+ SG_ HMI_ACC_leveldown : 1|1@1+ (1,0) [0|1] ""  ACC
+ SG_ HMI_ACC_levelup : 0|1@1+ (1,0) [0|1] ""  ACC
+
+BO_ 849 CGW_VCU_ACCBrk_msg: 1 CGW
+ SG_ VCU_ACC_brksleep : 0|1@1+ (1,0) [0|1] ""  ACC
+
+BO_ 932 CGW_VCU_ASleep_msg: 1 CGW
+ SG_ VCU_SCU_sleep : 2|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
+ SG_ VCU_AEB_sleep : 1|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
+ SG_ VCU_ACC_sleep : 0|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
+
+BO_ 948 CGW_VCU_AWake_msg: 1 CGW
+ SG_ VCU_SCU_wakeup : 2|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
+ SG_ VCU_AEB_wakeup : 1|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
+ SG_ VCU_ACC_wakeup : 0|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
+
+BO_ 850 CGW_VCU_Speed_Overr_msg: 2 CGW
+ SG_ VCU_ACC_override : 8|1@1+ (1,0) [0|1] ""  SCU,CLU,BCU,AEB,ACC
+ SG_ VCU_speed_kph : 0|8@1+ (1,0) [0|0] ""  SCU,CLU,BCU,AEB,ACC
+
+BO_ 494 CGW_PANEL_PDTC_msg: 1 CGW
+ SG_ Scenario_VCUrequest : 1|1@1+ (1,0) [0|1] ""  VCU
+ SG_ Scenario_CCMrequest : 0|1@1+ (1,0) [0|1] ""  VCU
+
+BO_ 407 CGW_HMI_VCU_Power_msg: 1 CGW
+ SG_ HMI_Engine_sleep : 1|1@1+ (1,0) [0|1] ""  VCU
+ SG_ HMI_Engine_start : 0|1@1+ (1,0) [0|1] ""  VCU
+
+BO_ 289 CGW_AEB_Brk_msg: 1 CGW
+ SG_ AEB_VCU_brk_pbar : 0|1@1+ (1,0) [0|1] ""  VCU
+
+BO_ 339 CGW_ACC_AlterSpeed_msg: 2 CGW
+ SG_ ACC_brk_pbar : 8|8@1+ (1,0) [0|0] ""  CCM
+ SG_ ACC_accel_trk : 0|8@1+ (1,0) [0|0] ""  CCM
+
+BO_ 274 CGW_BCU_Seat_msg: 1 CGW
+ SG_ BCU_pass_seatstate : 1|1@1+ (1,0) [0|1] ""  VCU
+ SG_ BCU_dr_seatstate : 0|1@1+ (1,0) [0|1] ""  VCU
+
+BO_ 273 CGW_BCU_Airbag_msg: 1 CGW
+ SG_ BCU_pass_airbagstate : 1|1@1+ (1,0) [0|1] ""  VCU
+ SG_ BCU_dr_airbagstate : 0|1@1+ (1,0) [0|1] ""  VCU
+
+BO_ 321 CGW_ACL_Accel_msg: 1 CGW
+ SG_ ACL_ped_per : 0|8@1+ (1,0) [0|0] ""  VCU
+
+BO_ 305 CGW_BRK_FBrk_msg: 1 CGW
+ SG_ BRK_fullstatus : 0|1@1+ (1,0) [0|1] ""  VCU
+
+BO_ 306 CGW_BRK_Brk_msg: 1 CGW
+ SG_ BRK_ped_per : 0|8@1+ (1,0) [0|0] ""  VCU
+
+BO_ 1511 PANEL_ADTC_msg: 1 PANEL
+ SG_ Scenario_ECUrequest : 2|1@1+ (1,0) [0|1] ""  CGW
+ SG_ Scenario_AEBrequest : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ Scenario_ACCrequest : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1510 PANEL_UDTC_msg: 1 PANEL
+ SG_ Scenario_HMIrequest : 1|1@1+ (1,0) [0|1] ""  CLU
+ SG_ Scenario_CLUrequest : 0|1@1+ (1,0) [0|1] ""  CLU
+
+BO_ 1509 PANEL_BDTC_msg: 1 PANEL
+ SG_ Scenario_Airbagrequest : 3|1@1+ (1,0) [0|1] ""  CGW
+ SG_ Scenario_Seatrequest : 2|1@1+ (1,0) [0|1] ""  CGW
+ SG_ Scenario_BCUrequest : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ Scenario_AMLrequest : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1508 PANEL_CDTC_msg: 1 PANEL
+ SG_ Scenario_Accelrequest : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ Scenario_Brakerequest : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1507 PANEL_PDTC_msg: 1 PANEL
+ SG_ Scenario_VCUrequest : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ Scenario_CCMrequest : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1521 PANEL_RColl_msg: 1 PANEL
+ SG_ Scenario_Rear_collision : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1524 PANEL_ACC_msg: 1 PANEL
+ SG_ Scenario_Interruptingcar3 : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1523 PANEL_AEB_msg: 1 PANEL
+ SG_ Scenario_Interruptingcar2 : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1522 PANEL_FColl_msg: 1 PANEL
+ SG_ Scenario_Interruptingcar1 : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1525 PANEL_FCar_msg: 1 PANEL
+ SG_ Scenario_Leading_car : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1506 CLU_DTC_msg: 4 CLU
+ SG_ CLU_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  CGW
+
+BO_ 1505 HMI_DTC_msg: 4 HMI
+ SG_ HMI_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  CGW
+
+BO_ 1425 HMI_ACC_Power_msg: 1 HMI
+ SG_ HMI_ACC_off : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ HMI_ACC_on : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1426 HMI_VCU_Power_msg: 1 HMI
+ SG_ HMI_Engine_sleep : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ HMI_Engine_start : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1365 HMI_ACC_Speed_msg: 1 HMI
+ SG_ HMI_ACC_speeddown : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ HMI_ACC_speedup : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1364 HMI_ACC_Level_msg: 1 HMI
+ SG_ HMI_ACC_leveldown : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ HMI_ACC_levelup : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1003 SCU_DTC_msg: 4 SCU
+ SG_ SCU_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  CGW
+
+BO_ 866 SCU_Rear_msg: 1 SCU
+ SG_ SCU_Rcrash_ns : 0|8@1+ (1,0) [0|0] ""  CGW
+
+BO_ 865 SCU_Front_msg: 3 SCU
+ SG_ SCU_PreVehicle : 16|1@1+ (1,0) [0|1] ""  CGW,AEB,ACC
+ SG_ SCU_Frcrash_ns : 8|8@1+ (1,0) [0|0] ""  CGW,AEB,ACC
+ SG_ SCU_Frdis_m : 0|8@1+ (1,0) [0|0] ""  CGW,AEB,ACC
+
+BO_ 1002 AEB_DTC_msg: 4 AEB
+ SG_ AEB_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  CGW
+
+BO_ 785 AEB_Airbag_msg: 1 AEB
+ SG_ AEB_BCU_airbagctrl_req : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 977 AEB_Color_msg: 1 AEB
+ SG_ AEB_BCU_amlctrl_req : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 801 AEB_Brk_msg: 1 AEB
+ SG_ AEB_VCU_brk_pbar : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 802 AEB_State_msg: 1 AEB
+ SG_ AEB_CLU_aebled : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1001 ACC_DTC_msg: 4 ACC
+ SG_ ACC_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  CGW
+
+BO_ 857 ACC_Des_msg: 2 ACC
+ SG_ ACC_des_speed_kmh : 8|8@1+ (1,0) [0|0] ""  CGW
+ SG_ ACC_des_dis_m : 0|8@1+ (1,0) [0|0] ""  CGW
+
+BO_ 851 ACC_DState_msg: 1 ACC
+ SG_ ACC_brk_off : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 854 ACC_level_msg: 1 ACC
+ SG_ ACC_level : 0|2@1+ (1,0) [0|1] ""  CGW
+
+BO_ 856 ACC_Brk_msg: 1 ACC
+ SG_ ACC_brk_pbar : 0|8@1+ (1,0) [0|0] ""  CGW
+
+BO_ 859 ACC_Accel_msg: 1 ACC
+ SG_ ACC_accel_trk : 0|8@1+ (1,0) [0|0] ""  CGW
+
+BO_ 1256 Airbag_DTC_msg: 4 AIRBAG
+ SG_ Airbag_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  CGW
+
+BO_ 1047 Airbag_Ast_Condi_msg: 1 AIRBAG
+ SG_ Airbag_astabnormal : 1|1@1+ (1,0) [0|1] ""  BCU
+ SG_ Airbag_astnormal : 0|1@1+ (1,0) [0|1] ""  BCU
+
+BO_ 1046 Airbag_Dr_Condi_msg: 1 AIRBAG
+ SG_ Airbag_drvabnormal : 1|1@1+ (1,0) [0|1] ""  BCU
+ SG_ Airbag_drvnormal : 0|1@1+ (1,0) [0|1] ""  BCU
+
+BO_ 1255 SEAT_DTC_msg: 4 SEAT
+ SG_ SEAT_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  CGW
+
+BO_ 1049 SEAT_Ast_Condi_msg: 1 SEAT
+ SG_ SEAT_astabnormal : 1|1@1+ (1,0) [0|1] ""  BCU
+ SG_ SEAT_astnormal : 0|1@1+ (1,0) [0|1] ""  BCU
+
+BO_ 1048 SEAT_Dr_Condi_msg: 1 SEAT
+ SG_ SEAT_drvabnormal : 1|1@1+ (1,0) [0|1] ""  BCU
+ SG_ SEAT_drvnormal : 0|1@1+ (1,0) [0|1] ""  BCU
+
+BO_ 1044 SEAT_Belt_state_msg: 1 SEAT
+ SG_ SEAT_astseatBelt : 1|1@1+ (1,0) [0|1] ""  BCU
+ SG_ SEAT_drvseatBelt : 0|1@1+ (1,0) [0|1] ""  BCU
+
+BO_ 1045 SEAT_State_msg: 1 SEAT
+ SG_ SEAT_astseatOCC : 1|1@1+ (1,0) [0|1] ""  BCU
+ SG_ SEAT_drvseatOCC : 0|1@1+ (1,0) [0|1] ""  BCU
+
+BO_ 1254 BCU_DTC_msg: 4 BCU
+ SG_ BCU_diagnosis : 0|32@1+ (1,0) [0|0] ""  CGW
+
+BO_ 1153 BCU_CLU_msg: 1 BCU
+ SG_ BCU_CLU_passseatwarning : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ BCU_CLU_drseatwarning : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 1043 BCU_Seat_msg: 1 BCU
+ SG_ BCU_pass_seatstate : 1|1@1+ (1,0) [0|1] ""  SEAT,CGW
+ SG_ BCU_dr_seatstate : 0|1@1+ (1,0) [0|1] ""  SEAT,CGW
+
+BO_ 1042 BCU_Airbag_msg: 1 BCU
+ SG_ BCU_pass_airbagstate : 1|1@1+ (1,0) [0|1] ""  CGW,AIRBAG
+ SG_ BCU_dr_airbagstate : 0|1@1+ (1,0) [0|1] ""  CGW,AIRBAG
+
+BO_ 1234 BCU_Color_msg: 1 BCU
+ SG_ BCU_redlight_off : 5|1@1+ (1,0) [0|1] ""  AML
+ SG_ BCU_lightdefault_G : 4|1@1+ (1,0) [0|1] ""  AML
+ SG_ BCU_lightP : 3|1@1+ (1,0) [0|1] ""  AML
+ SG_ BCU_lightB : 2|1@1+ (1,0) [0|1] ""  AML
+ SG_ BCU_lightSB : 1|1@1+ (1,0) [0|1] ""  AML
+ SG_ BCU_lightR : 0|1@1+ (1,0) [0|1] ""  AML
+
+BO_ 1253 AML_DTC_msg: 4 AML
+ SG_ AML_diagnosis : 0|32@1+ (1,0) [0|0] ""  CGW
+
+BO_ 740 ACL_DTC_msg: 4 ACL
+ SG_ ACL_diagnosis : 0|32@1+ (1,0) [0|0] ""  CGW
+
+BO_ 577 ACL_Accel_msg: 1 ACL
+ SG_ ACL_ped_per : 0|8@1+ (1,0) [0|0] ""  CGW
+
+BO_ 739 BRK_DTC_msg: 4 BRK
+ SG_ BRK_diagnosis : 0|32@1+ (1,0) [0|0] ""  CGW
+
+BO_ 561 BRK_FBrk_msg: 1 BRK
+ SG_ BRK_fullstatus : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 562 BRK_Brk_msg: 1 BRK
+ SG_ BRK_ped_per : 0|8@1+ (1,0) [0|0] ""  CGW
+
+BO_ 482 CCM_DTC_msg: 4 CCM
+ SG_ CCM_diagnosis : 0|32@1+ (1,0) [0|0] ""  CGW
+
+BO_ 343 CCM_Brk_msg: 1 CCM
+ SG_ CCU_brk_pbar : 0|8@1+ (1,0) [0|0] ""  VCU
+
+BO_ 346 CCM_Accel_msg: 1 CCM
+ SG_ CCU_accel_trk : 0|8@1+ (1,0) [0|0] ""  VCU
+
+BO_ 481 VCU_DTC_msg: 4 VCU
+ SG_ VCU_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  CGW
+
+BO_ 338 VCU_ACCAccel_msg: 1 VCU
+ SG_ VCU_ACC_override : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 337 VCU_ACCBrk_msg: 1 VCU
+ SG_ VCU_ACC_brksleep : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 421 VCU_USleep_msg: 1 VCU
+ SG_ VCU_CLU_sleep : 2|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_Panel_sleep : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_HMI_sleep : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 419 VCU_ASleep_msg: 1 VCU
+ SG_ VCU_AEB_sleep : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_SCU_sleep : 2|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_ACC_sleep : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 420 VCU_BSleep_msg: 1 VCU
+ SG_ VCU_Seat_sleep : 3|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_Airbag_sleep : 2|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_AML_sleep : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_BCU_sleep : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 418 VCU_CSleep_msg: 1 VCU
+ SG_ VCU_ACL_sleep : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_BRK_sleep : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 417 VCU_PSleep_msg: 1 VCU
+ SG_ VCU_CCM_sleep : 0|1@1+ (1,0) [0|1] ""  CCM
+
+BO_ 435 VCU_AWake_msg: 1 VCU
+ SG_ VCU_SCU_wakeup : 2|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_AEB_wakeup : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_ACC_wakeup : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 437 VCU_UWake_msg: 1 VCU
+ SG_ VCU_Panel_wakeup : 2|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_HMI_wakeup : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_CLU_wakeup : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 436 VCU_BWake_msg: 1 VCU
+ SG_ VCU_Airbag_wakeup : 3|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_Seat_wakeup : 2|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_BCU_wakeup : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_AML_wakeup : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 434 VCU_CWake_msg: 1 VCU
+ SG_ VCU_ACL_wakeup : 1|1@1+ (1,0) [0|1] ""  CGW
+ SG_ VCU_BRK_wakeup : 0|1@1+ (1,0) [0|1] ""  CGW
+
+BO_ 433 VCU_PWake_msg: 1 VCU
+ SG_ VCU_CCM_wakeup : 0|1@1+ (1,0) [0|1] ""  CCM
+
+BO_ 369 VCU_State_msg: 3 VCU
+ SG_ VCU_speed_kph : 0|8@1+ (1,0) [0|0] ""  CGW
+ SG_ VCU_rpm : 8|13@1+ (1,0) [0|8191] ""  CGW
+
+
+
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 100000;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed";
+BA_DEF_ SG_  "GenSigStartValue" FLOAT 0 1215752192;
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 100000;
+BA_DEF_ BO_  "GenMsgFastOnStart" INT 0 100000;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 50000;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 50000;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 1000;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 999999;
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","NotUsed","NotUsed","NotUsed","NotUsed","Cyclic","NotUsed","IfActive","NoMsgSendType","NotUsed","vector_leerstring";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes","vector_leerstring";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes","vector_leerstring";
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_  "Manufacturer" STRING ;
+BA_DEF_  "DatabaseVersion" STRING ;
+BA_DEF_  "MultiplexExtEnabled" ENUM  "No","Yes";
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANoeStartDelay" INT 0 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigSendType" "Cyclic";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "GenMsgFastOnStart" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "Yes";
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 20;
+BA_DEF_DEF_  "GenMsgCycleTime" 200;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgSendType" "NoMsgSendType";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "Manufacturer" "Vector";
+BA_DEF_DEF_  "DatabaseVersion" "";
+BA_DEF_DEF_  "MultiplexExtEnabled" "No";
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANoeStartDelay" 0;
+BA_ "GenMsgCycleTime" BO_ 676 0;
+BA_ "GenMsgCycleTime" BO_ 692 0;
+BA_ "GenMsgCycleTime" BO_ 1020 0;
+BA_ "GenMsgCycleTime" BO_ 1362 0;
+BA_ "GenMsgCycleTime" BO_ 1444 0;
+BA_ "GenMsgCycleTime" BO_ 1460 0;
+BA_ "GenMsgCycleTime" BO_ 1363 100;
+BA_ "GenMsgCycleTime" BO_ 1381 30;
+BA_ "GenMsgCycleTime" BO_ 1262 0;
+BA_ "GenMsgCycleTime" BO_ 1188 0;
+BA_ "GenMsgCycleTime" BO_ 1204 0;
+BA_ "GenMsgCycleTime" BO_ 1041 0;
+BA_ "GenMsgCycleTime" BO_ 1107 0;
+BA_ "GenMsgCycleTime" BO_ 1110 100;
+BA_ "GenMsgCycleTime" BO_ 1122 30;
+BA_ "GenMsgCycleTime" BO_ 1767 0;
+BA_ "GenMsgCycleTime" BO_ 1764 0;
+BA_ "GenMsgCycleTime" BO_ 1763 0;
+BA_ "GenMsgCycleTime" BO_ 1766 0;
+BA_ "GenMsgCycleTime" BO_ 1765 0;
+BA_ "GenMsgCycleTime" BO_ 1762 0;
+BA_ "GenMsgCycleTime" BO_ 1761 0;
+BA_ "GenMsgCycleTime" BO_ 1006 0;
+BA_ "GenMsgCycleTime" BO_ 1019 0;
+BA_ "GenMsgCycleTime" BO_ 1018 0;
+BA_ "GenMsgCycleTime" BO_ 1017 0;
+BA_ "GenMsgCycleTime" BO_ 1016 0;
+BA_ "GenMsgCycleTime" BO_ 858 0;
+BA_ "GenMsgCycleTime" BO_ 852 0;
+BA_ "GenMsgCycleTime" BO_ 853 0;
+BA_ "GenMsgCycleTime" BO_ 849 0;
+BA_ "GenMsgCycleTime" BO_ 932 0;
+BA_ "GenMsgCycleTime" BO_ 948 0;
+BA_ "GenMsgCycleTime" BO_ 850 30;
+BA_ "GenMsgCycleTime" BO_ 494 0;
+BA_ "GenMsgCycleTime" BO_ 407 0;
+BA_ "GenMsgCycleTime" BO_ 289 0;
+BA_ "GenMsgCycleTime" BO_ 339 10;
+BA_ "GenMsgCycleTime" BO_ 274 0;
+BA_ "GenMsgCycleTime" BO_ 273 0;
+BA_ "GenMsgCycleTime" BO_ 321 1;
+BA_ "GenMsgCycleTime" BO_ 305 0;
+BA_ "GenMsgCycleTime" BO_ 306 1;
+BA_ "GenMsgCycleTime" BO_ 1511 0;
+BA_ "GenMsgCycleTime" BO_ 1510 0;
+BA_ "GenMsgCycleTime" BO_ 1509 0;
+BA_ "GenMsgCycleTime" BO_ 1508 0;
+BA_ "GenMsgCycleTime" BO_ 1507 0;
+BA_ "GenMsgCycleTime" BO_ 1521 0;
+BA_ "GenMsgCycleTime" BO_ 1524 0;
+BA_ "GenMsgCycleTime" BO_ 1523 0;
+BA_ "GenMsgCycleTime" BO_ 1522 0;
+BA_ "GenMsgCycleTime" BO_ 1525 0;
+BA_ "GenMsgCycleTime" BO_ 1506 0;
+BA_ "GenMsgCycleTime" BO_ 1505 0;
+BA_ "GenMsgCycleTime" BO_ 1425 0;
+BA_ "GenMsgCycleTime" BO_ 1426 0;
+BA_ "GenMsgCycleTime" BO_ 1365 0;
+BA_ "GenMsgCycleTime" BO_ 1364 0;
+BA_ "GenMsgCycleTime" BO_ 1003 0;
+BA_ "GenMsgCycleTime" BO_ 866 30;
+BA_ "GenMsgCycleTime" BO_ 865 30;
+BA_ "GenMsgCycleTime" BO_ 1002 0;
+BA_ "GenMsgCycleTime" BO_ 785 0;
+BA_ "GenMsgCycleTime" BO_ 801 0;
+BA_ "GenMsgCycleTime" BO_ 802 100;
+BA_ "GenMsgCycleTime" BO_ 1001 0;
+BA_ "GenMsgCycleTime" BO_ 857 100;
+BA_ "GenMsgCycleTime" BO_ 851 0;
+BA_ "GenMsgCycleTime" BO_ 854 100;
+BA_ "GenMsgCycleTime" BO_ 856 10;
+BA_ "GenMsgCycleTime" BO_ 859 10;
+BA_ "GenMsgCycleTime" BO_ 1256 0;
+BA_ "GenMsgCycleTime" BO_ 1047 1000;
+BA_ "GenMsgCycleTime" BO_ 1046 1000;
+BA_ "GenMsgCycleTime" BO_ 1255 0;
+BA_ "GenMsgCycleTime" BO_ 1049 1000;
+BA_ "GenMsgCycleTime" BO_ 1048 1000;
+BA_ "GenMsgCycleTime" BO_ 1044 1000;
+BA_ "GenMsgCycleTime" BO_ 1045 1000;
+BA_ "GenMsgCycleTime" BO_ 1254 0;
+BA_ "GenMsgCycleTime" BO_ 1153 100;
+BA_ "GenMsgCycleTime" BO_ 1043 0;
+BA_ "GenMsgCycleTime" BO_ 1042 0;
+BA_ "GenMsgCycleTime" BO_ 1234 100;
+BA_ "GenMsgCycleTime" BO_ 1253 0;
+BA_ "GenMsgCycleTime" BO_ 740 0;
+BA_ "GenMsgCycleTime" BO_ 577 1;
+BA_ "GenMsgCycleTime" BO_ 739 0;
+BA_ "GenMsgCycleTime" BO_ 561 0;
+BA_ "GenMsgCycleTime" BO_ 562 1;
+BA_ "GenMsgCycleTime" BO_ 482 0;
+BA_ "GenMsgCycleTime" BO_ 343 10;
+BA_ "GenMsgCycleTime" BO_ 346 10;
+BA_ "GenMsgCycleTime" BO_ 481 0;
+BA_ "GenMsgCycleTime" BO_ 338 30;
+BA_ "GenMsgCycleTime" BO_ 337 0;
+BA_ "GenMsgCycleTime" BO_ 421 0;
+BA_ "GenMsgCycleTime" BO_ 419 0;
+BA_ "GenMsgCycleTime" BO_ 420 0;
+BA_ "GenMsgCycleTime" BO_ 418 0;
+BA_ "GenMsgCycleTime" BO_ 417 0;
+BA_ "GenMsgCycleTime" BO_ 435 0;
+BA_ "GenMsgCycleTime" BO_ 437 0;
+BA_ "GenMsgCycleTime" BO_ 436 0;
+BA_ "GenMsgCycleTime" BO_ 434 0;
+BA_ "GenMsgCycleTime" BO_ 433 0;
+BA_ "GenMsgCycleTime" BO_ 369 30;
+
