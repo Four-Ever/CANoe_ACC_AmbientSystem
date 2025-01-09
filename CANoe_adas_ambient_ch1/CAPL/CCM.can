@@ -1,4 +1,4 @@
-﻿/*@!Encoding:65001*/
+/*@!Encoding:65001*/
 includes
 {
   
@@ -6,10 +6,62 @@ includes
 
 variables
 {
+  msTimer loopTimer;
+  int gCounter;
   
+  byte isActive = 0; // wake/sleep
+  byte isDTC_required = 0;
+  
+  byte byteCCM_target_acl = 0;
+  byte byteCCM_target_brk = 0;
+  
+  byte byteCCM_acl = 0;
+  byte byteCCM_brk = 0;
+  
+  dword dwCCM_DTCcode;
 }
 
-on message CAN3.P_CAN::CGW_ACC_AlterSpeed_msg {
-  $P_CAN::CCM::CCM_Accel_msg::CCU_accel_trk = $P_CAN::CGW::CGW_ACC_AlterSpeed_msg::ACC_accel_trk;
-  $P_CAN::CCM::CCM_Brk_msg::CCU_brk_pbar=$P_CAN::CGW::CGW_ACC_AlterSpeed_msg::ACC_brk_pbar;
+on start
+{
+  setTimer(loopTimer, 10);
+}
+
+on message P_CAN::VCU_AWake_msg
+{
+  isActive = 1;
+}
+
+
+on message P_CAN::VCU_ASleep_msg
+{
+  isActive = 0;
+}
+
+on message P_CAN::CGW_ACC_AlterSpeed_msg
+{
+  if (isActive) {
+    byteCCM_target_acl = this.ACC_accel_trk;
+    byteCCM_target_brk = this.ACC_brk_pbar;
+  }
+}
+
+on message P_CAN::CGW_PANEL_ADTC_msg
+{
+  isDTC_required = 1;
+}      
+on timer loopTimer
+{
+  //if (isActive) {
+    byteCCM_acl = byteCCM_target_acl; //f(byteCCM_acl, byteCCM_target_acl);
+    byteCCM_brk = byteCCM_target_brk; //f(byteCCM_brk, byteCCM_target_brk);
+
+    $CCM::CCU_accel_trk = 30; // f(byteCCM_acl, byteCCM_target_acl)
+    $CCM::CCU_brk_pbar = 0; //f(byteCCM_brk, byteCCM_target_brk)
+    
+    $CCM::CCM_diagnosis = dwCCM_DTCcode;
+    if (isDTC_required == 1) {
+      //output(ACC_DTC_msg);
+      isDTC_required = 0;
+    }
+  //}
 }

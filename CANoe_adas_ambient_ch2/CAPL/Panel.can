@@ -1,0 +1,85 @@
+﻿/*@!Encoding:65001*/
+includes
+{
+  
+}
+
+variables
+{
+  
+}
+
+/*on sysvar Car_Indoor::User_boarding
+{
+  
+}*/
+
+/*on sysvar LeadCarSimulation::Appeared_Leadcar
+{
+  
+}*/
+
+on sysvar LeadCarSimulation::Rear_Collision
+{
+  if(@LeadCarSimulation::Rear_Collision == 1){
+    message PANEL_RColl_msg collision;
+    collision.Scenario_Rear_collision = 1;
+    output(collision);
+  }
+}
+
+on sysvar LeadCarSimulation::Appeared_Leadcar
+{
+  if(@LeadCarSimulation::Appeared_Leadcar == 1){
+    message PANEL_FCar_msg Leadingcar;
+    Leadingcar.Scenario_Leading_car = 1;
+    output(Leadingcar);
+  }
+}
+
+
+on sysvar LeadCarSimulation::InterruptCar1
+{
+  if(@LeadCarSimulation::InterruptCar1 == 1){
+    message PANEL_FColl_msg ITC1;
+    ITC1.Scenario_Interruptingcar1 = 1;
+    output(ITC1);
+  }
+}
+
+on sysvar LeadCarSimulation::InterruptCar2
+{
+  if(@LeadCarSimulation::InterruptCar2 == 1){
+    message PANEL_AEB_msg ITC2;
+    ITC2.Scenario_Interruptingcar2 = 1;
+    output(ITC2);
+  }
+}
+
+on sysvar LeadCarSimulation::InterruptCar3
+{
+  if(@LeadCarSimulation::InterruptCar3 == 1){
+    message PANEL_ACC_msg ITC3;
+    ITC3.Scenario_Interruptingcar3 = 1;
+    output(ITC3);
+  }
+}
+
+// 1,2,3 대신 그림으로 표현하기!!
+
+
+on sysvar Car_Indoor::Diagnostic_Req
+{
+  message PANEL_ADTC_msg ADTC;
+  message PANEL_BDTC_msg BDTC;
+  message PANEL_CDTC_msg CDTC;
+  message PANEL_PDTC_msg PDTC;
+  message PANEL_UDTC_msg UDTC;
+  if(@Car_Indoor::Diagnostic_Req == 1){
+    output(ADTC);
+    output(BDTC);
+    output(CDTC);
+    output(PDTC);
+    output(UDTC);
+  }
+}

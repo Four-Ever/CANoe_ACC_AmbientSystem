@@ -6,6 +6,123 @@ includes
 
 variables
 {
-  
+  enum airbag_state{
+    default_state = 0,   // 기본 상태
+    accident_state       // 전방 충돌 발생. 에어백 전개
+  };
+  enum airbag_enable_state{
+    normal = 0,   // 정상 상태
+    abnormal      // 비정상 상태
+  };
+  enum Boolean{
+      False = 0,
+      True
+  };
+  msTimer Airbag_Dr_Condi_timer; // IL로 구현 가능
+  msTimer Airbag_Ast_Condi_timer;
+  // byte Power_on_off_flag = False; // Airbag 시동 여부에 관계없이 동작
+}
+on start{ // init
+  init();
+  // IL 구현시 아래 부분 제외해야함
+  if(@sysvar::Dev_Option::Timer_Enable)
+  {
+    setTimer(Airbag_Dr_Condi_timer, 1000); 
+    setTimer(Airbag_Ast_Condi_timer, 1000);
+  }
+}
+on preStop{ // 종료 직전 수행
+  init();
 }
 
+///////////////////////////////
+on timer Airbag_Dr_Condi_timer{ // 운전자 좌석시트 동작 가능 상태
+  message Airbag_Dr_Condi_msg msg;
+  switch(@sysvar::SEAT_Value::dr_seat_condi)
+  {
+    case normal:
+      {
+        msg.Airbag_drvnormal = True;
+        msg.Airbag_drvabnormal = False;
+        break; 
+      }
+    case abnormal:
+      {
+        msg.Airbag_drvnormal = False;
+        msg.Airbag_drvabnormal = True;
+        break; 
+      }
+    default:
+      break;  
+  }  
+  output(msg);
+  setTimer(Airbag_Dr_Condi_timer, 1000);
+}
+on timer Airbag_Ast_Condi_timer{ // 조수석 좌석시트 동작 가능 상태
+  message Airbag_Ast_Condi_msg msg;
+  switch(@sysvar::AIRBAG_Value::pass_airbag_condi)
+  {
+    case normal:
+      {
+        msg.Airbag_astnormal = True;
+        msg.Airbag_astabnormal = False;
+        break; 
+      }
+    case abnormal:
+      {
+        msg.Airbag_astnormal = False;
+        msg.Airbag_astabnormal = True;
+        break; 
+      }
+    default:
+      break;  
+  }
+  output(msg);
+  setTimer(Airbag_Ast_Condi_timer, 1000);
+}
+///////////////////////////////
+on message can1.BCU_Airbag_msg // 충돌에 의한 에어백 전개 요청 (BCU -> Airbag)
+{
+  // if(Power_on_off_flag){
+    
+  //}
+  if($SEAT_drvseatOCC == 1 && this.BCU_dr_airbagstate) // 운전자 에어백 상태
+  {
+    @sysvar::AIRBAG_Value::dr_airbag_state = accident_state;
+  }
+  if($SEAT_astseatOCC == 1 && this.BCU_pass_airbagstate) // 조수석 에어백 상태
+  {
+    @sysvar::AIRBAG_Value::pass_airbag_state = accident_state;
+  }
+}
+
+on message can1.CGW_VCU_BWake_msg // Airbag ECU 작동 시작
+{
+  @sysvar::AIRBAG_Value::dr_airbag_state = default_state;
+  @sysvar::AIRBAG_Value::dr_airbag_condi = normal;
+  @sysvar::AIRBAG_Value::pass_airbag_state = default_state;
+  @sysvar::AIRBAG_Value::pass_airbag_condi = normal;
+  
+}
+on message can1.CGW_VCU_BSleep_msg // Airbag ECU 작동 종료
+{
+  
+}
+on message can1.CGW_PANEL_BDTC_msg // 진단 정보 요청
+{
+  if($CGW::Scenario_Airbagrequest == 1){
+    message Airbag_DTC_msg airbag_dtc_msg;
+    // 진단 내용 정의 필요
+    airbag_dtc_msg.Airbag_diagnosis = 1;
+    output(airbag_dtc_msg); // 전송
+  }
+}
+void init()
+{
+  // 시스템 변수 및 전역변수 초기화
+  // Power_on_off_flag = False;
+  @sysvar::AIRBAG_Value::dr_airbag_condi = normal;
+  @sysvar::AIRBAG_Value::dr_airbag_state = default_state;
+  @sysvar::AIRBAG_Value::pass_airbag_condi = normal;
+  @sysvar::AIRBAG_Value::pass_airbag_state = default_state;
+}

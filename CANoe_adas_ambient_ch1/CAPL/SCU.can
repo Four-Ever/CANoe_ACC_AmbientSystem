@@ -6,6 +6,30 @@ includes
 
 variables
 {
-  
+  int length = 100;
 }
 
+on start{
+ 
+  $SCU::SCU_Frdis_m = length;
+  $SCU::SCU_Frcrash_ns = 23;
+  $SCU::SCU_PreVehicle = 1;
+  $SCU::SCU_Rcrash_ns = 0;
+}
+
+
+on message can6.CGW_PANEL_RColl_msg{
+  //여기선 값을 바꿔주기만..
+  //주기전송은 IL로 처리
+  if(this.Scenario_Rear_collision == 1){
+    $SCU::SCU_Rcrash_ns = 22; // 데이터베이스 분리해야 사용가능   
+    
+  }
+
+}
+
+on message can6.CGW_PANEL_ADTC_msg{ // 내부 메시지 SCU로 수정하긴 해야됨
+  message SCU_DTC_msg DTC_info;
+  DTC_info.SCU_diagnosis = 0x001; // 문제없음
+  output(DTC_info);
+}

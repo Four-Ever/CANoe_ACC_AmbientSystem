@@ -6,6 +6,100 @@ includes
 
 variables
 {
-  
+  enum AML_Light_Sig{
+    color_acc_emergency_color = 0, // emergency : Red
+    color_acc_level1 = 1, // level1 : SkyBlue
+    color_acc_level2 = 2, // level2 : Blue
+    color_acc_level3 = 3, // level3 : Purple
+    color_default = 4, // Default : Green
+    ctrl_acc_emergency_light_off = 5, // emergency off sig
+    ctrl_off = 6 // Off sig
+  };
+
+  enum Boolean{
+    False = 0,
+    True
+  };
+  // word now_light_state = color_default; // 시스템 변수
+  byte Power_on_off_flag = False; // 엠비언트 Light On/Off 여부 Flag (시동 후에만 작동 해야함)
+}
+on start{ // init
+  init();
+}
+on preStop{ // 종료 직전 수행
+  init();
 }
 
+on signal_update BCU_lightR
+{
+    if (Power_on_off_flag && $BCU_lightR == True)
+    {
+        @sysvar::AML_Value::now_light_state = color_acc_emergency_color;
+    }
+}
+
+on signal_update BCU_lightSB
+{
+    if (Power_on_off_flag && $BCU_lightSB == True)
+    {
+        @sysvar::AML_Value::now_light_state = color_acc_level1;
+    }
+}
+
+on signal_update BCU_lightB
+{
+    if (Power_on_off_flag && $BCU_lightB == True)
+    {
+        @sysvar::AML_Value::now_light_state = color_acc_level2;
+    }
+}
+
+on signal_update BCU_lightP
+{
+    if (Power_on_off_flag && $BCU_lightP == True)
+    {
+        @sysvar::AML_Value::now_light_state = color_acc_level3;
+    }
+}
+
+on signal_update BCU_lightdefault_G
+{
+    if (Power_on_off_flag && $BCU_lightdefault_G == True)
+    {
+        @sysvar::AML_Value::now_light_state = color_default;
+    }
+}
+
+on signal_update BCU_redlight_off
+{
+    if (Power_on_off_flag && $BCU_redlight_off == True)
+    {
+        @sysvar::AML_Value::now_light_state = ctrl_acc_emergency_light_off;
+    }
+}
+
+on message can1.CGW_VCU_BWake_msg // AML ECU 작동 시작
+{
+  Power_on_off_flag = True;
+  @sysvar::AML_Value::now_light_state = color_default;
+}
+on message can1.CGW_VCU_BSleep_msg // AML ECU 작동 종료
+{
+  Power_on_off_flag = False;
+  @sysvar::AML_Value::now_light_state = ctrl_off;
+}
+on message can1.CGW_PANEL_BDTC_msg // AML 진단 정보 요청
+{
+  if($CGW::Scenario_AMLrequest == 1)
+  {
+    message AML_DTC_msg aml_dtc_msg;
+    // 진단 내용 정의 필요
+    aml_dtc_msg.AML_diagnosis = 1;
+    output(aml_dtc_msg); // 전송
+  }
+}
+void init(){
+  // 시스템 변수 및 전역변수 초기화
+  Power_on_off_flag = False;
+  @sysvar::AML_Value::now_light_state = ctrl_off; // 불 OFF
+}

@@ -9,3 +9,267 @@ variables
   
 }
 
+
+on message CGW_PCAN_DTC_msg1
+{
+  write("%d",this.CCM_diagnosis);
+  write("%d",this.VCU_diagnosis);
+  // 0으로 오면 무시
+  // 정상일떄
+  if (this.CCM_diagnosis == 1 )
+  {
+    @DTC::ccmState = 1;
+    @DTC::ccmCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.CCM_diagnosis !=0 )
+  {
+    @DTC::ccmState = 2;
+    @DTC::ccmCode = this.CCM_diagnosis;  
+  }
+  
+    // 0으로 오면 무시
+  // 정상일떄
+  if (this.VCU_diagnosis == 1 )
+  {
+    @DTC::vcuState = 1;
+    @DTC::vcuCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.VCU_diagnosis !=0 )
+  {
+    @DTC::vcuState = 2;
+    @DTC::vcuCode = this.VCU_diagnosis;  
+  }
+  
+}
+
+on message CGW_CCAN_DTC_msg1
+{
+  write("%d",this.ACL_diagnosis);
+  write("%d",this.BRK_diagnosis);
+  
+  // 0으로 오면 무시
+  // 정상일떄
+  if (this.ACL_diagnosis == 1 )
+  {
+    @DTC::aclState = 1;
+    @DTC::aclCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.ACL_diagnosis !=0 )
+  {
+    @DTC::aclState = 2;
+    @DTC::aclCode = this.ACL_diagnosis;  
+  }
+  
+  // 0으로 오면 무시
+  // 정상일떄
+  if (this.BRK_diagnosis == 1 )
+  {
+    @DTC::brkState = 1;
+    @DTC::brkCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.BRK_diagnosis !=0 )
+  {
+    @DTC::brkState = 2;
+    @DTC::brkCode = this.BRK_diagnosis;  
+  }
+  
+}
+
+on message CGW_BCAN_DTC_msg1
+{
+  write("%d",this.AML_diagnosis);
+  write("%d",this.BCU_diagnosis);
+  
+    // 0으로 오면 무시
+  // 정상일떄
+  if (this.AML_diagnosis == 1 )
+  {
+    @DTC::amlState = 1;
+    @DTC::amlCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.AML_diagnosis !=0 )
+  {
+    @DTC::amlState = 2;
+    @DTC::amlCode = this.AML_diagnosis;  
+  }
+  
+  // 0으로 오면 무시
+  // 정상일떄
+  if (this.BCU_diagnosis == 1 )
+  {
+    @DTC::bcuState = 1;
+    @DTC::bcuCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.BCU_diagnosis !=0 )
+  {
+    @DTC::bcuState = 2;
+    @DTC::bcuCode = this.BCU_diagnosis;  
+  }
+  
+}
+
+on message CGW_BCAN_DTC_msg2
+{
+  write("%d",this.Airbag_diagnosis);
+  write("%d",this.SEAT_diagnosis);
+  
+  // 0으로 오면 무시
+  // 정상일떄
+  if (this.Airbag_diagnosis == 1 )
+  {
+    @DTC::airbagState = 1;
+    @DTC::airbagCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.Airbag_diagnosis !=0 )
+  {
+    @DTC::airbagState = 2;
+    @DTC::airbagCode = this.Airbag_diagnosis;  
+  }
+  
+  // 0으로 오면 무시
+  // 정상일떄
+  if (this.SEAT_diagnosis == 1 )
+  {
+    @DTC::seatState = 1;
+    @DTC::seatCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.SEAT_diagnosis !=0 )
+  {
+    @DTC::seatState = 2;
+    @DTC::seatCode = this.SEAT_diagnosis;  
+  }
+}
+
+on message CGW_ACAN_DTC_msg1
+{
+  write("%d",this.ACC_diagnosis);
+  write("%d",this.AEB_diagnosis);
+  
+  // 0으로 오면 무시
+  // 정상일떄
+  if (this.ACC_diagnosis == 1 )
+  {
+    @DTC::accState = 1;
+    @DTC::accCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.ACC_diagnosis !=0 )
+  {
+    @DTC::accState = 2;
+    @DTC::accCode = this.ACC_diagnosis;  
+  }
+  
+  // 0으로 오면 무시
+  // 정상일떄
+  if (this.AEB_diagnosis == 1 )
+  {
+    @DTC::aebState = 1;
+    @DTC::aebCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.AEB_diagnosis !=0 )
+  {
+    @DTC::aebState = 2;
+    @DTC::aebCode = this.AEB_diagnosis;  
+  }
+  
+}
+
+on message CGW_ACAN_DTC_msg2
+{
+  write("%d",this.SCU_diagnosis);
+  
+  // 0으로 오면 무시
+  // 정상일떄
+  if (this.SCU_diagnosis == 1 )
+  {
+    @DTC::scuState = 1;
+    @DTC::scuCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.SCU_diagnosis !=0 )
+  {
+    @DTC::scuState = 2;
+    @DTC::scuCode = this.SCU_diagnosis;  
+  }
+}
+
+on message CGW_UICAN_DTC_msg1
+{
+  write("%d",this.CLU_diagnosis);
+  write("%d",this.HMI_diagnosis);
+  
+  // 0으로 오면 무시
+  // 정상일떄
+  if (this.CLU_diagnosis == 1 )
+  {
+    @DTC::cluState = 1;
+    @DTC::cluCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.CLU_diagnosis !=0 )
+  {
+    @DTC::cluState = 2;
+    @DTC::cluCode = this.CLU_diagnosis;  
+  }
+  
+  // 0으로 오면 무시
+  // 정상일떄
+  if (this.HMI_diagnosis == 1 )
+  {
+    @DTC::hmiState = 1;
+    @DTC::hmiCode = 0;    
+  }
+  // 비정상 일떄
+  else if (this.HMI_diagnosis !=0 )
+  {
+    @DTC::hmiState = 2;
+    @DTC::hmiCode = this.HMI_diagnosis;  
+  }
+  
+}
+
+on sysvar DTC::resetBtn
+{
+  if (@DTC::resetBtn == 1)
+  {
+    @DTC::vcuState = 0;
+    @DTC::ccmState = 0;
+    @DTC::brkState = 0;
+    @DTC::aclState = 0;
+    @DTC::amlState = 0;
+    @DTC::bcuState = 0;
+    @DTC::seatState = 0;
+    @DTC::airbagState = 0;
+    @DTC::accState = 0;
+    @DTC::aebState = 0;
+    @DTC::scuState = 0;
+    @DTC::hmiState = 0;
+    @DTC::cluState = 0;
+    
+    @DTC::vcuCode = 0;
+    @DTC::ccmCode = 0;
+    @DTC::brkCode = 0;
+    @DTC::aclCode = 0;
+    @DTC::amlCode = 0;
+    @DTC::bcuCode = 0;
+    @DTC::seatCode = 0;
+    @DTC::airbagCode = 0;
+    @DTC::accCode = 0;
+    @DTC::aebCode = 0;
+    @DTC::scuCode = 0;
+    @DTC::hmiCode = 0;
+    @DTC::cluCode = 0;
+    
+  }
+
+}
+

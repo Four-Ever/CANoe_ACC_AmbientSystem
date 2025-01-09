@@ -4,8 +4,265 @@ includes
   
 }
 
+
 variables
 {
+  msTimer loopTimer;
+  msTimer _1msTimer;
   
+  int g1ms_getFRdisGap_Counter = 0;
+  int g1ms_getVelGap_Counter = 0;
+  
+  int gCounter = 0;
+  
+  byte isActive = 0; // wake/sleep
+  byte isACC_On = 0; // On/Off
+  
+  byte byteACC_level = 0;
+  byte byteACC_targetVel_kph = 0;
+  byte byteACC_targetDis = 0;
+  
+  byte byteCar_speed_kph = 0;
+  byte bytecurFRdis_m = 0;
+  byte bytepreFRdis_m = 0;
+  byte isFVehicle = 0;
+  byte isACC_Override = 0;
+  
+  byte isDTC_required = 0;
+  dword dwACC_DTCcode;
+  
+  float fcur_speed = 0; // m/s
+  float fpre_speed = 0; // m/s
+  float fFCar_speed = 0; // m/s
+  float fAccel = 0;
+  
+  float TimeGap[4] = {0, 1.0, 2.0, 3.0}; // sec
+  float D_SAFE = 3.0; // m
+  
+  message ACC_DState_msg ACC_OFF;
 }
 
+
+on start
+{
+  setTimerCyclic(loopTimer, 100);
+  setTimerCyclic(_1msTimer, 1);
+}
+
+
+void turn_on()
+{
+  isACC_On = 1;
+  byteACC_level = 2;
+  $ACC::ACC_brk_off = 0;
+  $ACC::ACC_level = byteACC_level;
+}
+
+void turn_off()
+{
+  isACC_On = 0;
+  byteACC_level = 0;
+  $ACC::ACC_brk_off = 1;
+  $ACC::ACC_level = byteACC_level;
+  
+  output(ACC_OFF); //event
+}
+
+
+void cal_accelration()
+{
+  fpre_speed = fcur_speed;
+  fcur_speed = byteCar_speed_kph / 3.6;
+
+  fAccel = (fcur_speed - fpre_speed) / g1ms_getVelGap_Counter;
+  g1ms_getVelGap_Counter = 0;
+}
+
+
+void cal_Fvelocity()
+{
+  fFCar_speed = fcur_speed + (bytecurFRdis_m - bytepreFRdis_m) / g1ms_getFRdisGap_Counter;
+  g1ms_getFRdisGap_Counter = 0;
+  
+  bytepreFRdis_m = bytecurFRdis_m;
+}
+
+void cal_target_dis()
+{
+  byteACC_targetDis = fcur_speed * TimeGap[byteACC_level] + D_SAFE;
+  //write("ACC target Dis : %d", byteACC_targetDis);
+}
+
+
+on message A_CAN::CGW_VCU_AWake_msg
+{
+  isActive = 1;
+  isACC_On = 0;
+  byteACC_level = 0; // init
+}
+
+
+on message A_CAN::CGW_VCU_ASleep_msg
+{
+  isActive = 0; // wake/sleep
+  isACC_On = 0; // On/Off
+  
+  // byteACC_level = 0;
+  // byteACC_targetVel_kph = 0;
+  
+  byteCar_speed_kph = 0;
+  // bytePreRdis_m = 0;
+  isFVehicle = 0;
+  isACC_Override = 0;
+}
+
+
+on message A_CAN::CGW_HMI_ACC_Power_msg
+{
+  if (isActive == 1) {
+    if(this.byte(0) == 0x1) {
+      turn_on();
+    }
+    else if(this.byte(0) == 0x2) {
+      if(isACC_On == 1)
+        turn_off();
+    }
+  }
+}
+
+
+on message A_CAN.* // can3. 와 같이 수정?
+{
+  //if (isActive == 1 && isACC_On == 1) {
+    message * msg;
+    msg = this;
+    
+    switch(msg.id) {
+      case CGW_HMI_ACC_Level_msg.id:
+        if(msg.byte(0) == 0x1) {
+          if(++byteACC_level > 3)
+            byteACC_level = 3;
+        }
+        else if(msg.byte(0) == 0x2) {
+          if(--byteACC_level < 1)
+            byteACC_level = 1;
+        }
+        $ACC::ACC_level = byteACC_level;
+        
+        break;
+
+        
+      case CGW_HMI_ACC_Speed_msg.id:
+        if(msg.byte(0) == 0x1) {
+          byteACC_targetVel_kph += 2;
+          if(byteACC_targetVel_kph > 120)
+            byteACC_targetVel_kph = 120;
+        }
+        else if(msg.byte(0) == 0x2) {
+          byteACC_targetVel_kph -= 2;
+          if(byteACC_targetVel_kph < 30)
+            byteACC_targetVel_kph = 30;
+        }
+        $ACC::ACC_des_speed_kmh = byteACC_targetVel_kph;
+        break;
+        
+        
+      case CGW_PANEL_ADTC_msg.id:
+        isDTC_required = 1;
+        break;
+        
+        
+      case CGW_Speed_Rear_msg.id:
+        //byteCar_speed_kph = msg.byte(0);
+        //byteFRdis_m = msg.byte(1);
+
+        break;
+        
+        
+      case CGW_VCU_ACCBrk_msg.id:
+        if (msg.byte(0) == 0x01) {
+          turn_off();
+        }
+        break;
+        
+        
+      case CGW_VCU_Speed_Overr_msg.id:
+        byteCar_speed_kph = msg.byte(0);
+        isACC_Override = (msg.byte(1) & 0x1);
+        
+        cal_accelration();
+
+        break;
+        
+        
+      case SCU_Front_msg.id:
+        bytecurFRdis_m = msg.byte(0);
+        isFVehicle = (msg.byte(2) & 0x1);
+
+        cal_Fvelocity();
+
+        break;
+        
+        
+      default:
+        ;
+    }
+  //}  
+}
+
+
+on timer _1msTimer
+{
+  //if (isActive == 1 && isACC_On == 1) {
+    g1ms_getFRdisGap_Counter++;
+    g1ms_getVelGap_Counter++;
+  //}
+}
+
+
+on timer loopTimer
+{
+  //if (isActive == 1 && isACC_On == 1) {
+    cal_target_dis();
+    if (isFVehicle)
+    {
+      if (byteCar_speed_kph < 5) { // R_3.RA_5
+        gCounter++;
+        if (gCounter >= 30) {// 3sec
+          turn_off();
+        }
+      }
+      else {
+        gCounter = 0; 
+      }
+      
+      if (isACC_On == 1) {
+        ;
+        //f(byteACC_targetDis, bytecurFRdis_m, fcur_speed, fAccel, fFCar_speed)
+      }
+    }
+    
+    else
+    {
+      if (byteCar_speed_kph < byteACC_targetVel_kph)
+      {
+        $ACC::ACC_accel_trk = 50; // f(byteCar_speed_kph, byteACC_targetVel_kph))
+        $ACC::ACC_brk_pbar = 0;
+      }
+      else
+      {
+        $ACC::ACC_accel_trk = 0; 
+        $ACC::ACC_brk_pbar = 50; // f(byteCar_speed_kph, byteACC_targetVel_kph))
+      }
+    }
+    
+    $ACC::ACC_des_dis_m = byteACC_level; // f(byteCar_speed_kph, byteACC_level)
+    
+    
+    $ACC::ACC_diagnosis = dwACC_DTCcode;
+    if (isDTC_required == 1) {
+      //output(ACC_DTC_msg);
+      isDTC_required = 0;
+    }
+  //}
+}

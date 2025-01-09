@@ -6,6 +6,245 @@ includes
 
 variables
 {
+  enum Boolean{
+      False = 0,
+      True
+  };
+  enum AML_Light_Sig{
+    color_acc_emergency_color = 0, // emergency : Red
+    color_acc_level1 = 1, // level1 : SkyBlue
+    color_acc_level2 = 2, // level2 : Blue
+    color_acc_level3 = 3, // level3 : Purple
+    color_default = 4, // Default : Green
+    ctrl_acc_emergency_light_off = 5, // emergency off sig
+    ctrl_off = 6 // Off sig
+  };
+  int car_speed = 0; // 차량속도 저장 (에어백 부분에서 필요)
+  int acc_level = 2; // default
+  int acc_target_dis = 2; // target dis
+  int acc_target_speed = 0; // target speed
+  int aml_state_change = color_default;
   
+  // 에어백 관련 데이터
+  int local_SEAT_drvseatOCC = 0;
+  int local_SEAT_astseatOCC = 0;
+  int local_SEAT_drvseatBelt = 0;
+  int local_SEAT_astseatBelt = 0;
+  int local_drv_SEAT_drvnormal = 0;
+  int local_drv_SEAT_drvabnormal =0 ;
+  int local_SEAT_astabnormal =0 ;
+  int local_SEAT_astnormal = 0;
+  int local_Airbag_drvabnormal =0 ;
+  int local_Airbag_drvnormal =0 ;
+  int local_Airbag_astabnormal =0 ;
+  int local_Airbag_astnormal = 0;
+  int local_ACC_level =0;
+  int local_SCU_Rcrash_ns = 0;
+  msTimer BCU_Color_timer; // AML 색상 
+  msTimer BCU_CLU_timer;   // CLU 에 운전석 착석+안전벨트 여부와 조수석 착석 및 안전벨트 여부
+}
+on start{ // init
+  init();
+  if(@sysvar::Dev_Option::Timer_Enable)
+  {
+    setTimerCyclic(BCU_Color_timer, 100);
+    setTimerCyclic(BCU_CLU_timer, 100);
+  }
+}
+on preStop{ // 종료 직전 수행
+  init();
+}
+on timer BCU_Color_timer
+{
+  message BCU_Color_msg msg;
+  msg.BCU_lightR = 0;
+  msg.BCU_lightSB = 0;
+  msg.BCU_lightB = 0;
+  msg.BCU_lightP = 0;
+  msg.BCU_lightdefault_G = 0;
+  msg.BCU_redlight_off = 0; // AML 상황 발생 시, 거리가 충분히 멀어지면
+  // 만약 emergency면 보내고
+  // 레벨 변경 신호가 들어오면 레벨에 따라
+  
+  output(msg);
+}
+on timer BCU_CLU_timer // CLU 에 운전석 착석+안전벨트 여부와 조수석 착석 및 안전벨트 여부
+{
+  message BCU_CLU_msg msg;
+  if(local_SEAT_drvseatOCC && !local_SEAT_drvseatBelt)
+  {
+    msg.BCU_CLU_drseatwarning = 1;
+  }
+  else
+  {
+    msg.BCU_CLU_passseatwarning = 0;
+  }
+  
+  if(local_SEAT_astseatOCC && !local_SEAT_astseatBelt)
+  {
+    msg.BCU_CLU_passseatwarning = 1;
+  }
+  else
+  {
+    msg.BCU_CLU_passseatwarning = 0;
+  }
+  output(msg);
+}
+on message can1.SEAT_State_msg // 운전자 및 조수석 착석 상태 from Seat (주기 갱신)
+{
+  local_SEAT_drvseatOCC = this.SEAT_drvseatOCC;
+  local_SEAT_astseatOCC = this.SEAT_astseatOCC;
+}
+on message can1.SEAT_Belt_state_msg // 운전자 및 벨트 착용 상태 from Seat (주기 갱신)
+{
+  local_SEAT_drvseatBelt = this.SEAT_drvseatBelt;
+  local_SEAT_astseatBelt = this.SEAT_astseatBelt;
+}
+on message can1.SEAT_Dr_Condi_msg // 운전자 좌석 시트 고장 상태 from Seat (주기 갱신)
+{
+  local_drv_SEAT_drvnormal = this.SEAT_drvnormal;
+  local_drv_SEAT_drvabnormal = this.SEAT_drvabnormal;
+}
+on message can1.SEAT_Ast_Condi_msg // 보조석 좌석 시트 고장 상태 from Seat (주기 갱신)
+{
+  local_SEAT_astabnormal = this.SEAT_astabnormal;
+  local_SEAT_astnormal = this.SEAT_astnormal;
+}
+on message can1.Airbag_Dr_Condi_msg // 운전자 및 조수석 에어백 상태 from Airbag
+{
+  local_Airbag_drvabnormal = this.Airbag_drvabnormal;
+  local_Airbag_drvnormal = this.Airbag_drvnormal;
+}
+on message can1.Airbag_Ast_Condi_msg // 운전자 및 조수석 에어백 상태 from Airbag 갱신
+{
+  local_Airbag_astabnormal = this.Airbag_astabnormal;
+  local_Airbag_astnormal = this.Airbag_astnormal;
 }
 
+on signal_update CGW::CGW_ACC_level_msg::ACC_level // ACC Level From ACC (주기성)
+{
+  local_ACC_level = $CGW::CGW_ACC_level_msg::ACC_level;
+  // AML Signal Update (ACC 단계에 따른 처리)
+  if(local_ACC_level > 0) // ACC Update
+  {
+    // level1 : SkyBlue
+    // level2 : Blue
+    // level3 : Purple
+    if(local_ACC_level == 1)
+    {
+      aml_color_init();
+      $BCU_lightSB = 1;
+    }
+    else if(local_ACC_level == 2)
+    {
+      aml_color_init();
+      $BCU_lightB = 1;
+    }
+    else if(local_ACC_level == 3)
+    {
+      aml_color_init();
+      $BCU_lightP = 1;
+    }
+  }
+}
+on signal_update CGW::AEB_BCU_amlctrl_req// 위급 상황에 따른 라이트 제어 from AEB(주기성)
+{
+  if($CGW::AEB_BCU_amlctrl_req == 1) // AEB 동작
+  {
+    aml_color_init();
+    $BCU_lightR = 1;
+  }
+  else // AEB 꺼짐(일단 원래 default로 돌아옴)
+  {
+    aml_color_init();
+    $BCU_lightdefault_G = 1;
+  }
+  
+}
+on message can1.CGW_Speed_Rear_msg // 충돌 감지 후방 센서 값 (충돌 값 들어왔을 때 시트 변경)
+{
+  message BCU_Seat_msg msg;
+  local_SCU_Rcrash_ns = $CGW::SCU_Rcrash_ns;
+  if(local_SCU_Rcrash_ns > 20)
+  {
+      msg.BCU_dr_seatstate = 0;
+      msg.BCU_pass_seatstate = 0;
+      if(local_SEAT_drvseatOCC == 1)
+      {
+        msg.BCU_dr_seatstate = 1;
+      }
+      if(local_SEAT_astseatOCC == 1)
+      {
+        msg.BCU_pass_seatstate = 1;
+      } 
+      output(msg);
+  }
+}
+
+on message can1.CGW_100ms_msg // acc 정보 최신화
+{
+  acc_level = this.ACC_level;
+  acc_target_dis = this.ACC_des_dis_m;
+  acc_target_speed = this.ACC_des_speed_kmh;
+}
+on message can1.CGW_ACC_DState_msg1 // 운전자 개입에 의한 ACC off from ACC
+{
+  // ACC off
+  aml_color_init();
+  // AML 기존상태로 변환
+  $BCU_lightdefault_G = 1; 
+}
+on message can1.CGW_AEB_Airbag_msg // 에어백 작동 요청 AEB
+{
+  message BCU_Airbag_msg msg;
+  msg.BCU_dr_airbagstate = 0;
+  msg.BCU_pass_airbagstate = 0;
+  if(local_SEAT_drvseatOCC == 1)
+  {
+    msg.BCU_dr_airbagstate = 1;
+  }
+  if(local_SEAT_astseatOCC == 1)
+  {
+    msg.BCU_pass_airbagstate = 1;
+  }
+  output(msg);
+}
+on message can1.CGW_VCU_BWake_msg // BCU ECU 작동 시작
+{
+  car_speed = 0;
+  acc_level = 2;
+  acc_target_dis = 2;
+  acc_target_speed = 0;
+}
+on message can1.CGW_VCU_BSleep_msg // BCU ECU 작동 종료
+{
+  car_speed = 0;
+}
+on message can1.CGW_PANEL_BDTC_msg // 진단 정보 요청
+{
+  if($CGW::Scenario_BCUrequest == 1){
+    message BCU_DTC_msg bcu_dtc_msg;
+    // 진단 내용 정의 필요
+    bcu_dtc_msg.BCU_diagnosis = 1;
+    output(bcu_dtc_msg); // 전송
+  }
+}
+void init()
+{
+  // 시스템 변수 및 전역변수 초기화
+    car_speed = 0;
+    acc_level = 2;
+    acc_target_dis = 2;
+    acc_target_speed = 0;
+}
+void aml_color_init()
+{
+  $BCU_lightB = 0;
+  $BCU_lightdefault_G = 0;
+  $BCU_lightP = 0;
+  $BCU_lightR = 0;
+  $BCU_lightSB = 0;
+  $BCU_redlight_off = 0;
+}
+
+// 불이 꺼진 부분을 0으로 보내고, 불이 켜진상황을 1로 보내면됨. CLU에 보낼때
