@@ -9,3 +9,7 @@ variables
   
 }
 
+on message CAN3.P_CAN::CGW_ACC_AlterSpeed_msg {
+  $P_CAN::CCM::CCM_Accel_msg::CCU_accel_trk = $P_CAN::CGW::CGW_ACC_AlterSpeed_msg::ACC_accel_trk;
+  $P_CAN::CCM::CCM_Brk_msg::CCU_brk_pbar=$P_CAN::CGW::CGW_ACC_AlterSpeed_msg::ACC_brk_pbar;
+}

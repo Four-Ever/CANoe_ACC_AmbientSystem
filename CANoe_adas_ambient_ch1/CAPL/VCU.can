@@ -6,6 +6,130 @@ includes
 
 variables
 {
-  
+  msTimer VCUTimer;
 }
 
+on timer VCUTimer{
+  $P_CAN::VCU::VCU_State_msg::VCU_speed_kph = @sysvar::VCU_Tx::speed;
+  $P_CAN::VCU::VCU_State_msg::VCU_rpm = @sysvar::VCU_Tx::rpm;
+}
+
+
+on start {  
+  setTimerCyclic(VCUTimer, 5);
+}
+
+/*on sysvar_update sysvar::VCU_Tx::rpm{
+  $VCU::VCU_rpm = @sysvar::VCU_Tx::rpm;
+  write("%d", @sysvar::VCU_Tx::rpm);
+}*/
+
+//진단정보 요청
+on message CAN3.CGW_PCAN_DTC_msg1 {
+  $P_CAN::VCU::VCU_DTC_msg::VCU_diagnosis=1;  ///정상이면 1, 비정상이면2
+}
+
+
+//HMI 시동
+on message CAN3.CGW_HMI_VCU_Power_msg {  //msg 들어올때만 시스템변수에 대입, 그냥 항상 대입은?
+  @sysvar::VCU_Rx::HMI_engine_on =  $CGW::HMI_Engine_start;
+  @sysvar::VCU_Rx::HMI_engine_off = $CGW::HMI_Engine_sleep;
+  
+
+  //start msg 전송
+  if (@sysvar::VCU_Rx::HMI_engine_on ==1){
+    message VCU_AWake_msg ACANwakeup;
+    message VCU_CWake_msg CCANwakeup;
+    message VCU_BWake_msg BCANwakeup;
+    message VCU_PWake_msg pCANwakeup;
+    message VCU_UWake_msg UCANwakeup;
+    
+    ACANwakeup.VCU_ACC_wakeup.phys=1;
+    ACANwakeup.VCU_AEB_wakeup.phys=1;
+    ACANwakeup.VCU_SCU_wakeup.phys=1;
+  
+    BCANwakeup.VCU_AML_wakeup.phys=1;
+    BCANwakeup.VCU_BCU_wakeup.phys=1;
+    BCANwakeup.VCU_Seat_wakeup.phys=1;
+    BCANwakeup.VCU_Airbag_wakeup.phys=1;
+    
+    CCANwakeup.VCU_ACL_wakeup.phys=1;
+    CCANwakeup.VCU_BRK_wakeup.phys=1;
+    
+    pCANwakeup.VCU_CCM_wakeup.phys=1;
+    UCANwakeup.VCU_CLU_wakeup.phys=1;
+    UCANwakeup.VCU_HMI_wakeup.phys=1;
+    UCANwakeup.VCU_Panel_wakeup.phys=1;
+    
+    output(BCANwakeup);
+    output(ACANwakeup);
+    output(BCANwakeup);
+    output(pCANwakeup);
+    output(UCANwakeup);
+  
+  }
+  //sLEEP msg 전송
+  if (@sysvar::VCU_Rx::HMI_engine_off ==1){
+    $VCU::VCU_ACC_sleep=1;
+    $VCU::VCU_AEB_sleep=1;
+    $VCU::VCU_SCU_sleep=1;
+    $VCU::VCU_AML_sleep=1;
+    $VCU::VCU_BCU_sleep=1;
+    $VCU::VCU_Seat_sleep=1;
+    $VCU::VCU_Airbag_sleep=1;
+    $VCU::VCU_BRK_sleep=1;
+    $VCU::VCU_ACL_sleep=1;
+    $VCU_CCM_sleep=1;
+    $VCU::VCU_CLU_sleep=1;
+    $VCU::VCU_HMI_sleep=1;
+    $VCU::VCU_Panel_sleep=1;
+  }
+}
+
+
+//운전자 
+on message CAN3.CGW_ACL_Accel_msg {
+  @sysvar::VCU_Rx::dr_accel_ped = this.ACL_ped_per;
+  if (@sysvar::VCU_Rx::dr_accel_ped > 0){
+    $VCU::VCU_ACC_override=1;  //운전자가 조작중임을 acc 한테 알림
+  }
+  else {
+    $VCU::VCU_ACC_override=0;
+  }
+ 
+}
+
+on message CAN3.CGW_BRK_Brk_msg {
+  @sysvar::VCU_Rx::dr_brk_ped= this.BRK_ped_per;
+  if (@sysvar::VCU_Rx::dr_brk_ped > 0){
+    $VCU::VCU_ACC_brksleep=1;  //운전자가 조작중임을 acc 한테 알림
+  }
+  else {
+     $VCU::VCU_ACC_brksleep=0;
+  }
+}
+
+on message CAN3.CGW_BRK_FBrk_msg {
+  if(this.can == 3) 
+  {
+    @sysvar::VCU_Rx::dr_brkfull = this.BRK_fullstatus;
+  }
+
+}
+
+//ACC->CCM ->VCU
+on message CAN3.CCM_Accel_msg {
+  @sysvar::VCU_Rx::ACC_accel = this.CCU_accel_trk;
+
+}
+
+on message CAN3.CCM_Brk_msg {
+  @sysvar::VCU_Rx::ACC_brk = this.CCU_brk_pbar;
+
+}
+
+//AEB
+on message CAN3.CGW_AEB_Brk_msg {
+  @sysvar::VCU_Rx::AEB_brk = this.AEB_VCU_brk_pbar;
+
+}
