@@ -6,6 +6,121 @@ includes
 
 variables
 {
-  
+  int HMI_status = 0;
+  int Car_status = 0;
+  int Acc_status = 0;
+}
+///각 메세지마다 wakeup 받았다는거 추가해야함.
+on message can4.CGW_VCU_UWake_msg
+{  
+  if(this.VCU_HMI_wakeup==1)
+  {
+    HMI_status=1;
+  }
 }
 
+on message can4.CGW_VCU_USleep_msg
+{  
+  if(this.VCU_HMI_sleep==1)
+  {
+    HMI_status=0;
+  }
+}
+on message can4.PANEL_UDTC_msg //진단
+{
+  message HMI_DTC_msg DTC_msg;
+  DTC_msg.HMI_diagnosis=0;//진단메세지 추가
+  output(DTC_msg);
+}
+//시동 ON
+on sysvar sysvar::HMI_Input::car_on  //뒤에 있는 system variable이 변경되었을 떄 실행되는 이벤트 핸들러
+{
+  message HMI_VCU_Power_msg VCU_Power_msg; //HMI_ACC_Power_msg 클래스의 ACC_Power_msg 인스턴스
+  int car_onoff =0;
+  car_onoff= sysgetvariableint(sysvar::HMI_Input::car_on); ///누른게 1
+  write("%d",car_onoff);
+  if(car_onoff==1) //버튼 눌렀을 때
+  {
+    if(Car_status==0)//시동 on
+    {
+      VCU_Power_msg.HMI_Engine_start = 1;
+      VCU_Power_msg.HMI_Engine_sleep = 0;
+      Car_status=1;
+      write("car_on");
+      @sysvar::HMI_Input::car_status = 1;
+    }
+    else if(Car_status==1)//시동off
+    {
+      VCU_Power_msg.HMI_Engine_start = 0;
+      VCU_Power_msg.HMI_Engine_sleep = 1;
+      Car_status=0;
+      write("car_off");
+      @sysvar::HMI_Input::car_status = 0;
+    }
+  }
+  output(VCU_Power_msg);
+}
+
+//ACC ON
+on sysvar sysvar::HMI_Input::acc_on
+{
+  message HMI_ACC_Power_msg ACC_Power_msg; //HMI_ACC_Power_msg 클래스의 ACC_Power_msg 인스턴스
+  int acc_onoff =0;
+  acc_onoff= sysgetvariableint(sysvar::HMI_Input::acc_on); ///누른게 1
+  if(acc_onoff==1) //버튼 눌렀을 때
+  {
+    if(Acc_status==0)//acc on
+    {
+      ACC_Power_msg.HMI_ACC_on = 1;
+      ACC_Power_msg.HMI_ACC_off = 0;
+      Acc_status=1;
+      write("acc_on");
+      @sysvar::HMI_Input::acc_status = 1;
+    }
+    else if(Acc_status==1)//시동off
+    {      
+      ACC_Power_msg.HMI_ACC_on = 0;
+      ACC_Power_msg.HMI_ACC_off = 1;
+      Acc_status=0;
+      write("acc_off");
+      @sysvar::HMI_Input::acc_status = 0;
+    }
+  }
+  output(ACC_Power_msg);
+}
+//LV UP
+on sysvar sysvar::HMI_Input::acc_lvup
+{
+  message HMI_ACC_Level_msg ACC_Level_msg;
+  ACC_Level_msg.HMI_ACC_levelup=sysgetvariableint(sysvar::HMI_Input::acc_lvup);
+  ACC_Level_msg.HMI_ACC_leveldown=0;
+  write("lvup_on");
+  output(ACC_Level_msg);
+}
+
+//LV DOWN
+on sysvar sysvar::HMI_Input::acc_lvdown
+{
+  message HMI_ACC_Level_msg ACC_Level_msg;
+  ACC_Level_msg.HMI_ACC_levelup=0;
+  ACC_Level_msg.HMI_ACC_leveldown=sysgetvariableint(sysvar::HMI_Input::acc_lvdown);
+  output(ACC_Level_msg);
+}
+//SPD UP
+on sysvar sysvar::HMI_Input::acc_spdup
+{
+  message HMI_ACC_Speed_msg ACC_Speed_msg;
+  ACC_Speed_msg.HMI_ACC_speedup=sysgetvariableint(sysvar::HMI_Input::acc_spdup);
+  ACC_Speed_msg.HMI_ACC_speeddown=0;
+  output(ACC_Speed_msg);
+}
+
+
+//SPD DOWN
+on sysvar sysvar::HMI_Input::acc_spddown
+{
+  message HMI_ACC_Speed_msg ACC_Speed_msg;
+  ACC_Speed_msg.HMI_ACC_speedup=0;
+  ACC_Speed_msg.HMI_ACC_speeddown=sysgetvariableint(sysvar::HMI_Input::acc_spddown);
+  output(ACC_Speed_msg);
+}
