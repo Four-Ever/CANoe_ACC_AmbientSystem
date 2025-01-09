@@ -6,6 +6,100 @@ includes
 
 variables
 {
+  msTimer tmrCycle_1;
+  int speed; // 속도
+  int impulse;
+  int frontDistance;
+  int isPower;
+}
+
+
+
+on prestart
+{
+  setTimerCyclic(tmrCycle_1, 30);
+  speed = 0;
+  impulse = 0;
+  frontDistance = 0;
+  isPower = 0;
+}
+
+// 작동 시작 이벤트
+on message can6.A_CAN::CGW_VCU_AWake_msg
+{
+  isPower = 1;
+
+}
+
+// 작동 종료 이벤트
+on message can6.A_CAN::CGW_VCU_ASleep_msg
+{
+  isPower = 0;
   
 }
+
+// 차량 속도 30주기
+on message can6.A_CAN::CGW_VCU_Speed_Overr_msg
+{
+  speed = this.VCU_speed_kph;
+  
+}
+
+//레이더 거리, 충돌감지 센서값 30주기
+on message can6.A_CAN::SCU_Front_msg
+{
+  frontDistance = this.SCU_Frdis_m;
+  if (impulse >=20)
+    impulse = this.SCU_Frcrash_ns;
+}
+
+// 진단 요청 이벤트
+on message can6.A_CAN::CGW_PANEL_ADTC_msg
+{
+  message AEB_DTC_msg msgOut;
+  
+  msgOut.AEB_diagnosis = 1;
+  
+  output(msgOut);
+  
+}
+
+// 로직 30주기
+// 충돌 감지AML , 긴급제동시 AML
+on timer tmrCycle_1
+{
+  int stopDistance = 0;
+  if (isPower == 1)
+  {
+    stopDistance = (speed*speed)/ 16;
+    if (stopDistance > frontDistance)
+    {
+      message AEB_Brk_msg brakeMsgOut;
+      brakeMsgOut.AEB_VCU_brk_pbar = 1;
+      output(brakeMsgOut);
+      // TODO : 주기가 너무 길어서 안가면 수정
+      $AEB::AEB_BCU_amlctrl_req = 1; //주기 200
+      $AEB::AEB_CLU_aebled = 1; // 주기 100
+    }
+    else
+    {
+      // 주기가 너무 길어서 안가면 수정
+      $AEB::AEB_BCU_amlctrl_req = 0;
+      $AEB::AEB_CLU_aebled = 0;   
+    }
+    if (impulse >= 20)
+    {
+      message AEB_Airbag_msg airbagMsgOut;
+      airbagMsgOut.AEB_BCU_airbagctrl_req = 1;
+      output(airbagMsgOut);
+      // airbag터지면 AEB 동작 종료
+      isPower = 0;
+    }  
+  } 
+}
+
+
+
+
+
 
