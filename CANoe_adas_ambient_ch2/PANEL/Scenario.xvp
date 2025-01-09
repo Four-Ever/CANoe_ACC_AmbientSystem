@@ -1,6 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null">
   <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="Scenario">
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xa238d0ebe869ae4823e8c0fe95e3b5ee2b79" ControlName="Button 5">
+      <Property Name="Name">Xa238d0ebe869ae4823e8c0fe95e3b5ee2b79</Property>
+      <Property Name="Size">48, 146</Property>
+      <Property Name="Location">270, 93</Property>
+      <Property Name="ImageFile">Bitmaps\car_far.png</Property>
+      <Property Name="TransparentColor">White</Property>
+      <Property Name="TabIndex">10</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
+      <Property Name="Text"></Property>
+      <Property Name="SymbolConfiguration">8;16;LeadCarSimulation;;;InterruptCar1;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X0387bcc1e2ef4e409fe8507e9a2c865f643d" ControlName="Button 3">
+      <Property Name="Name">X0387bcc1e2ef4e409fe8507e9a2c865f643d</Property>
+      <Property Name="Size">48, 146</Property>
+      <Property Name="Location">223, 93</Property>
+      <Property Name="ImageFile">Bitmaps\car_middle.png</Property>
+      <Property Name="TransparentColor">White</Property>
+      <Property Name="TabIndex">9</Property>
+      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
+      <Property Name="Text"></Property>
+      <Property Name="SymbolConfiguration">8;16;LeadCarSimulation;;;InterruptCar1;1;;;-1;;;Value;;;0</Property>
+    </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xd969fe08e00c6e43abe9843e0faedac5088c" ControlName="Button 7">
       <Property Name="Name">Xd969fe08e00c6e43abe9843e0faedac5088c</Property>
       <Property Name="Size">140, 66</Property>
@@ -10,41 +32,16 @@
       <Property Name="Text">ECU 진단</Property>
       <Property Name="SymbolConfiguration">8;16;Car_Indoor;;;Diagnostic_Req;1;;;-1;;;Value;;;0</Property>
     </Object>
-    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xf20b4a5bebc3ce461be98f0e734c5b7ca0c7" ControlName="Button 6">
-      <Property Name="Name">Xf20b4a5bebc3ce461be98f0e734c5b7ca0c7</Property>
-      <Property Name="Size">48, 66</Property>
-      <Property Name="Location">270, 173</Property>
-      <Property Name="TabIndex">7</Property>
-      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
-      <Property Name="Text">3</Property>
-      <Property Name="SymbolConfiguration">8;16;LeadCarSimulation;;;InterruptCar3;1;;;-1;;;Value;;;0</Property>
-    </Object>
-    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xdd572bb7e2cb8e49ebe8755effa15031b338" ControlName="Button 5">
-      <Property Name="Name">Xdd572bb7e2cb8e49ebe8755effa15031b338</Property>
-      <Property Name="Size">48, 66</Property>
-      <Property Name="Location">226, 173</Property>
-      <Property Name="TabIndex">6</Property>
-      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
-      <Property Name="Text">2</Property>
-      <Property Name="SymbolConfiguration">8;16;LeadCarSimulation;;;InterruptCar2;1;;;-1;;;Value;;;0</Property>
-    </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X3ba113beecfbfe435be9d2ee617fabdfb63f" ControlName="Button 4">
       <Property Name="Name">X3ba113beecfbfe435be9d2ee617fabdfb63f</Property>
-      <Property Name="Size">48, 66</Property>
-      <Property Name="Location">178, 173</Property>
+      <Property Name="Size">48, 146</Property>
+      <Property Name="Location">175, 93</Property>
+      <Property Name="ImageFile">Bitmaps\car_close.png</Property>
+      <Property Name="TransparentColor">White</Property>
       <Property Name="TabIndex">5</Property>
       <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
-      <Property Name="Text">1</Property>
+      <Property Name="Text" />
       <Property Name="SymbolConfiguration">8;16;LeadCarSimulation;;;InterruptCar1;1;;;-1;;;Value;;;0</Property>
-    </Object>
-    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xf347da90e4022e44a7e8388e8b6db134b0bb" ControlName="Button 3">
-      <Property Name="Name">Xf347da90e4022e44a7e8388e8b6db134b0bb</Property>
-      <Property Name="Size">140, 66</Property>
-      <Property Name="Location">178, 107</Property>
-      <Property Name="TabIndex">4</Property>
-      <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
-      <Property Name="Text">끼어들기</Property>
-      <Property Name="SymbolConfiguration"></Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X85948607e299ce409aeacfce44a9e7362250" ControlName="Button 2">
       <Property Name="Name">X85948607e299ce409aeacfce44a9e7362250</Property>
