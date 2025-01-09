@@ -6,6 +6,90 @@ includes
 
 variables
 {
-  
+  int CLU_status = 0;
+  int speed = 0;
+  int rpm=0;
+  int radar=0;
+  int driver_belt = 0;
+  int pass_belt =0;
+  int acc_level = 0;
+  int is_aeb=0;
+  int acc_tar_distance = 0;
+  int acc_tar_Speed = 0;
+}
+//on message면 다른 버스라인에 있는 이름같은거면 다 호출함
+//특정채널로만 -> 어떤 채널로 들어온 메세지만 쓴다!!
+//채널명만 입력하면 됨. this.can 쓰면 어떤채널에서 쓰는지 알 수 있음
+//게이트웨이에서는 P_CAN::을써야함! 다 써있어서
+
+on message can4.CGW_VCU_UWake_msg
+{  
+  if(this.VCU_CLU_wakeup==1)
+  {
+    CLU_status=1;
+  }
 }
 
+on message can4.CGW_VCU_USleep_msg
+{  
+  if(this.VCU_CLU_sleep==1)
+  {
+    CLU_status=0;
+  }
+}
+on message can4.PANEL_UDTC_msg //진단
+{
+  message CLU_DTC_msg DTC_msg;
+  DTC_msg.CLU_diagnosis=0;//진단메세지 추가
+}
+//////
+
+
+on message can4.CGW_30ms_msg
+{
+  speed = this.VCU_speed_kph;
+  rpm = this.VCU_rpm;
+  radar = this.SCU_Frdis_m;
+  @sysvar::HMI_Input::now_speed=speed;
+  @sysvar::HMI_Input::now_rpm=rpm;
+  @sysvar::HMI_Input::now_dist=radar;
+  //클러스터 속도 변경
+}
+
+on message can4.CGW_100ms_msg
+{
+  driver_belt = this.BCU_CLU_drseatwarning;
+  pass_belt =this.BCU_CLU_passseatwarning;
+  acc_level = this.ACC_level;
+  is_aeb=this.AEB_CLU_aebled;
+  acc_tar_distance = this.ACC_des_dis_m;
+  acc_tar_Speed = this.ACC_des_speed_kmh;
+
+  //
+  if(driver_belt==0)
+    @sysvar::HMI_Input::driver_belt=0;
+  else if(driver_belt==1)
+    @sysvar::HMI_Input::driver_belt=1;
+  //
+  if(pass_belt==0)
+    @sysvar::HMI_Input::pass_belt=0;
+  else if(pass_belt==1)
+    @sysvar::HMI_Input::pass_belt=1;
+  //
+  if(acc_level==0)
+    @sysvar::HMI_Input::acc_lv=0;
+  else if(acc_level==1)
+    @sysvar::HMI_Input::acc_lv=1;
+  else if(acc_level==2)
+    @sysvar::HMI_Input::acc_lv=2;
+  else if(acc_level==3)
+    @sysvar::HMI_Input::acc_lv=3;
+  //
+  if(is_aeb==0)
+    @sysvar::HMI_Input::aeb_on=0;
+  else if(is_aeb==1)
+    @sysvar::HMI_Input::aeb_on=1;
+  //
+  @sysvar::HMI_Input::target_dis=acc_tar_distance;
+  @sysvar::HMI_Input::target_spd=acc_tar_Speed;
+}
