@@ -6,6 +6,36 @@ includes
 
 variables
 {
-  
+  enum Boolean{
+      False = 0,
+      True
+  };
+  byte Power_on_off_flag = False; // Airbag 시동 후에만 작동 해야함
 }
-
+on start{ // init
+  init();
+}
+on preStop{ // 종료 직전 수행
+  init();
+}
+on message CGW_VCU_BWake_msg // Seat ECU 작동 시작
+{
+  init();
+}
+on message CGW_VCU_BSleep_msg // Seat ECU 작동 종료
+{
+  init();
+}
+on message CGW_PANEL_BDTC_msg // 진단 정보 요청
+{
+  if($CGW::Scenario_BCUrequest == 1){
+    message BCU_DTC_msg bcu_dtc_msg;
+    // 진단 내용 정의 필요
+    bcu_dtc_msg.BCU_diagnosis = 1;
+    output(bcu_dtc_msg); // 전송
+  }
+}
+void init()
+{
+  Power_on_off_flag = False;
+}
