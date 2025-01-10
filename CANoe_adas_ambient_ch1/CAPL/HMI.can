@@ -52,7 +52,6 @@ on sysvar sysvar::HMI_Input::car_on  //뒤에 있는 system variable이 변경�
   message HMI_VCU_Power_msg VCU_Power_msg; //HMI_ACC_Power_msg 클래스의 ACC_Power_msg 인스턴스
   int car_onoff =0;
   car_onoff= sysgetvariableint(sysvar::HMI_Input::car_on); ///누른게 1
-  write("%d",car_onoff);
   if(car_onoff==1) //버튼 눌렀을 때
   {
     if(Car_status==0)//시동 on
@@ -89,8 +88,8 @@ on sysvar sysvar::HMI_Input::acc_on
       ACC_Power_msg.HMI_ACC_off = 0;
       Acc_status=1;
       write("acc_on");
-      @sysvar::HMI_Input::acc_lv=2;
-      @sysvar::HMI_Input::acc_status = 1;
+     // @sysvar::HMI_Input::acc_lv=2;
+     // @sysvar::HMI_Input::acc_status = 1;
     }
     else if(Acc_status==1)//시동off
     {      
@@ -98,7 +97,7 @@ on sysvar sysvar::HMI_Input::acc_on
       ACC_Power_msg.HMI_ACC_off = 1;
       Acc_status=0;
       write("acc_off");
-      @sysvar::HMI_Input::acc_status = 0;
+     // @sysvar::HMI_Input::acc_status = 0;
     }
   }
   output(ACC_Power_msg);
