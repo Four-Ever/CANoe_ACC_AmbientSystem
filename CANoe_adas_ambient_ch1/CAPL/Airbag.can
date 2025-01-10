@@ -90,29 +90,37 @@ on message can1.BCU_Airbag_msg // 충돌에 의한 에어백 전개 요청 (BCU 
   }
   if(this.BCU_pass_airbagstate) // 조수석 에어백 상태
   {
-    @sysvar::AIRBAG_Value::pass_airbag_state = accident_state;
+    // 조수석 에어백 고장상태 진단 코드 2번 발생 중.
+    // @sysvar::AIRBAG_Value::pass_airbag_state = accident_state;
   }
 }
 
 on message can1.CGW_VCU_BWake_msg // Airbag ECU 작동 시작
 {
-  write("Airbag Im alive");
-  @sysvar::AIRBAG_Value::dr_airbag_state = default_state;
-  @sysvar::AIRBAG_Value::dr_airbag_condi = normal;
-  @sysvar::AIRBAG_Value::pass_airbag_state = default_state;
-  @sysvar::AIRBAG_Value::pass_airbag_condi = normal;
+  if($B_CAN::CGW::CGW_VCU_BWake_msg::VCU_Airbag_wakeup == 1)
+  {
+    write("Airbag Im alive");
+    @sysvar::AIRBAG_Value::dr_airbag_state = default_state;
+    @sysvar::AIRBAG_Value::dr_airbag_condi = normal;
+    @sysvar::AIRBAG_Value::pass_airbag_state = default_state;
+    @sysvar::AIRBAG_Value::pass_airbag_condi = normal;
+  }
+  
   
 }
 on message can1.CGW_VCU_BSleep_msg // Airbag ECU 작동 종료
 {
-  
+  if($B_CAN::CGW::CGW_VCU_BSleep_msg::VCU_Airbag_sleep ==1)
+  {
+    write("Airbag Im End");
+  }
 }
 on message can1.CGW_PANEL_BDTC_msg // 진단 정보 요청
 {
   //if($CGW::Scenario_Airbagrequest == 1){
   message Airbag_DTC_msg airbag_dtc_msg;
   // 진단 내용 정의 필요
-  airbag_dtc_msg.Airbag_diagnosis = 1;
+  airbag_dtc_msg.Airbag_diagnosis = 2;
   output(airbag_dtc_msg); // 전송
   //}
 }

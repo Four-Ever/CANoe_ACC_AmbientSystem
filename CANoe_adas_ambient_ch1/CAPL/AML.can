@@ -96,14 +96,23 @@ on signal_update BCU_redlight_off
 */
 on message can1.CGW_VCU_BWake_msg // AML ECU 작동 시작
 {
-  write("AML Im alive");
-  Power_on_off_flag = True;
-  @sysvar::HMI_Input::ambi_color = color_default;
+  if($B_CAN::CGW::CGW_VCU_BWake_msg::VCU_AML_wakeup == 1)
+  {
+      write("AML Im alive");
+      Power_on_off_flag = True;
+      @sysvar::HMI_Input::ambi_color = color_default;
+  }
+
 }
 on message can1.CGW_VCU_BSleep_msg // AML ECU 작동 종료
 {
-  Power_on_off_flag = False;
-  @sysvar::HMI_Input::ambi_color = ctrl_off;
+  if($B_CAN::CGW::CGW_VCU_BSleep_msg::VCU_AML_sleep ==1)
+  {
+    write("AML Im End");
+    Power_on_off_flag = False;
+    @sysvar::HMI_Input::ambi_color = ctrl_off;
+  }
+  
 }
 on message can1.CGW_PANEL_BDTC_msg // AML 진단 정보 요청
 {
