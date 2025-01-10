@@ -23,7 +23,9 @@ variables
   int acc_level = 2; // default
   int acc_target_dis = 2; // target dis
   int acc_target_speed = 0; // target speed
-  int aml_state_change = color_default;
+  
+  int aml_state_change = ctrl_off;
+  int aml_rollback_state = color_default; // AEB 끝날 시 돌아갈 색상
   
   // 에어백 관련 데이터
   int local_SEAT_drvseatOCC = 0;
@@ -40,6 +42,10 @@ variables
   int local_Airbag_astnormal = 0;
   int local_ACC_level =0;
   int local_SCU_Rcrash_ns = 0;
+  int local_aml_color = 0;
+  int AEB_BCU_amlctrl_req_flag = 0;
+  int CGW_ACC_level_msg_flag = 0;
+  int BCU_Seat_msg_flag = 0;
   msTimer BCU_Color_timer; // AML 색상 
   msTimer BCU_CLU_timer;   // CLU 에 운전석 착석+안전벨트 여부와 조수석 착석 및 안전벨트 여부
 }
@@ -54,7 +60,7 @@ on start{ // init
 on preStop{ // 종료 직전 수행
   init();
 }
-on timer BCU_Color_timer
+on timer BCU_Color_timer // AML Signal 변화 요청
 {
   message BCU_Color_msg msg;
   msg.BCU_lightR = 0;
@@ -62,25 +68,34 @@ on timer BCU_Color_timer
   msg.BCU_lightB = 0;
   msg.BCU_lightP = 0;
   msg.BCU_lightdefault_G = 0;
-  msg.BCU_redlight_off = 0; // AML 상황 발생 시, 거리가 충분히 멀어지면
-  // 만약 emergency면 보내고
-  // 레벨 변경 신호가 들어오면 레벨에 따라
+  msg.BCU_redlight_off = 0; // AML 상황 발생 시, 거리가 충분히 멀어지면*/
+  // direct IL sig change
+  // aml_color_init();
+  // write("AML Sig Changed %d", aml_state_change);
+  if(aml_state_change == color_acc_emergency_color) msg.BCU_lightR = 1;
+  else if(aml_state_change == color_acc_level1) msg.BCU_lightSB = 1;
+  else if(aml_state_change == color_acc_level2) msg.BCU_lightB = 1;
+  else if(aml_state_change == color_acc_level3) msg.BCU_lightP = 1;
+  else if(aml_state_change == color_default) msg.BCU_lightdefault_G = 1;
+  else if(aml_state_change == ctrl_acc_emergency_light_off) msg.BCU_redlight_off = 1;
   
   output(msg);
 }
 on timer BCU_CLU_timer // CLU 에 운전석 착석+안전벨트 여부와 조수석 착석 및 안전벨트 여부
 {
+  
   message BCU_CLU_msg msg;
-  if(local_SEAT_drvseatOCC && !local_SEAT_drvseatBelt)
+  
+  if(local_SEAT_drvseatOCC && !local_SEAT_drvseatBelt) // 운전석 탑승, 벨트 착용 x
   {
     msg.BCU_CLU_drseatwarning = 1;
   }
   else
   {
-    msg.BCU_CLU_passseatwarning = 0;
+    msg.BCU_CLU_drseatwarning = 0;
   }
-  
-  if(local_SEAT_astseatOCC && !local_SEAT_astseatBelt)
+  //write("in %d",local_SEAT_astseatOCC);
+  if(local_SEAT_astseatOCC && !local_SEAT_astseatBelt) //조수석 탑승, 벨트 착용 x
   {
     msg.BCU_CLU_passseatwarning = 1;
   }
@@ -121,52 +136,61 @@ on message can1.Airbag_Ast_Condi_msg // 운전자 및 조수석 에어백 상태
   local_Airbag_astnormal = this.Airbag_astnormal;
 }
 
-on signal_update CGW::CGW_ACC_level_msg::ACC_level // ACC Level From ACC (주기성)
+on message can1.CGW_ACC_level_msg // ACC단계 from ACC Period
 {
-  local_ACC_level = $CGW::CGW_ACC_level_msg::ACC_level;
+  local_ACC_level = this.ACC_level;
   // AML Signal Update (ACC 단계에 따른 처리)
+  // write("acc_level %d", local_ACC_level);
   if(local_ACC_level > 0) // ACC Update
   {
     // level1 : SkyBlue
     // level2 : Blue
     // level3 : Purple
-    if(local_ACC_level == 1)
+    if(CGW_ACC_level_msg_flag != 1 && local_ACC_level == 1)
     {
-      aml_color_init();
-      $BCU_lightSB = 1;
+      CGW_ACC_level_msg_flag = 1;
+      aml_state_change = color_acc_level1;
     }
-    else if(local_ACC_level == 2)
+    else if(CGW_ACC_level_msg_flag != 2 && local_ACC_level == 2)
     {
-      aml_color_init();
-      $BCU_lightB = 1;
+      CGW_ACC_level_msg_flag = 2;
+      aml_state_change = color_acc_level2;
     }
-    else if(local_ACC_level == 3)
+    else if(CGW_ACC_level_msg_flag != 3 && local_ACC_level == 3)
     {
-      aml_color_init();
-      $BCU_lightP = 1;
+      CGW_ACC_level_msg_flag = 3;
+      aml_state_change = color_acc_level3;
     }
   }
+  else if(CGW_ACC_level_msg_flag != 4 &&local_ACC_level == 0)
+  {
+    CGW_ACC_level_msg_flag = 4;
+    aml_state_change = color_default;
+  }
 }
-on signal_update CGW::AEB_BCU_amlctrl_req// 위급 상황에 따른 라이트 제어 from AEB(주기성)
+on message can1.CGW_AEB_Color_msg// 위급 상황에 따른 라이트 제어 (from AEB, Period)
 {
-  if($CGW::AEB_BCU_amlctrl_req == 1) // AEB 동작
+  // write("AEB_BCU_amlctrl_req : %d", this.AEB_BCU_amlctrl_req);
+  if(this.AEB_BCU_amlctrl_req == 1 && !AEB_BCU_amlctrl_req_flag) // AEB 동작
   {
-    aml_color_init();
-    $BCU_lightR = 1;
+    AEB_BCU_amlctrl_req_flag = 1;
+    aml_rollback_state = aml_state_change; // 백업
+    aml_state_change = color_acc_emergency_color;
+    // write("when aeb occur %d",aml_state_change);
   }
-  else // AEB 꺼짐(일단 원래 default로 돌아옴)
+  else if(this.AEB_BCU_amlctrl_req == 0 && AEB_BCU_amlctrl_req_flag) // AEB 꺼짐(일단 원래 default로 돌아옴)
   {
-    aml_color_init();
-    $BCU_lightdefault_G = 1;
+    AEB_BCU_amlctrl_req_flag = 0;
+    aml_state_change = aml_rollback_state;
   }
-  
 }
-on message can1.CGW_Speed_Rear_msg // 충돌 감지 후방 센서 값 (충돌 값 들어왔을 때 시트 변경)
+on message can1.CGW_Speed_Rear_msg // 차량 속도 : From VCU, 후방 충격력 : From SCU, Period
 {
   message BCU_Seat_msg msg;
-  local_SCU_Rcrash_ns = $CGW::SCU_Rcrash_ns;
-  if(local_SCU_Rcrash_ns > 20)
+  local_SCU_Rcrash_ns = this.SCU_Rcrash_ns;
+  if(local_SCU_Rcrash_ns > 20 && BCU_Seat_msg_flag == 0)
   {
+      BCU_Seat_msg_flag = 1;
       msg.BCU_dr_seatstate = 0;
       msg.BCU_pass_seatstate = 0;
       if(local_SEAT_drvseatOCC == 1)
@@ -180,21 +204,11 @@ on message can1.CGW_Speed_Rear_msg // 충돌 감지 후방 센서 값 (충돌 �
       output(msg);
   }
 }
-
-on message can1.CGW_100ms_msg // acc 정보 최신화
+on message can1.CGW_ACC_DState_msg1 // 운전자 개입에 의한 ACC off from ACC event
 {
-  acc_level = this.ACC_level;
-  acc_target_dis = this.ACC_des_dis_m;
-  acc_target_speed = this.ACC_des_speed_kmh;
+  aml_state_change = color_default;
 }
-on message can1.CGW_ACC_DState_msg1 // 운전자 개입에 의한 ACC off from ACC
-{
-  // ACC off
-  aml_color_init();
-  // AML 기존상태로 변환
-  $BCU_lightdefault_G = 1; 
-}
-on message can1.CGW_AEB_Airbag_msg // 에어백 작동 요청 AEB
+on message can1.CGW_AEB_Airbag_msg // 에어백 작동 요청 (from AEB, Event)
 {
   message BCU_Airbag_msg msg;
   msg.BCU_dr_airbagstate = 0;
@@ -207,35 +221,42 @@ on message can1.CGW_AEB_Airbag_msg // 에어백 작동 요청 AEB
   {
     msg.BCU_pass_airbagstate = 1;
   }
-  output(msg);
+  output(msg); // To Airbag Event
 }
-on message can1.CGW_VCU_BWake_msg // BCU ECU 작동 시작
+on message can1.CGW_VCU_BWake_msg // BCU ECU 작동 시작 (from  VCU, Event)
+{
+  write("BCU Im alive");
+  car_speed = 0;
+  aml_state_change = color_default;
+  AEB_BCU_amlctrl_req_flag = 0;
+  CGW_ACC_level_msg_flag = 0;
+  BCU_Seat_msg_flag = 0;
+}
+on message can1.CGW_VCU_BSleep_msg // BCU ECU 작동 종료 (from VCU, Event)
 {
   car_speed = 0;
-  acc_level = 2;
-  acc_target_dis = 2;
-  acc_target_speed = 0;
+  aml_state_change = ctrl_off;
+  AEB_BCU_amlctrl_req_flag = 0;
+  CGW_ACC_level_msg_flag = 0;
+  BCU_Seat_msg_flag = 0;
 }
-on message can1.CGW_VCU_BSleep_msg // BCU ECU 작동 종료
+on message can1.CGW_PANEL_BDTC_msg // 진단 정보 요청 (from VCU, Event)
 {
-  car_speed = 0;
-}
-on message can1.CGW_PANEL_BDTC_msg // 진단 정보 요청
-{
-  if($CGW::Scenario_BCUrequest == 1){
+  //if($CGW::Scenario_BCUrequest == 1){
     message BCU_DTC_msg bcu_dtc_msg;
     // 진단 내용 정의 필요
     bcu_dtc_msg.BCU_diagnosis = 1;
-    output(bcu_dtc_msg); // 전송
-  }
+    output(bcu_dtc_msg); // To DTC Event
+  //}
 }
 void init()
 {
   // 시스템 변수 및 전역변수 초기화
-    car_speed = 0;
-    acc_level = 2;
-    acc_target_dis = 2;
-    acc_target_speed = 0;
+  car_speed = 0;
+  aml_state_change = ctrl_off;
+  AEB_BCU_amlctrl_req_flag = 0;
+  CGW_ACC_level_msg_flag = 0;
+  BCU_Seat_msg_flag = 0;
 }
 void aml_color_init()
 {
@@ -246,5 +267,4 @@ void aml_color_init()
   $BCU_lightSB = 0;
   $BCU_redlight_off = 0;
 }
-
 // 불이 꺼진 부분을 0으로 보내고, 불이 켜진상황을 1로 보내면됨. CLU에 보낼때
