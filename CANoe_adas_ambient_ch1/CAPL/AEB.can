@@ -11,6 +11,8 @@ variables
   int impulse;
   int frontDistance;
   int isPower;
+  int isFront;
+  float k;
 }
 
 
@@ -22,6 +24,8 @@ on start
   impulse = 0;
   frontDistance = 0;
   isPower = 0;
+  isFront = 0;
+  k = 0.008;
 }
 
 // 작동 시작 이벤트
@@ -71,30 +75,39 @@ on timer tmrCycle_1
   int stopDistance = 0;
   if (isPower == 1)
   {
-    stopDistance = (speed*speed)/ 16;
-    if (stopDistance > frontDistance)
+    if (isFront == 1)
     {
-      message AEB_Brk_msg brakeMsgOut;
-      brakeMsgOut.AEB_VCU_brk_pbar = 1;
-      output(brakeMsgOut);
-      // TODO : 주기가 너무 길어서 안가면 수정
-      $AEB::AEB_BCU_amlctrl_req = 1; //주기 200
-      $AEB::AEB_CLU_aebled = 1; // 주기 100
+      stopDistance = (speed*speed) * k;
+      if (stopDistance > frontDistance)
+      {
+        message AEB_Brk_msg brakeMsgOut;
+        brakeMsgOut.AEB_VCU_brk_pbar = 1;
+        output(brakeMsgOut);
+        // TODO : 주기가 너무 길어서 안가면 수정
+        $AEB::AEB_BCU_amlctrl_req = 1; //주기 200
+        $AEB::AEB_CLU_aebled = 1; // 주기 100
+      }
+      else
+      {
+        // 주기가 너무 길어서 안가면 수정
+        $AEB::AEB_BCU_amlctrl_req = 0;
+        $AEB::AEB_CLU_aebled = 0;   
+      }
+      if (impulse >= 20)
+      {
+        message AEB_Airbag_msg airbagMsgOut;
+        airbagMsgOut.AEB_BCU_airbagctrl_req.phys = 1;
+        output(airbagMsgOut);
+        // airbag터지면 AEB 동작 종료
+        isPower = 0;
+      }
+      else
+      {
+        $AEB::AEB_BCU_amlctrl_req = 0;
+        $AEB::AEB_CLU_aebled = 0; 
+        
+      }
     }
-    else
-    {
-      // 주기가 너무 길어서 안가면 수정
-      $AEB::AEB_BCU_amlctrl_req = 0;
-      $AEB::AEB_CLU_aebled = 0;   
-    }
-    if (impulse >= 20)
-    {
-      message AEB_Airbag_msg airbagMsgOut;
-      airbagMsgOut.AEB_BCU_airbagctrl_req.phys = 1;
-      output(airbagMsgOut);
-      // airbag터지면 AEB 동작 종료
-      isPower = 0;
-    }  
   } 
 }
 
