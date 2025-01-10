@@ -33,3 +33,12 @@ on start
    setTimerCyclic(ACLTimer, 5);
 }
 
+on message can2.CGW_PANEL_CDTC_msg
+{
+   message ACL_DTC_msg msgOut;
+    msgOut.ACL_diagnosis = 1;
+  output(msgOut);
+  
+  
+}
+

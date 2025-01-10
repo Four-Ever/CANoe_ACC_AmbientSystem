@@ -225,20 +225,28 @@ on message can1.CGW_AEB_Airbag_msg // 에어백 작동 요청 (from AEB, Event)
 }
 on message can1.CGW_VCU_BWake_msg // BCU ECU 작동 시작 (from  VCU, Event)
 {
-  write("BCU Im alive");
-  car_speed = 0;
-  aml_state_change = color_default;
-  AEB_BCU_amlctrl_req_flag = 0;
-  CGW_ACC_level_msg_flag = 0;
-  BCU_Seat_msg_flag = 0;
+  if($B_CAN::CGW::CGW_VCU_BWake_msg::VCU_BCU_wakeup == 1)
+  {
+    write("BCU Im alive");
+    car_speed = 0;
+    aml_state_change = color_default;
+    AEB_BCU_amlctrl_req_flag = 0;
+    CGW_ACC_level_msg_flag = 0;
+    BCU_Seat_msg_flag = 0;
+  }
 }
 on message can1.CGW_VCU_BSleep_msg // BCU ECU 작동 종료 (from VCU, Event)
 {
-  car_speed = 0;
-  aml_state_change = ctrl_off;
-  AEB_BCU_amlctrl_req_flag = 0;
-  CGW_ACC_level_msg_flag = 0;
-  BCU_Seat_msg_flag = 0;
+  if($B_CAN::CGW::CGW_VCU_BSleep_msg::VCU_BCU_sleep ==1)
+  {
+    write("BCU Im End");
+    car_speed = 0;
+    aml_state_change = ctrl_off;
+    AEB_BCU_amlctrl_req_flag = 0;
+    CGW_ACC_level_msg_flag = 0;
+    BCU_Seat_msg_flag = 0;
+  }
+  
 }
 on message can1.CGW_PANEL_BDTC_msg // 진단 정보 요청 (from VCU, Event)
 {
