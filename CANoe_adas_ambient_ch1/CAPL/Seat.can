@@ -124,12 +124,13 @@ on sysvar_update sysvar::SEAT_Value::dr_seat_OCC // 2 sec
   }
 }
 
-on sysvar_update sysvar::SEAT_Value::pass_seat_OCC // 2 sec
+//on sysvar_update sysvar::SEAT_Value::pass_seat_OCC // 2 sec
+on message can1.CGW_PANEL_Boarding_msg// 시나리오 패널 서버 분리를 위한 처리
 {
-  if(@sysvar::SEAT_Value::pass_seat_OCC == 1){
+  //if(@sysvar::SEAT_Value::pass_seat_OCC == 1){
     local_pass_seat_OCC = 1;
     setTimer(pass_seat_Belt_state_timer, 2000);
-  }
+  //}
 }
 
 on message can1.BCU_Seat_msg // 충돌에 의한 좌석 제어 요청 (BCU -> Seat)
