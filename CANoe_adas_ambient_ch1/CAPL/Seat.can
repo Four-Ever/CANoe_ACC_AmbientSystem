@@ -1,4 +1,4 @@
-/*@!Encoding:65001*/
+﻿/*@!Encoding:65001*/
 includes
 {
   
@@ -147,22 +147,26 @@ on message can1.BCU_Seat_msg // 충돌에 의한 좌석 제어 요청 (BCU -> Se
 
 on message can1.CGW_VCU_BWake_msg // Seat ECU 작동 시작
 {
-  //if($CGW::VCU_Seat_wakeup==1){
-  //}
-  write("Seat Im alive");
-  Power_on_off_flag = True;
-  // 정상 상태
-  @sysvar::SEAT_Value::dr_seat_condi = normal;
-  @sysvar::SEAT_Value::pass_seat_condi = normal;
-  @sysvar::SEAT_Value::dr_seat_state = default_state;
-  @sysvar::SEAT_Value::pass_seat_state = default_state;
-  @sysvar::SEAT_Value::dr_seat_OCC = True; // 시동이 걸렸으므로 운전자 탑승하고 있다고 판단
+  if($B_CAN::CGW::CGW_VCU_BWake_msg::VCU_Seat_wakeup == 1)
+  {
+    write("Seat Im alive");
+    Power_on_off_flag = True;
+    // 정상 상태
+    @sysvar::SEAT_Value::dr_seat_condi = normal;
+    @sysvar::SEAT_Value::pass_seat_condi = normal;
+    @sysvar::SEAT_Value::dr_seat_state = default_state;
+    @sysvar::SEAT_Value::pass_seat_state = default_state;
+    @sysvar::SEAT_Value::dr_seat_OCC = True; // 시동이 걸렸으므로 운전자 탑승하고 있다고 판단
+  }
 }
 on message can1.CGW_VCU_BSleep_msg // Seat ECU 작동 종료
 {
-  Power_on_off_flag = False;
-  local_pass_seat_OCC = 0;
-  
+  if($B_CAN::CGW::CGW_VCU_BSleep_msg::VCU_Seat_sleep ==1)
+  {
+    write("Seat Im End");
+    Power_on_off_flag = False;
+    local_pass_seat_OCC = 0;
+  }
 }
 on message can1.CGW_PANEL_BDTC_msg // Seat ECU 진단 정보 요청
 {
