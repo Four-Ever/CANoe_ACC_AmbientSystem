@@ -156,6 +156,7 @@ void cal_target_dis()
   Des_msg.ACC_des_dis_m = byteACC_tarDis;
   
   //write("ACC target Dis : %d", byteACC_tarDis);
+
 }
 
 float fmin(float fA, float fB)
@@ -198,7 +199,6 @@ void cal_target_Acmd(byte flag)
     //$ACC::ACC_brk_pbar = ftar_Accel;    
   }
 }
-
 
 on message can6.CGW_VCU_AWake_msg
 {
@@ -291,6 +291,7 @@ on message can6.* // can3. 와 같이 수정?
           byteACC_tarVel_kph = 30;
         
         Des_msg.ACC_des_speed_kmh = byteACC_tarVel_kph;
+
         break;
         
         
@@ -363,6 +364,7 @@ on timer loopTimer
       
       if (isACC_On == 1) {
         cal_target_Acmd(0);
+
       }
     }
     

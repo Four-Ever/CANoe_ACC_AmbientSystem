@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="Car_Indoor" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Diagnostic_Req" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="User_boarding" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+    </namespace>
+    <namespace name="DTC" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="accCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="accState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="aclCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="aclState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="aebCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="aebState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="airbagCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="airbagState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="amlCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="amlState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="bcuCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="bcuState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="brkCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="brkState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ccmCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ccmState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="cluCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="cluState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="hmiCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="hmiState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="resetBtn" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="scuCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="scuState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="seatCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="seatState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="vcuCode" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="vcuState" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+    </namespace>
+    <namespace name="LeadCarSimulation" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Appeared_Leadcar" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="100" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="InterruptCar1" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="50" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="InterruptCar2" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="30" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="InterruptCar3" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="10" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="LeadCar_Movement_Sg" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="LeadCar_Pos" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Rear_Collision" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Set_LeadCar_Pos" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+    </namespace>
+    <namespace name="Panel" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Ped_acl" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Ped_brk" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+    </namespace>
+    <namespace name="VCU_Rx" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ACC_accel" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ACC_brk" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ACConaccel" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="ACConbrk" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="AEB_brk" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Crash_brk" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="dr_accel_ped" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="dr_brk_ped" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="dr_brkfull" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="DTC_request" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="HMI_engine_off" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="HMI_engine_on" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+    </namespace>
+    <namespace name="VCU_Tx" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="rpm" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="speed" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+    </namespace>
+  </namespace>
+</systemvariables>

@@ -6,6 +6,30 @@ includes
 
 variables
 {
-  
+  double brktemp;
+  int tmp=0;
+  msTimer BRKTimer;
+}
+
+on timer BRKTimer{
+  if (@sysvar::Panel::Ped_brk==1){
+    brktemp=brktemp+0.05;
+  }
+  else {
+    brktemp=0;
+  }
+  if (brktemp >100){
+    brktemp=100;
+  }
+  //write("%lf    ", brktemp);
+  tmp = (int)brktemp;
+  $C_CAN::BRK::BRK_Brk_msg::BRK_ped_per=tmp;
+  //write("%d", tmp);
+
+}
+
+on start
+{
+   setTimerCyclic(BRKTimer, 5);
 }
 

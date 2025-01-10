@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null">
+  <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="accelbrake">
+    <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xce88934de194ae4504eba00ecc22513ebd6a" ControlName="LCD Control 4">
+      <Property Name="Name">Xce88934de194ae4504eba00ecc22513ebd6a</Property>
+      <Property Name="Size">164, 50</Property>
+      <Property Name="Location">169, 198</Property>
+      <Property Name="SymbolConfiguration">8;16;VCU_Rx;;;dr_brk_ped;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xd9971e2feeacae4905ebbaee3a566a6d33d4" ControlName="Static Text 4">
+      <Property Name="Name">Xd9971e2feeacae4905ebbaee3a566a6d33d4</Property>
+      <Property Name="Size">33, 33</Property>
+      <Property Name="Location">334, 159</Property>
+      <Property Name="Text">RPM
+</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X05da92ece12f0e4443e8291eaaa950867291" ControlName="Static Text 3">
+      <Property Name="Name">X05da92ece12f0e4443e8291eaaa950867291</Property>
+      <Property Name="Size">55, 19</Property>
+      <Property Name="Location">334, 42</Property>
+      <Property Name="Text">velocity
+</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X719b563de802ae45d7e9a67e5430ff612308" ControlName="LCD Control 3">
+      <Property Name="Name">X719b563de802ae45d7e9a67e5430ff612308</Property>
+      <Property Name="Size">164, 50</Property>
+      <Property Name="Location">395, 142</Property>
+      <Property Name="SymbolConfiguration">8;16;VCU_Tx;;;rpm;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xbfcc066cef17de476fe89f3eeb87138b66e3" ControlName="LCD Control 2">
+      <Property Name="Name">Xbfcc066cef17de476fe89f3eeb87138b66e3</Property>
+      <Property Name="Size">164, 50</Property>
+      <Property Name="Location">22, 11</Property>
+      <Property Name="SymbolConfiguration">8;16;VCU_Rx;;;dr_accel_ped;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X61b239e9e3a9be4dfce9214eec21aef8e9cc" ControlName="LCD Control 1">
+      <Property Name="Name">X61b239e9e3a9be4dfce9214eec21aef8e9cc</Property>
+      <Property Name="Size">164, 50</Property>
+      <Property Name="Location">395, 29</Property>
+      <Property Name="SymbolConfiguration">8;16;VCU_Tx;;;speed;1;;;-1;;;Value;;;0</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xed417324ea98de4ce1e8542eb140ffb2db35" ControlName="Static Text 2">
+      <Property Name="Name">Xed417324ea98de4ce1e8542eb140ffb2db35</Property>
+      <Property Name="Size">85, 27</Property>
+      <Property Name="Location">211, 165</Property>
+      <Property Name="Text">BRAKE PEDAL
+</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X1306d34ce9e23e4a20eb2a9ede5af732c2e3" ControlName="Switch / Indicator 1">
+      <Property Name="Name">X1306d34ce9e23e4a20eb2a9ede5af732c2e3</Property>
+      <Property Name="Size">48, 63</Property>
+      <Property Name="Location">228, 86</Property>
+      <Property Name="SymbolConfiguration">8;16;Panel;;;Ped_brk;1;;;-1;;;Value;;;0</Property>
+      <Property Name="TabIndex">2</Property>
+      <Property Name="IsButton">True</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;2&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;2;0/Lower/0;1/Lower/1</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+      <Property Name="SwitchValuesRx">1;2;0;1</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xa28518cde68dbe447de89a5e47cd7f04e222" ControlName="Static Text 1">
+      <Property Name="Name">Xa28518cde68dbe447de89a5e47cd7f04e222</Property>
+      <Property Name="Size">84, 15</Property>
+      <Property Name="Location">55, 165</Property>
+      <Property Name="Text">ACCEL PEDAL</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X1d4098b0e89b6e43beeadede81c16e5689ca" ControlName="Switch / Indicator 2">
+      <Property Name="Name">X1d4098b0e89b6e43beeadede81c16e5689ca</Property>
+      <Property Name="Size">48, 63</Property>
+      <Property Name="Location">68, 86</Property>
+      <Property Name="SymbolConfiguration">8;16;Panel;;;Ped_acl;1;;;-1;;;Value;;;0</Property>
+      <Property Name="TabIndex">1</Property>
+      <Property Name="IsButton">True</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;2&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;2;0/Lower/0;1/Lower/1</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+      <Property Name="SwitchValuesRx">1;2;0;1</Property>
+    </Object>
+    <Property Name="Name">Panel</Property>
+    <Property Name="Size">580, 270</Property>
+    <Property Name="Location">0, 0</Property>
+    <Property Name="BackColor">255, 255, 255, 255</Property>
+  </Object>
+</Panel>
