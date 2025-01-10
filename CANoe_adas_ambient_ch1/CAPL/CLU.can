@@ -62,6 +62,15 @@ on message can4.CGW_VCU_USleep_msg
   if(this.VCU_CLU_sleep==1)
   {
       CLU_status=0;
+      speed = 0;
+      rpm=0;
+      radar=0;
+      driver_belt = 1;
+      pass_belt =0;
+      acc_level = 0;
+      is_aeb=0;
+      acc_tar_distance = 0;
+      acc_tar_Speed = 0;
       @sysvar::HMI_Input::now_speed=0;
       @sysvar::HMI_Input::now_rpm=0;
       @sysvar::HMI_Input::now_dist=0;
