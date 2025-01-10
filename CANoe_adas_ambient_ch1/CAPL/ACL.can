@@ -6,6 +6,30 @@ includes
 
 variables
 {
-  
+  double acltemp;
+  int tmp=0;
+  msTimer ACLTimer;
+}
+
+on timer ACLTimer{
+  if (@sysvar::Panel::Ped_acl==1){
+    acltemp=acltemp+0.05;
+  }
+  else {
+    acltemp=0;
+  }
+  if (acltemp >100){
+    acltemp=100;
+  }
+  //write("%lf    ", acltemp);
+  tmp = (int)acltemp;
+  $C_CAN::ACL::ACL_Accel_msg::ACL_ped_per=tmp;
+  //write("---------%d, %lf", tmp, acltemp);
+
+}
+
+on start
+{
+   setTimerCyclic(ACLTimer, 5);
 }
 

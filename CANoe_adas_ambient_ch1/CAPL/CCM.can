@@ -6,6 +6,59 @@ includes
 
 variables
 {
+  msTimer loopTimer;
+  int gCounter;
   
+  byte isActive = 0; // wake/sleep
+  byte isDTC_required = 0;
+  
+  byte byteCCM_target_acl = 0;
+  byte byteCCM_target_brk = 0;
+  
+  byte byteCCM_acl = 0;
+  byte byteCCM_brk = 0;
+  
+  dword dwCCM_DTCcode;
 }
 
+on start
+{
+  setTimer(loopTimer, 10);
+}
+
+on message P_CAN::VCU_AWake_msg
+{
+  isActive = 1;
+}
+
+
+on message P_CAN::VCU_ASleep_msg
+{
+  isActive = 0;
+}
+
+on message P_CAN::CGW_ACC_AlterSpeed_msg
+{
+  //if (isActive) {
+    byteCCM_target_acl = this.ACC_accel_trk;
+    byteCCM_target_brk = this.ACC_brk_pbar;
+  //}
+}
+
+on message P_CAN::CGW_PANEL_ADTC_msg
+{
+  isDTC_required = 1;
+}      
+on timer loopTimer
+{
+  //if (isActive) {
+    $CCM::CCU_accel_trk = byteCCM_target_acl;
+    $CCM::CCU_brk_pbar = byteCCM_target_brk;
+    
+    $CCM::CCM_diagnosis = dwCCM_DTCcode;
+    if (isDTC_required == 1) {
+      //output(ACC_DTC_msg);
+      isDTC_required = 0;
+    }
+  //}
+}
