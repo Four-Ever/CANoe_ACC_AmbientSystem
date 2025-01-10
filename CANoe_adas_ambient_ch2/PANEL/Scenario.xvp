@@ -4,7 +4,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X8f40d189e290de46feebfe9e19b158fad93a" ControlName="LCD Control 1">
       <Property Name="Name">X8f40d189e290de46feebfe9e19b158fad93a</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">355, 41</Property>
+      <Property Name="Location">354, 41</Property>
       <Property Name="SymbolConfiguration">8;2;CANoeDB_A_CAN;SCU;SCU_Front_msg;SCU_Frdis_m;1;A-CAN;;-1;;;Value;;;0</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xa238d0ebe869ae4823e8c0fe95e3b5ee2b79" ControlName="Button 5">
