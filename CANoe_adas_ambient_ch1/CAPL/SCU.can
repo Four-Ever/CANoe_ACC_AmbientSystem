@@ -1,35 +1,109 @@
-﻿/*@!Encoding:65001*/
+/*@!Encoding:65001*/
 includes
 {
   
 }
 
+
 variables
 {
-  int length = 100;
+  int leadcar_flag = 0;
 }
 
 on start{
  
-  $SCU::SCU_Frdis_m = length;
-  $SCU::SCU_Frcrash_ns = 23;
-  $SCU::SCU_PreVehicle = 1;
+  $SCU::SCU_Frdis_m = 0;
+  $SCU::SCU_Frcrash_ns = 0;
+  $SCU::SCU_PreVehicle = 0;
   $SCU::SCU_Rcrash_ns = 0;
 }
 
+on message can6.CGW_VCU_AWake_msg{
+  on_flag = 1;
+
+}
+
+on message can6.CGW_VCU_ASleep_msg{
+  on_flag = 0;
+}
+
+on message can6.CGW_VCU_Speed_Overr_msg{
+  if(on_flag==1){
+    @LeadCarSimulation::MyCar_Pos += (this.VCU_speed_kph *0.008333); //kph -> m/30ms
+  }
+}
+
+on message can6.CGW_PANEL_FCar_msg{ // 선행차 등장
+ if(on_flag==1){
+   @LeadCarSimulation::MyCar_Pos = 0;
+   @LeadCarSimulation::Set_LeadCar_Pos = 100;
+   @LeadCarSimulation::LeadCar_Pos = @LeadCarSimulation::MyCar_Pos + @LeadCarSimulation::Set_LeadCar_Pos;
+   leadcar_flag = 1;
+ }
+  
+}
+
+on sysvar_update LeadCarSimulation::LeadCar_Movement_Sg{
+  if(on_flag==1 && leadcar_flag == 1){
+    int cog_dist = 80;
+    @LeadCarSimulation::LeadCar_Pos += (@LeadCarSimulation::LeadCar_Movement_Sg*0.008333);
+    //@LeadCarSimulation::MyCar_Pos +=@LeadCarSimulation::LeadCar_Movement_Sg;
+    $SCU::SCU_Frdis_m = (int)(@LeadCarSimulation::LeadCar_Pos - @LeadCarSimulation::MyCar_Pos);
+    
+    //cog_dist 이하면 선행차 인지
+    
+    if(cog_dist <= 0) {
+      $SCU_Frcrash_ns = 22;
+      on_flag= 0;
+    }
+    
+    if($SCU::SCU_Frdis_m < cog_dist){
+      $SCU::SCU_PreVehicle = 1;
+    }
+    else{
+      $SCU::SCU_PreVehicle = 0;
+    }
+  }
+}
+
+on message can6.CGW_PANEL_FColl_msg{
+ if(on_flag==1 && leadcar_flag == 1){
+   @LeadCarSimulation::LeadCar_Pos = @LeadCarSimulation::MyCar_Pos + 10;
+ }
+  
+}
+
+on message can6.CGW_PANEL_AEB_msg{
+ if(on_flag==1 && leadcar_flag == 1){
+
+   @LeadCarSimulation::LeadCar_Pos = @LeadCarSimulation::MyCar_Pos + 30;
+ }
+  
+}
+
+on message can6.CGW_PANEL_ACC_msg{
+ if(on_flag==1 && leadcar_flag == 1){
+   @LeadCarSimulation::LeadCar_Pos = @LeadCarSimulation::MyCar_Pos + 50;
+ }
+  
+}
 
 on message can6.CGW_PANEL_RColl_msg{
   //여기선 값을 바꿔주기만..
   //주기전송은 IL로 처리
-  if(this.Scenario_Rear_collision == 1){
-    $SCU::SCU_Rcrash_ns = 22; // 데이터베이스 분리해야 사용가능   
-    
+  if(on_flag==1){
+    if(this.Scenario_Rear_collision == 1){ // 박았을 떄
+      $SCU::SCU_Rcrash_ns = 22; // 데이터베이스 분리해야 사용가능   
+      on_flag = 0; // 종료
+    }
   }
 
 }
 
 on message can6.CGW_PANEL_ADTC_msg{ // 내부 메시지 SCU로 수정하긴 해야됨
-  message SCU_DTC_msg DTC_info;
-  DTC_info.SCU_diagnosis = 0x001; // 문제없음
-  output(DTC_info);
-}
+  if(on_flag == 1){
+    message SCU_DTC_msg DTC_info;
+    DTC_info.SCU_diagnosis = 0x001; // 문제없음
+    //DTC_info.SCU_diagnosis = 0x002; // 오류
+    output(DTC_info);
+  }
