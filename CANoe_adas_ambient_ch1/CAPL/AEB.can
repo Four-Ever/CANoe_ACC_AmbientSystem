@@ -13,6 +13,7 @@ variables
   int isPower;
   int isFront;
   float k;
+  int aebState;
 }
 
 
@@ -25,6 +26,7 @@ on start
   frontDistance = 0;
   isPower = 0;
   isFront = 0;
+  aebState = 0;
   k = 0.008;
 }
 
@@ -53,6 +55,7 @@ on message can6.A_CAN::CGW_VCU_Speed_Overr_msg
 on message can6.A_CAN::SCU_Front_msg
 {
   frontDistance = this.SCU_Frdis_m;
+  isFront = this.SCU_PreVehicle;
   if (impulse >=20)
     impulse = this.SCU_Frcrash_ns;
 }
@@ -73,22 +76,35 @@ on message can6.A_CAN::CGW_PANEL_ADTC_msg
 on timer tmrCycle_1
 {
   int stopDistance = 0;
+  //write("Power:  %d Front %d",isPower,isFront);
   if (isPower == 1)
   {
     if (isFront == 1)
     {
       stopDistance = (speed*speed) * k;
+      write("stopDistance : %d fronDistance : %d",stopDistance,frontDistance);
       if (stopDistance > frontDistance)
-      {
+      {  
         message AEB_Brk_msg brakeMsgOut;
         brakeMsgOut.AEB_VCU_brk_pbar = 1;
         output(brakeMsgOut);
-        // TODO : 주기가 너무 길어서 안가면 수정
+        aebState = 1;
+        write("AEB ON");
+        // TODO : 주기가 너무 길어서 안가면 수정   
         $AEB::AEB_BCU_amlctrl_req = 1; //주기 200
         $AEB::AEB_CLU_aebled = 1; // 주기 100
       }
+      
       else
       {
+        write("AEB OFF");
+        if (aebState == 1)
+        {
+          message AEB_Brk_msg brakeMsgOut;
+          brakeMsgOut.AEB_VCU_brk_pbar = 1;
+          output(brakeMsgOut);
+          aebState = 0;
+        }
         // 주기가 너무 길어서 안가면 수정
         $AEB::AEB_BCU_amlctrl_req = 0;
         $AEB::AEB_CLU_aebled = 0;   
@@ -100,14 +116,31 @@ on timer tmrCycle_1
         output(airbagMsgOut);
         // airbag터지면 AEB 동작 종료
         isPower = 0;
+        
+        if (aebState == 1)
+        {
+          message AEB_Brk_msg brakeMsgOut;
+          brakeMsgOut.AEB_VCU_brk_pbar = 1;
+          output(brakeMsgOut);
+          aebState = 0;
+        }
       }
-      else
+
+    }
+    else
       {
         $AEB::AEB_BCU_amlctrl_req = 0;
-        $AEB::AEB_CLU_aebled = 0; 
+        $AEB::AEB_CLU_aebled = 0;
+        aebState = 0;
+        if (aebState == 1)
+        {
+          message AEB_Brk_msg brakeMsgOut;
+          brakeMsgOut.AEB_VCU_brk_pbar = 1;
+          output(brakeMsgOut);
+          aebState = 0;
+        }
         
       }
-    }
   } 
 }
 
