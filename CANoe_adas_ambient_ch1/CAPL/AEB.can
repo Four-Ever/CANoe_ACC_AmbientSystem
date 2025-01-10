@@ -15,7 +15,7 @@ variables
 
 
 
-on prestart
+on start
 {
   setTimerCyclic(tmrCycle_1, 30);
   speed = 0;
@@ -90,7 +90,7 @@ on timer tmrCycle_1
     if (impulse >= 20)
     {
       message AEB_Airbag_msg airbagMsgOut;
-      airbagMsgOut.AEB_BCU_airbagctrl_req = 1;
+      airbagMsgOut.AEB_BCU_airbagctrl_req.phys = 1;
       output(airbagMsgOut);
       // airbag터지면 AEB 동작 종료
       isPower = 0;

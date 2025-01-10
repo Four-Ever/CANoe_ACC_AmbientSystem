@@ -272,6 +272,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">702, 294</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -282,6 +283,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">702, 238</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -292,6 +294,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">702, 182</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -302,6 +305,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">702, 126</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -312,6 +316,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">702, 70</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -322,6 +327,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">702, 14</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -498,6 +504,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">268, 350</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -508,6 +515,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">268, 294</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -518,6 +526,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">268, 238</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -528,6 +537,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">268, 182</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -538,6 +548,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">268, 126</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -548,6 +559,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">268, 70</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>
@@ -558,6 +570,7 @@
       <Property Name="Size">164, 50</Property>
       <Property Name="Location">268, 14</Property>
       <Property Name="BackColor">White</Property>
+      <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
       <Property Name="DecimalPlaces">0</Property>
       <Property Name="NumberIntDigits">4</Property>

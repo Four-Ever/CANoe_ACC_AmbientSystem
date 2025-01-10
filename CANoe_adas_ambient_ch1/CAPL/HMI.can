@@ -75,6 +75,7 @@ on sysvar sysvar::HMI_Input::acc_on
       ACC_Power_msg.HMI_ACC_off = 0;
       Acc_status=1;
       write("acc_on");
+      @sysvar::HMI_Input::acc_lv=2;
       @sysvar::HMI_Input::acc_status = 1;
     }
     else if(Acc_status==1)//시동off
