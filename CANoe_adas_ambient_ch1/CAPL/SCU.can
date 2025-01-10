@@ -1,4 +1,4 @@
-/*@!Encoding:65001*/
+﻿/*@!Encoding:65001*/
 includes
 {
   
@@ -7,25 +7,29 @@ includes
 
 variables
 {
+  int on_flag =0; //합칠 때 0으로 변경
   int leadcar_flag = 0;
 }
 
 on start{
  
-  $SCU::SCU_Frdis_m = 0;
+  $A_CAN::SCU::SCU_Frdis_m = 1;
   $SCU::SCU_Frcrash_ns = 0;
   $SCU::SCU_PreVehicle = 0;
   $SCU::SCU_Rcrash_ns = 0;
+  //on_flag = 1;
+  
+  write("SCU on start step");
 }
 
 on message can6.CGW_VCU_AWake_msg{
   on_flag = 1;
-
+  write("VCU ON");
 }
 
-on message can6.CGW_VCU_ASleep_msg{
+/*on message can6.CGW_VCU_ASleep_msg{
   on_flag = 0;
-}
+}*/
 
 on message can6.CGW_VCU_Speed_Overr_msg{
   if(on_flag==1){
@@ -45,7 +49,7 @@ on message can6.CGW_PANEL_FCar_msg{ // 선행차 등장
 
 on sysvar_update LeadCarSimulation::LeadCar_Movement_Sg{
   if(on_flag==1 && leadcar_flag == 1){
-    int cog_dist = 80;
+    int cog_dist = 200;
     @LeadCarSimulation::LeadCar_Pos += (@LeadCarSimulation::LeadCar_Movement_Sg*0.008333);
     //@LeadCarSimulation::MyCar_Pos +=@LeadCarSimulation::LeadCar_Movement_Sg;
     $SCU::SCU_Frdis_m = (int)(@LeadCarSimulation::LeadCar_Pos - @LeadCarSimulation::MyCar_Pos);
@@ -107,3 +111,4 @@ on message can6.CGW_PANEL_ADTC_msg{ // 내부 메시지 SCU로 수정하긴 해�
     //DTC_info.SCU_diagnosis = 0x002; // 오류
     output(DTC_info);
   }
+}
