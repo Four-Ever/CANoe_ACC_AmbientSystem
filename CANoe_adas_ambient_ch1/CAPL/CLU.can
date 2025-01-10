@@ -44,6 +44,7 @@ on start
   @sysvar::HMI_Input::aeb_on=0;
   @sysvar::HMI_Input::target_dis=0;
   @sysvar::HMI_Input::target_spd=0;
+  @sysvar::HMI_Input::acc_status=0;
 }
 
 
@@ -51,31 +52,53 @@ on message can4.CGW_VCU_UWake_msg
 {  
   if(this.VCU_CLU_wakeup==1)
   {
+    write("CLU Im alive");
     CLU_status=1;
   }
 }
 
 on message can4.CGW_VCU_USleep_msg
 {  
+  write("getsleepmsg");
   if(this.VCU_CLU_sleep==1)
   {
-    CLU_status=0;
+      write("!!!!!!!!!!!!!!!!!!!!getsleepmsg");
+      CLU_status=0;
+      @sysvar::HMI_Input::now_speed=0;
+      @sysvar::HMI_Input::now_rpm=0;
+      @sysvar::HMI_Input::now_dist=0;
+      @sysvar::HMI_Input::driver_belt=0;
+      @sysvar::HMI_Input::pass_belt=0;
+      @sysvar::HMI_Input::acc_status=0;
+      @sysvar::HMI_Input::acc_lv=0;
+      @sysvar::HMI_Input::aeb_on=0;
+      @sysvar::HMI_Input::target_dis=0;
+      @sysvar::HMI_Input::target_spd=0;
   }
 }
 on message can4.PANEL_UDTC_msg //진단
 {
-  message CLU_DTC_msg DTC_msg;
-  DTC_msg.CLU_diagnosis=1;//진단메세지 추가
+  if(CLU_status==1)
+  {
+    message CLU_DTC_msg DTC_msg;
+    DTC_msg.CLU_diagnosis=1;//진단메세지 추가
+    output(DTC_msg);
+  }
 }
 
 on message can4.CGW_VCU_ACCBrk_msg    //브레이크 밟으면 ACC꺼짐
 {
-  message CGW_VCU_ACCBrk_msg VCU_ACCBrk_msg;
-  @sysvar::HMI_Input::acc_on=0;
-  @sysvar::HMI_Input::now_dist=0;
-  @sysvar::HMI_Input::acc_lv=0;
-  @sysvar::HMI_Input::target_dis=0;
-  @sysvar::HMI_Input::target_spd=0;
+  write("cuzbrkaccoff");
+  if(CLU_status==1)
+  {
+    message CGW_VCU_ACCBrk_msg VCU_ACCBrk_msg;
+    @sysvar::HMI_Input::acc_on=0;
+    @sysvar::HMI_Input::acc_status=0;
+    @sysvar::HMI_Input::now_dist=0;
+    @sysvar::HMI_Input::acc_lv=0;
+    @sysvar::HMI_Input::target_dis=0;
+    @sysvar::HMI_Input::target_spd=0;
+  }
 }
 
 //////CGW_HMI_ACC_Power_msg
@@ -97,49 +120,56 @@ on message can4.CGW_HMI_ACC_Power_msg //시동 off
 
 on message can4.CGW_30ms_msg
 {
-  speed = this.VCU_speed_kph;
-  rpm = this.VCU_rpm;
-  radar = this.SCU_Frdis_m;
-  @sysvar::HMI_Input::now_speed=speed;
-  @sysvar::HMI_Input::now_rpm=rpm;
-  @sysvar::HMI_Input::now_dist=radar;
+  if(CLU_status==1)
+  {
+    write("nowspeed");
+    speed = this.VCU_speed_kph;
+    rpm = this.VCU_rpm;
+    radar = this.SCU_Frdis_m;
+    @sysvar::HMI_Input::now_speed=speed;
+    @sysvar::HMI_Input::now_rpm=rpm;
+    @sysvar::HMI_Input::now_dist=radar;
   //클러스터 속도 변경
+  }
 }
 
 on message can4.CGW_100ms_msg
 {
-  driver_belt = this.BCU_CLU_drseatwarning;
-  pass_belt =this.BCU_CLU_passseatwarning;
-  acc_level = this.ACC_level;
-  is_aeb=this.AEB_CLU_aebled;
-  acc_tar_distance = this.ACC_des_dis_m;
-  acc_tar_Speed = this.ACC_des_speed_kmh;
-  //write("%d",acc_level);/////////////////
-  //
-  if(driver_belt==0)
-    @sysvar::HMI_Input::driver_belt=0;
-  else if(driver_belt==1)
-    @sysvar::HMI_Input::driver_belt=1;
-  //
-  if(pass_belt==0)
-    @sysvar::HMI_Input::pass_belt=0;
-  else if(pass_belt==1)
-    @sysvar::HMI_Input::pass_belt=1;
-  //
-  if(acc_level==0)
-    @sysvar::HMI_Input::acc_lv=0;
-  else if(acc_level==1)
-    @sysvar::HMI_Input::acc_lv=1;
-  else if(acc_level==2)
-    @sysvar::HMI_Input::acc_lv=2;
-  else if(acc_level==3)
-    @sysvar::HMI_Input::acc_lv=3;
-  //
-  if(is_aeb==0)
-    @sysvar::HMI_Input::aeb_on=0;
-  else if(is_aeb==1)
-    @sysvar::HMI_Input::aeb_on=1;
-  //
-  @sysvar::HMI_Input::target_dis=acc_tar_distance;
-  @sysvar::HMI_Input::target_spd=acc_tar_Speed;
+  if(CLU_status==1)
+  {
+    driver_belt = this.BCU_CLU_drseatwarning;
+    pass_belt =this.BCU_CLU_passseatwarning;
+    acc_level = this.ACC_level;
+    is_aeb=this.AEB_CLU_aebled;
+    acc_tar_distance = this.ACC_des_dis_m;
+    acc_tar_Speed = this.ACC_des_speed_kmh;
+
+    //운전석 벨트
+    if(driver_belt==0)
+      @sysvar::HMI_Input::driver_belt=0;
+    else if(driver_belt==1)
+      @sysvar::HMI_Input::driver_belt=1;
+    //조수석 벨트
+    if(pass_belt==0)
+      @sysvar::HMI_Input::pass_belt=0;
+    else if(pass_belt==1)
+      @sysvar::HMI_Input::pass_belt=1;
+    //acc level
+    if(acc_level==0)
+      @sysvar::HMI_Input::acc_lv=0;
+    else if(acc_level==1)
+      @sysvar::HMI_Input::acc_lv=1;
+    else if(acc_level==2)
+      @sysvar::HMI_Input::acc_lv=2;
+    else if(acc_level==3)
+      @sysvar::HMI_Input::acc_lv=3;
+    //aeb 작동
+    if(is_aeb==0)
+      @sysvar::HMI_Input::aeb_on=0;
+    else if(is_aeb==1)
+      @sysvar::HMI_Input::aeb_on=1;
+    //
+    @sysvar::HMI_Input::target_dis=acc_tar_distance;
+    @sysvar::HMI_Input::target_spd=acc_tar_Speed;
+  }
 }

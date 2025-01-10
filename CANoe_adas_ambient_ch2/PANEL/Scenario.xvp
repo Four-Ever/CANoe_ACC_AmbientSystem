@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null">
   <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="Scenario">
+    <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X8f40d189e290de46feebfe9e19b158fad93a" ControlName="LCD Control 1">
+      <Property Name="Name">X8f40d189e290de46feebfe9e19b158fad93a</Property>
+      <Property Name="Size">164, 50</Property>
+      <Property Name="Location">355, 41</Property>
+      <Property Name="SymbolConfiguration">8;2;CANoeDB_A_CAN;SCU;SCU_Front_msg;SCU_Frdis_m;1;A-CAN;;-1;;;Value;;;0</Property>
+    </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xa238d0ebe869ae4823e8c0fe95e3b5ee2b79" ControlName="Button 5">
       <Property Name="Name">Xa238d0ebe869ae4823e8c0fe95e3b5ee2b79</Property>
       <Property Name="Size">48, 146</Property>
@@ -10,7 +16,7 @@
       <Property Name="TabIndex">10</Property>
       <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
       <Property Name="Text"></Property>
-      <Property Name="SymbolConfiguration">8;16;LeadCarSimulation;;;InterruptCar1;1;;;-1;;;Value;;;0</Property>
+      <Property Name="SymbolConfiguration">8;16;LeadCarSimulation;;;InterruptCar3;1;;;-1;;;Value;;;0</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X0387bcc1e2ef4e409fe8507e9a2c865f643d" ControlName="Button 3">
       <Property Name="Name">X0387bcc1e2ef4e409fe8507e9a2c865f643d</Property>
@@ -21,7 +27,7 @@
       <Property Name="TabIndex">9</Property>
       <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
       <Property Name="Text"></Property>
-      <Property Name="SymbolConfiguration">8;16;LeadCarSimulation;;;InterruptCar1;1;;;-1;;;Value;;;0</Property>
+      <Property Name="SymbolConfiguration">8;16;LeadCarSimulation;;;InterruptCar2;1;;;-1;;;Value;;;0</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xd969fe08e00c6e43abe9843e0faedac5088c" ControlName="Button 7">
       <Property Name="Name">Xd969fe08e00c6e43abe9843e0faedac5088c</Property>
@@ -40,7 +46,7 @@
       <Property Name="TransparentColor">White</Property>
       <Property Name="TabIndex">5</Property>
       <Property Name="Font">Microsoft Sans Serif, 15pt, style=Bold</Property>
-      <Property Name="Text" />
+      <Property Name="Text"></Property>
       <Property Name="SymbolConfiguration">8;16;LeadCarSimulation;;;InterruptCar1;1;;;-1;;;Value;;;0</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X85948607e299ce409aeacfce44a9e7362250" ControlName="Button 2">
@@ -71,7 +77,7 @@
       <Property Name="SymbolConfiguration">8;16;Car_Indoor;;;User_boarding;1;;;-1;;;Value;;;0</Property>
     </Object>
     <Property Name="Name">Panel</Property>
-    <Property Name="Size">330, 255</Property>
+    <Property Name="Size">556, 255</Property>
     <Property Name="Location">0, 0</Property>
     <Property Name="BackColor">255, 255, 255, 255</Property>
   </Object>
