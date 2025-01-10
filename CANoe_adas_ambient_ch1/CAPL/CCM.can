@@ -6,47 +6,40 @@ includes
 
 variables
 {
-  //msTimer testTimer;
-  int gCounter;
-  
   byte isActive = 0; // wake/sleep
-  byte isDTC_required = 0;
   
-  byte byteCCM_target_acl = 0;
-  byte byteCCM_target_brk = 0;
-  
-  byte byteCCM_acl = 0;
-  byte byteCCM_brk = 0;
-  
+  message P_CAN::CCM_Accel_msg Accel_msg;
+  message P_CAN::CCM_Brk_msg Brk_msg;
   dword dwCCM_DTCcode;
 }
 
-on start
+
+on message can3.VCU_PWake_msg
 {
-  
-  //setTimer(testTimer, 10);
+  if(this.VCU_CCM_wakeup == 1) {
+    isActive = 1;
+    write("CCM ALIVE!!");
+  }
 }
 
-on message can3.VCU_AWake_msg
-{
-  isActive = 1;
-}
 
-
-on message can3.VCU_ASleep_msg
+on message can3.VCU_PSleep_msg
 {
-  isActive = 0;
+  if(this.VCU_CCM_sleep == 1) {
+    isActive = 0;
+    write("CCM DIE!!");
+  }
 }
 
 on message can3.CGW_ACC_AlterSpeed_msg
 {
-  //if (isActive) {
-    byteCCM_target_acl = this.ACC_accel_trk;
-    byteCCM_target_brk = this.ACC_brk_pbar;
-
-    $P_CAN::CCM::CCM_Accel_msg::CCU_accel_trk = byteCCM_target_acl;
-    $P_CAN::CCM::CCM_Brk_msg::CCU_brk_pbar = byteCCM_target_brk;
-  //}
+  if (isActive) {
+    Accel_msg.CCU_accel_trk = this.ACC_accel_trk;
+    Brk_msg.CCU_brk_pbar = this.ACC_brk_pbar;
+    
+    output(Accel_msg);
+    output(Brk_msg);
+  }
 }
 
 

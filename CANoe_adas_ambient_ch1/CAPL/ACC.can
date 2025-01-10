@@ -32,6 +32,9 @@ variables
   
   byte isDTC_required = 0;
   dword dwACC_DTCcode = 1;
+
+  byte ACC_DIS[4] = {0, 180, 150, 120}; // sec
+  
   
   float fcur_speed = 0; // m/s
   float fpre_speed = 0; // m/s
@@ -92,7 +95,6 @@ void turn_on()
   DState_msg.ACC_brk_off = 0;
   Level_msg.ACC_level = byteACC_level;
   
-  //$ACC::ACC_des_speed_kmh = byteACC_tarVel_kph;
   Des_msg.ACC_des_speed_kmh = byteACC_tarVel_kph;
 }
 
@@ -100,9 +102,6 @@ void turn_off()
 {
   isACC_On = 0;
   byteACC_level = 0;
-  
-  //$ACC::ACC_brk_off = 1;
-  //$ACC::ACC_level = byteACC_level;
   
   DState_msg.ACC_brk_off = 1;
   Level_msg.ACC_level = byteACC_level;
@@ -115,7 +114,7 @@ void turn_off()
   output(Accel_msg);
   output(Des_msg);
   output(Level_msg);
-  output(DState_msg); //event
+  output(DState_msg);
 }
 
 
@@ -143,20 +142,18 @@ void cal_Fvelocity()
 
 void cal_target_dis()
 {
-  float cal_tarDis;  
-  cal_tarDis = fcur_speed * TIMEGAP[byteACC_level] + D_SAFE;
-  
-  if (cal_tarDis > 250)
-    byteACC_tarDis = 250;
+  //float cal_tarDis;  
+  //cal_tarDis = fcur_speed * TIMEGAP[byteACC_level] + D_SAFE;
+  byteACC_tarDis = ACC_DIS[byteACC_level];
+  //if (cal_tarDis > 250)
+  //  byteACC_tarDis = 250;
 
-  else 
-    byteACC_tarDis = cal_tarDis;
+  //else 
+  //  byteACC_tarDis = cal_tarDis;
   
-  //$ACC::ACC_des_dis_m = byteACC_tarDis;
+  //Des_msg.ACC_des_dis_m = byteACC_tarDis;
   Des_msg.ACC_des_dis_m = byteACC_tarDis;
   
-  //write("ACC target Dis : %d", byteACC_tarDis);
-
 }
 
 float fmin(float fA, float fB)
@@ -184,9 +181,6 @@ void cal_target_Acmd(byte flag)
     
     Accel_msg.ACC_accel_trk = ftar_Accel;
     Brk_msg.ACC_brk_pbar = 0;
-    
-    //$ACC::ACC_accel_trk = ftar_Accel;
-    //$ACC::ACC_brk_pbar = 0;
   }
   else
   {
@@ -194,32 +188,35 @@ void cal_target_Acmd(byte flag)
     
     Accel_msg.ACC_accel_trk = 0;
     Brk_msg.ACC_brk_pbar = ftar_Accel;
-    
-    //$ACC::ACC_accel_trk = 0;
-    //$ACC::ACC_brk_pbar = ftar_Accel;    
   }
 }
 
 on message can6.CGW_VCU_AWake_msg
 {
-  isActive = 1;
-  isACC_On = 0;
-  byteACC_level = 0; // init
+  if(this.VCU_ACC_wakeup == 1) {
+    isActive = 1;
+    isACC_On = 0;
+    byteACC_level = 0; // init
+    write("ACC ALIVE!!");
+  }
 }
 
 
 on message can6.CGW_VCU_ASleep_msg
 {
-  isActive = 0; // wake/sleep
-  isACC_On = 0; // On/Off
-  
-  // byteACC_level = 0;
-  // byteACC_targetVel_kph = 0;
-  
-  byteCar_speed_kph = 0;
-  // bytePreRdis_m = 0;
-  isFVehicle = 0;
-  isACC_Override = 0;
+  if(this.VCU_ACC_sleep == 1) {
+    turn_off();
+    
+    isActive = 0; // wake/sleep
+    
+    byteACC_level = 0;
+    byteACC_tarVel_kph = 0;
+    byteCar_speed_kph = 0;
+    isFVehicle = 0;
+    isACC_Override = 0;
+    
+    write("ACC DIE!!");
+  }
 }
 
 
@@ -234,7 +231,7 @@ on message can6.CGW_PANEL_ADTC_msg
 
 on message can6.CGW_HMI_ACC_Power_msg
 {
-  //if (isActive == 1) {
+  if (isActive == 1) {
     if(this.byte(0) == 0x1) {
       turn_on();
     }
@@ -242,84 +239,84 @@ on message can6.CGW_HMI_ACC_Power_msg
       if(isACC_On == 1)
         turn_off();
     }
-  //}
+  }
 }
 
 
 on message can6.* // can3. 와 같이 수정?
 {
-  //if (isActive == 1 && isACC_On == 1) {
-  //if (isActive == 1)
-  if(this.id == CGW_VCU_Speed_Overr_msg.id) {
-    byteCar_speed_kph = this.byte(0);
-    isACC_Override = (this.byte(1) & 0x1);
-        
-    cal_accelration();
-  }
-  // }
-  if (isACC_On == 1) {
-    message * msg;
-    msg = this;
-    
-    switch(msg.id) {
-      case CGW_HMI_ACC_Level_msg.id:
-        if(msg.byte(0) == 0x1) {
-          if(++byteACC_level > 3)
-            byteACC_level = 3;
-        }
-        else if(msg.byte(0) == 0x2) {
-          if(--byteACC_level < 1)
-            byteACC_level = 1;
-        }
-        Level_msg.ACC_level = byteACC_level;
-        
-        break;
+  if (isActive == 1) {
+    if(this.id == CGW_VCU_Speed_Overr_msg.id) {
+      byteCar_speed_kph = this.byte(0);
+      isACC_Override = (this.byte(1) & 0x1);
+          
+      cal_accelration();
+    }
 
-        
-      case CGW_HMI_ACC_Speed_msg.id:
-        if(msg.byte(0) == 0x1) {
-          byteACC_tarVel_kph += 2;
-        }
-        else if(msg.byte(0) == 0x2) {
-          byteACC_tarVel_kph -= 2;
-        }
-        
-        if(byteACC_tarVel_kph > 120)
-          byteACC_tarVel_kph = 120;
-        
-        else if(byteACC_tarVel_kph < 30)
-          byteACC_tarVel_kph = 30;
-        
-        Des_msg.ACC_des_speed_kmh = byteACC_tarVel_kph;
-
-        break;
-        
-        
-      case CGW_Speed_Rear_msg.id:
-        //byteCar_speed_kph = msg.byte(0);
-        //byteFRdis_m = msg.byte(1);
-
-        break;
-        
-        
-      case CGW_VCU_ACCBrk_msg.id:
-        if (msg.byte(0) == 0x01) {
-          turn_off();
-        }
-        break;
-               
-
-      case SCU_Front_msg.id:
-        bytecurFRdis_m = msg.byte(0);
-        isFVehicle = (msg.byte(2) & 0x1);
-
-        cal_Fvelocity();
-
-        break;
-        
-        
-      default:
-        ;
+    if (isACC_On == 1) {
+      message * msg;
+      msg = this;
+      
+      switch(msg.id) {
+        case CGW_HMI_ACC_Level_msg.id:
+          if(msg.byte(0) == 0x1) {
+            if(++byteACC_level > 3)
+              byteACC_level = 3;
+          }
+          else if(msg.byte(0) == 0x2) {
+            if(--byteACC_level < 1)
+              byteACC_level = 1;
+          }
+          Level_msg.ACC_level = byteACC_level;
+          
+          break;
+  
+          
+        case CGW_HMI_ACC_Speed_msg.id:
+          if(msg.byte(0) == 0x1) {
+            byteACC_tarVel_kph += 2;
+          }
+          else if(msg.byte(0) == 0x2) {
+            byteACC_tarVel_kph -= 2;
+          }
+          
+          if(byteACC_tarVel_kph > 120)
+            byteACC_tarVel_kph = 120;
+          
+          else if(byteACC_tarVel_kph < 30)
+            byteACC_tarVel_kph = 30;
+          
+          Des_msg.ACC_des_speed_kmh = byteACC_tarVel_kph;
+  
+          break;
+          
+          
+        case CGW_Speed_Rear_msg.id:
+          //byteCar_speed_kph = msg.byte(0);
+          //byteFRdis_m = msg.byte(1);
+  
+          break;
+          
+          
+        case CGW_VCU_ACCBrk_msg.id:
+          if (msg.byte(0) == 0x01) {
+            turn_off();
+          }
+          break;
+                 
+  
+        case SCU_Front_msg.id:
+          bytecurFRdis_m = msg.byte(0);
+          isFVehicle = (msg.byte(2) & 0x1);
+  
+          cal_Fvelocity();
+  
+          break;
+          
+          
+        default:
+          ;
+      }
     }
   }  
 }
@@ -327,19 +324,29 @@ on message can6.* // can3. 와 같이 수정?
 
 on timer _1msTimer
 {
-  //if (isActive == 1 && isACC_On == 1) {
-  if (isACC_On == 1) {
+  if (isActive == 1) {
     g1ms_getFRdisGap_Counter++;
     g1ms_getVelGap_Counter++;
     g1msCounter++;
     
-    if (g1msCounter % 10 == 0) {
-      output(Accel_msg);
-      output(Brk_msg);
+    if (g1msCounter > 0 && g1msCounter % 10 == 0) {
+      if (isACC_On) {
+        output(Accel_msg);
+        output(Brk_msg);
+      }
+      else {
+        Accel_msg.ACC_accel_trk = 110;
+        Brk_msg.ACC_brk_pbar = 110;
+        output(Accel_msg);
+        output(Brk_msg);
+      }
     }
-    if (g1msCounter % 100 == 0) {
-      output(Des_msg);
-      output(Level_msg);
+    if (g1msCounter > 0 && g1msCounter % 100 == 0) {
+      if (isACC_On) {
+        output(Des_msg);
+        output(Level_msg);
+        g1msCounter = 0;
+      }
     }
   }
 }
@@ -347,8 +354,7 @@ on timer _1msTimer
 
 on timer loopTimer
 {
-  //if (isActive == 1 && isACC_On == 1) {
-  if (isACC_On == 1) {
+  if (isActive == 1 && isACC_On == 1) {
     cal_target_dis();
     if (isFVehicle)
     {
@@ -364,7 +370,6 @@ on timer loopTimer
       
       if (isACC_On == 1) {
         cal_target_Acmd(0);
-
       }
     }
     
