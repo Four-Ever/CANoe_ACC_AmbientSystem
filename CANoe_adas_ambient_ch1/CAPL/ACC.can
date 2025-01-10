@@ -387,7 +387,7 @@ on timer loopTimer
     {
       if (byteCar_speed_kph < 5) { // R_3.RA_5
         gCounter++;
-        if (gCounter >= 30) {// 3sec
+        if (gCounter >= 1800) {// 3sec
           turn_off();
         }
       }
