@@ -10,7 +10,7 @@ variables
   int speed = 0;
   int rpm=0;
   int radar=0;
-  int driver_belt = 0;
+  int driver_belt = 1;
   int pass_belt =0;
   int acc_level = 0;
   int is_aeb=0;
@@ -28,7 +28,7 @@ on start
   speed = 0;
   rpm=0;
   radar=0;
-  driver_belt = 0;
+  driver_belt = 1;
   pass_belt =0;
   acc_level = 0;
   is_aeb=0;
@@ -38,7 +38,7 @@ on start
   @sysvar::HMI_Input::now_speed=0;
   @sysvar::HMI_Input::now_rpm=0;
   @sysvar::HMI_Input::now_dist=0;
-  @sysvar::HMI_Input::driver_belt=0;
+  @sysvar::HMI_Input::driver_belt=1;
   @sysvar::HMI_Input::pass_belt=0;
   @sysvar::HMI_Input::acc_lv=0;
   @sysvar::HMI_Input::aeb_on=0;
@@ -65,7 +65,7 @@ on message can4.CGW_VCU_USleep_msg
       @sysvar::HMI_Input::now_speed=0;
       @sysvar::HMI_Input::now_rpm=0;
       @sysvar::HMI_Input::now_dist=0;
-      @sysvar::HMI_Input::driver_belt=0;
+      @sysvar::HMI_Input::driver_belt=1;
       @sysvar::HMI_Input::pass_belt=0;
       @sysvar::HMI_Input::acc_status=0;
       @sysvar::HMI_Input::acc_lv=0;
@@ -125,7 +125,6 @@ on message can4.CGW_100ms_msg
     //acc level
     if(acc_level==0)
       { 
-        write("acc_off_cuz_brk");
         @sysvar::HMI_Input::acc_lv=0;
         @sysvar::HMI_Input::acc_status=0;
       }
