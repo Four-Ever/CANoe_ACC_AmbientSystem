@@ -27,6 +27,9 @@ variables
   msTimer SEAT_Belt_state_timer;
   msTimer SEAT_Dr_Condi_timer;
   msTimer SEAT_Ast_Condi_timer;
+  msTimer drv_seat_Belt_state_timer; // 2초 뒤 안전벨트 차기
+  msTimer pass_seat_Belt_state_timer; // 2초 뒤 안전벨트 차기
+  // 2초 뒤 안전 벨트 착용
   
   byte Power_on_off_flag = False; // seat 시동 후에만 작동 해야함
 }
@@ -35,10 +38,10 @@ on start{ // init
   // IL 구현시 아래 부분 제외해야함
   if(@sysvar::Dev_Option::Timer_Enable)
   {
-    setTimer(SEAT_State_timer, 1000);
-    setTimer(SEAT_Belt_state_timer, 1000);
-    setTimer(SEAT_Dr_Condi_timer, 1000);
-    setTimer(SEAT_Ast_Condi_timer, 1000);
+    setTimerCyclic(SEAT_State_timer, 1000);
+    setTimerCyclic(SEAT_Belt_state_timer, 1000);
+    setTimerCyclic(SEAT_Dr_Condi_timer, 1000);
+    setTimerCyclic(SEAT_Ast_Condi_timer, 1000);
   }
 }
 on preStop{ // 종료 직전 수행
@@ -46,19 +49,29 @@ on preStop{ // 종료 직전 수행
 }
 
 ///////////////////////////////
+on timer drv_seat_Belt_state_timer // 2초 뒤 안전 벨트
+{
+  @sysvar::SEAT_Value::dr_seat_Belt_state = 1;
+}
+on timer pass_seat_Belt_state_timer // 2초 뒤 안전 벨트
+{
+  @sysvar::SEAT_Value::pass_seat_Belt_state = 1;
+}
+
 on timer SEAT_State_timer{ // 사용자 착석 상태
   message SEAT_State_msg msg;
   msg.SEAT_drvseatOCC = @sysvar::SEAT_Value::dr_seat_OCC;
   msg.SEAT_astseatOCC = @sysvar::SEAT_Value::pass_seat_OCC;
   output(msg);
-  setTimer(SEAT_State_timer, 1000);
 }
 on timer SEAT_Belt_state_timer{ // 사용자 벨트 착용 상태
   message SEAT_Belt_state_msg msg;
   msg.SEAT_drvseatBelt = @sysvar::SEAT_Value::dr_seat_Belt_state;
   msg.SEAT_astseatBelt = @sysvar::SEAT_Value::pass_seat_Belt_state;
+  msg.can = 1;
   output(msg);
-  setTimer(SEAT_Belt_state_timer, 1000);
+  //write("in %d", @sysvar::SEAT_Value::dr_seat_Belt_state);
+  // setTimer(SEAT_Belt_state_timer, 1000);
 }
 on timer SEAT_Dr_Condi_timer{ // 운전자 좌석시트 동작 가능 상태
   message SEAT_Dr_Condi_msg msg;
@@ -80,7 +93,7 @@ on timer SEAT_Dr_Condi_timer{ // 운전자 좌석시트 동작 가능 상태
       break;  
   }  
   output(msg);
-  setTimer(SEAT_Dr_Condi_timer, 1000);
+  //setTimer(SEAT_Dr_Condi_timer, 1000);
 }
 on timer SEAT_Ast_Condi_timer{ // 조수석 좌석시트 동작 가능 상태
   message SEAT_Ast_Condi_msg msg;
@@ -102,9 +115,22 @@ on timer SEAT_Ast_Condi_timer{ // 조수석 좌석시트 동작 가능 상태
       break;  
   }
   output(msg);
-  setTimer(SEAT_Ast_Condi_timer, 1000);
+  //setTimer(SEAT_Ast_Condi_timer, 1000);
 }
 ///////////////////////////////
+on sysvar_update sysvar::SEAT_Value::dr_seat_OCC // 2 sec
+{
+  if(@sysvar::SEAT_Value::dr_seat_OCC == 1){
+    setTimer(drv_seat_Belt_state_timer, 2000);
+  }
+}
+
+on sysvar_update sysvar::SEAT_Value::pass_seat_OCC // 2 sec
+{
+  if(@sysvar::SEAT_Value::pass_seat_OCC == 1){
+    setTimer(pass_seat_Belt_state_timer, 2000);
+  }
+}
 
 on message can1.BCU_Seat_msg // 충돌에 의한 좌석 제어 요청 (BCU -> Seat)
 {

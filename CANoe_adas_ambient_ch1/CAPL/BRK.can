@@ -13,7 +13,7 @@ variables
 
 on timer BRKTimer{
   if (@sysvar::Panel::Ped_brk==1){
-    brktemp=brktemp+0.001;
+    brktemp=brktemp+0.05;
   }
   else {
     brktemp=0;

@@ -42,8 +42,22 @@ on message can4.PANEL_UDTC_msg //진단
   message CLU_DTC_msg DTC_msg;
   DTC_msg.CLU_diagnosis=0;//진단메세지 추가
 }
-//////
+//////CGW_HMI_ACC_Power_msg
+on message can4.CGW_HMI_ACC_Power_msg //시동 off
+{  
+  @sysvar::HMI_Input::now_speed=0;
+  @sysvar::HMI_Input::now_rpm=0;
+  @sysvar::HMI_Input::now_dist=0;
+  @sysvar::HMI_Input::driver_belt=0;
+  @sysvar::HMI_Input::pass_belt=0;
+  @sysvar::HMI_Input::acc_lv=0;
+  @sysvar::HMI_Input::aeb_on=0;
+  @sysvar::HMI_Input::target_dis=0;
+  @sysvar::HMI_Input::target_spd=0;
+}
 
+
+/////////////시동 off 제거
 
 on message can4.CGW_30ms_msg
 {
@@ -64,7 +78,7 @@ on message can4.CGW_100ms_msg
   is_aeb=this.AEB_CLU_aebled;
   acc_tar_distance = this.ACC_des_dis_m;
   acc_tar_Speed = this.ACC_des_speed_kmh;
-
+  //write("%d",acc_level);/////////////////
   //
   if(driver_belt==0)
     @sysvar::HMI_Input::driver_belt=0;

@@ -1,12 +1,12 @@
-﻿/*@!Encoding:65001*/
+/*@!Encoding:65001*/
 includes
 {
   
 }
 
+
 variables
 {
-  int on_flag = 1; //합칠 때 0으로 변경
   int leadcar_flag = 0;
 }
 
@@ -20,6 +20,7 @@ on start{
 
 on message can6.CGW_VCU_AWake_msg{
   on_flag = 1;
+
 }
 
 on message can6.CGW_VCU_ASleep_msg{
@@ -106,4 +107,3 @@ on message can6.CGW_PANEL_ADTC_msg{ // 내부 메시지 SCU로 수정하긴 해�
     //DTC_info.SCU_diagnosis = 0x002; // 오류
     output(DTC_info);
   }
-}

@@ -12,6 +12,7 @@ variables
 on timer VCUTimer{
   $P_CAN::VCU::VCU_State_msg::VCU_speed_kph = @sysvar::VCU_Tx::speed;
   $P_CAN::VCU::VCU_State_msg::VCU_rpm = @sysvar::VCU_Tx::rpm;
+  
 }
 
 
@@ -24,16 +25,18 @@ on start {
   write("%d", @sysvar::VCU_Tx::rpm);
 }*/
 
-//진단정보 요청
-on message CAN3.CGW_PCAN_DTC_msg1 {
-  $P_CAN::VCU::VCU_DTC_msg::VCU_diagnosis=1;  ///정상이면 1, 비정상이면2
+//진단정보 요청//->0109수정
+on message CAN3.P_CAN::CGW_PANEL_PDTC_msg {
+  message VCU_DTC_msg VCUDTC;
+  VCUDTC.VCU_diagnosis.phys=1;  ///정상이면 1, 비정상이면2
+  output(VCUDTC);
 }
 
 
 //HMI 시동
 on message CAN3.CGW_HMI_VCU_Power_msg {  //msg 들어올때만 시스템변수에 대입, 그냥 항상 대입은?
-  @sysvar::VCU_Rx::HMI_engine_on =  $CGW::HMI_Engine_start;
-  @sysvar::VCU_Rx::HMI_engine_off = $CGW::HMI_Engine_sleep;
+  @sysvar::VCU_Rx::HMI_engine_on =  this.HMI_Engine_start;
+  @sysvar::VCU_Rx::HMI_engine_off = this.HMI_Engine_sleep;
   
 
   //start msg 전송
@@ -70,19 +73,16 @@ on message CAN3.CGW_HMI_VCU_Power_msg {  //msg 들어올때만 시스템변수�
   }
   //sLEEP msg 전송
   if (@sysvar::VCU_Rx::HMI_engine_off ==1){
-    $VCU::VCU_ACC_sleep=1;
-    $VCU::VCU_AEB_sleep=1;
-    $VCU::VCU_SCU_sleep=1;
-    $VCU::VCU_AML_sleep=1;
-    $VCU::VCU_BCU_sleep=1;
-    $VCU::VCU_Seat_sleep=1;
-    $VCU::VCU_Airbag_sleep=1;
-    $VCU::VCU_BRK_sleep=1;
-    $VCU::VCU_ACL_sleep=1;
-    $VCU_CCM_sleep=1;
-    $VCU::VCU_CLU_sleep=1;
-    $VCU::VCU_HMI_sleep=1;
-    $VCU::VCU_Panel_sleep=1;
+    message VCU_USleep_msg UCANsleep;
+    message VCU_ASleep_msg ACANsleep;
+    UCANsleep.VCU_CLU_sleep.phys=1;
+    ACANsleep.VCU_AEB_sleep.phys=1;
+    ACANsleep.VCU_ACC_sleep.phys=1;
+    ACANsleep.VCU_SCU_sleep.phys=1;
+    
+    output(UCANsleep);
+    output(ACANsleep);
+
   }
 }
 
@@ -90,29 +90,49 @@ on message CAN3.CGW_HMI_VCU_Power_msg {  //msg 들어올때만 시스템변수�
 //운전자 
 on message CAN3.CGW_ACL_Accel_msg {
   @sysvar::VCU_Rx::dr_accel_ped = this.ACL_ped_per;
+  
   if (@sysvar::VCU_Rx::dr_accel_ped > 0){
-    $VCU::VCU_ACC_override=1;  //운전자가 조작중임을 acc 한테 알림
+    message VCU_ACCAccel_msg ACCOnAccel;
+    ACCOnAccel.VCU_ACC_override.phys=1;  //운전자가 조작중임을 acc 한테 알림
+    output(ACCOnAccel);
   }
   else {
-    $VCU::VCU_ACC_override=0;
+    message VCU_ACCAccel_msg ACCOnAccel2;
+    ACCOnAccel2.VCU_ACC_override.phys=0;  //운전자가 조작중임을 acc 한테 알림
+    output(ACCOnAccel2);
   }
  
 }
 
 on message CAN3.CGW_BRK_Brk_msg {
   @sysvar::VCU_Rx::dr_brk_ped= this.BRK_ped_per;
+  
   if (@sysvar::VCU_Rx::dr_brk_ped > 0){
-    $VCU::VCU_ACC_brksleep=1;  //운전자가 조작중임을 acc 한테 알림
+    message VCU_ACCBrk_msg ACCOnBrk;
+    ACCOnBrk.VCU_ACC_brksleep.phys=1;  //운전자가 조작중임을 acc 한테 알림
+    output(ACCOnBrk);
+    //$VCU::VCU_ACC_brksleep=1;  //운전자가 조작중임을 acc 한테 알림
   }
   else {
-     $VCU::VCU_ACC_brksleep=0;
+    message VCU_ACCBrk_msg ACCOnBrk;
+    ACCOnBrk.VCU_ACC_brksleep.phys=0;  //운전자가 조작중임을 acc 한테 알림
+    output(ACCOnBrk);
   }
 }
 
 on message CAN3.CGW_BRK_FBrk_msg {
-  if(this.can == 3) 
-  {
-    @sysvar::VCU_Rx::dr_brkfull = this.BRK_fullstatus;
+  @sysvar::VCU_Rx::dr_brkfull = this.BRK_fullstatus;
+  
+  if (@sysvar::VCU_Rx::dr_brkfull > 0){
+    message VCU_ACCBrk_msg ACCOnBrk2;
+    ACCOnBrk2.VCU_ACC_brksleep.phys=1;  //운전자가 조작중임을 acc 한테 알림
+    output(ACCOnBrk2);
+    //$VCU::VCU_ACC_brksleep=1;  //운전자가 조작중임을 acc 한테 알림
+  }
+  else {
+     message VCU_ACCBrk_msg ACCOnBrk2;
+    ACCOnBrk2.VCU_ACC_brksleep.phys=0;  //운전자가 조작중임을 acc 한테 알림
+    output(ACCOnBrk2);
   }
 
 }

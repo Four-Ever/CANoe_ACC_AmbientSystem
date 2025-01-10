@@ -24,7 +24,7 @@ on timer ACLTimer{
   //write("%lf    ", acltemp);
   tmp = (int)acltemp;
   $C_CAN::ACL::ACL_Accel_msg::ACL_ped_per=tmp;
-  write("---------%d, %lf", tmp, acltemp);
+  //write("---------%d, %lf", tmp, acltemp);
 
 }
 
