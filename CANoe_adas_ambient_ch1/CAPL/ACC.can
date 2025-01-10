@@ -47,7 +47,7 @@ variables
   float ACCEL_MAX = 5.0;
   float DECEL_MAX = 7.0;
   
-  float TIMEGAP[4] = {0, 1.0, 2.0, 3.0}; // sec
+  float TIMEGAP[4] = {0, 3.0, 2.0, 1.0}; // sec
   float D_SAFE = 3.0; // m
   
   
@@ -106,7 +106,14 @@ void turn_off()
   
   DState_msg.ACC_brk_off = 1;
   Level_msg.ACC_level = byteACC_level;
+  Des_msg.ACC_des_dis_m = 0;
+  Des_msg.ACC_des_speed_kmh = 0;
+  Brk_msg.ACC_brk_pbar = 0;
+  Accel_msg.ACC_accel_trk = 0;
   
+  output(Brk_msg);
+  output(Accel_msg);
+  output(Des_msg);
   output(Level_msg);
   output(DState_msg); //event
 }
@@ -149,6 +156,7 @@ void cal_target_dis()
   Des_msg.ACC_des_dis_m = byteACC_tarDis;
   
   //write("ACC target Dis : %d", byteACC_tarDis);
+
 }
 
 float fmin(float fA, float fB)
@@ -191,7 +199,6 @@ void cal_target_Acmd(byte flag)
     //$ACC::ACC_brk_pbar = ftar_Accel;    
   }
 }
-
 
 on message can6.CGW_VCU_AWake_msg
 {
@@ -265,7 +272,6 @@ on message can6.* // can3. 와 같이 수정?
             byteACC_level = 1;
         }
         Level_msg.ACC_level = byteACC_level;
-        //$ACC::ACC_level = byteACC_level;
         
         break;
 
@@ -285,7 +291,7 @@ on message can6.* // can3. 와 같이 수정?
           byteACC_tarVel_kph = 30;
         
         Des_msg.ACC_des_speed_kmh = byteACC_tarVel_kph;
-        //$ACC::ACC_des_speed_kmh = byteACC_tarVel_kph;
+
         break;
         
         
@@ -357,7 +363,8 @@ on timer loopTimer
       }
       
       if (isACC_On == 1) {
-        cal_target_Acmd(0); //
+        cal_target_Acmd(0);
+
       }
     }
     
@@ -365,12 +372,5 @@ on timer loopTimer
     {
       cal_target_Acmd(1);
     }    
-    
-    //DTC_msg.ACC_diagnosis = dwACC_DTCcode;
-    //$ACC::ACC_diagnosis = dwACC_DTCcode;
-    //if (isDTC_required == 1) {
-    //  output(DTC_msg);
-    //  isDTC_required = 0;
-    //}
   }
 }
