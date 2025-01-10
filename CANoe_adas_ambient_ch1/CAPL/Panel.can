@@ -19,6 +19,15 @@ variables
   
 }*/
 
+on sysvar sysvar::Car_Indoor::User_boarding
+{
+  if(@sysvar::Car_Indoor::User_boarding == 1){
+    message PANEL_Boarding_msg boarding;
+    boarding.Scenario_Boarding_pass = 1;
+    output(boarding);
+  }
+}
+
 on sysvar LeadCarSimulation::Rear_Collision
 {
   if(@LeadCarSimulation::Rear_Collision == 1){
