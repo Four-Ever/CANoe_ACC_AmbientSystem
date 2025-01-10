@@ -36,6 +36,10 @@ BS_:
 BU_: CGW DTC PANEL CLU HMI SCU AEB ACC AIRBAG SEAT BCU AML ACL BRK CCM VCU
 
 
+BO_ 750 CGW_PANEL_CDTC_msg: 1 CGW
+ SG_ Scenario_Accelrequest : 1|1@1+ (1,0) [0|1] ""  BRK,ACL
+ SG_ Scenario_Brakerequest : 0|1@1+ (1,0) [0|1] ""  BRK,ACL
+
 BO_ 676 CGW_VCU_CSleep_msg: 1 CGW
  SG_ VCU_ACL_sleep : 1|1@1+ (1,0) [0|1] ""  BRK,ACL
  SG_ VCU_BRK_sleep : 0|1@1+ (1,0) [0|1] ""  BRK,ACL
@@ -506,6 +510,7 @@ BA_DEF_DEF_  "CANoeJitterMax" 0;
 BA_DEF_DEF_  "CANoeJitterMin" 0;
 BA_DEF_DEF_  "CANoeDrift" 0;
 BA_DEF_DEF_  "CANoeStartDelay" 0;
+BA_ "GenMsgCycleTime" BO_ 750 0;
 BA_ "GenMsgCycleTime" BO_ 676 0;
 BA_ "GenMsgCycleTime" BO_ 692 0;
 BA_ "GenMsgCycleTime" BO_ 1020 0;
