@@ -366,6 +366,13 @@ on message can4.UI_CAN::PANEL_BDTC_msg
   output(msgOut);   
 }
 
+on message can4.UI_CAN::PANEL_Boarding_msg
+{
+  message B_CAN::CGW_PANEL_Boarding_msg msgOut;
+  msgOut.Scenario_Boarding_pass = this.Scenario_Boarding_pass;
+  msgOut.can = 1;
+  output(msgOut);
+}
 
 
 //OBD_CAN ver 1;
