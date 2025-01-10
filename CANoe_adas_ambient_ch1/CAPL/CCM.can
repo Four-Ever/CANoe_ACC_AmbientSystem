@@ -39,10 +39,10 @@ on message P_CAN::VCU_ASleep_msg
 
 on message P_CAN::CGW_ACC_AlterSpeed_msg
 {
-  if (isActive) {
+  //if (isActive) {
     byteCCM_target_acl = this.ACC_accel_trk;
     byteCCM_target_brk = this.ACC_brk_pbar;
-  }
+  //}
 }
 
 on message P_CAN::CGW_PANEL_ADTC_msg
@@ -52,11 +52,8 @@ on message P_CAN::CGW_PANEL_ADTC_msg
 on timer loopTimer
 {
   //if (isActive) {
-    byteCCM_acl = byteCCM_target_acl; //f(byteCCM_acl, byteCCM_target_acl);
-    byteCCM_brk = byteCCM_target_brk; //f(byteCCM_brk, byteCCM_target_brk);
-
-    $CCM::CCU_accel_trk = 30; // f(byteCCM_acl, byteCCM_target_acl)
-    $CCM::CCU_brk_pbar = 0; //f(byteCCM_brk, byteCCM_target_brk)
+    $CCM::CCU_accel_trk = byteCCM_target_acl;
+    $CCM::CCU_brk_pbar = byteCCM_target_brk;
     
     $CCM::CCM_diagnosis = dwCCM_DTCcode;
     if (isDTC_required == 1) {
