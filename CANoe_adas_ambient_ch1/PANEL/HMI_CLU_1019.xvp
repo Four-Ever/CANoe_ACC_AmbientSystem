@@ -1,6 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null">
   <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="HMI_CLU">
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X730c3bf5e2e77e4f90e9199e4790d72ff0a2" ControlName="Switch / Indicator 26">
+      <Property Name="Name">X730c3bf5e2e77e4f90e9199e4790d72ff0a2</Property>
+      <Property Name="Size">12, 27</Property>
+      <Property Name="Location">326, 354</Property>
+      <Property Name="SymbolConfiguration">8;16;HMI_Input;;;acc_lv;1;;;-1;;;Value;;;0</Property>
+      <Property Name="ImageFile">Bitmaps\blk.png</Property>
+      <Property Name="TransparentColor">White</Property>
+      <Property Name="IsProportional">False</Property>
+      <Property Name="TabIndex">38</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;2&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;2;0/Lower/0;1/Lower/1</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+      <Property Name="SwitchValuesRx">1;2;0;1</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X0b8fadf8e6acee4265e85c8e2664585f636c" ControlName="Switch / Indicator 25">
+      <Property Name="Name">X0b8fadf8e6acee4265e85c8e2664585f636c</Property>
+      <Property Name="Size">111, 27</Property>
+      <Property Name="Location">326, 354</Property>
+      <Property Name="SymbolConfiguration">8;16;HMI_Input;;;acc_lv;1;;;-1;;;Value;;;0</Property>
+      <Property Name="ImageFile">Bitmaps\lv_hide.png</Property>
+      <Property Name="TransparentColor">White</Property>
+      <Property Name="IsProportional">False</Property>
+      <Property Name="TabIndex">37</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="StateCnt">4</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;4&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;&lt;RxValue&gt;2&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;2&lt;/TxValue&gt;&lt;RxValue&gt;3&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;3&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;4;0/Lower/0;1/Lower/1;2/Lower/2;3/Lower/3</Property>
+      <Property Name="SwitchValues">1;4;0;1;2;3</Property>
+      <Property Name="SwitchValuesRx">1;4;0;1;2;3</Property>
+    </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xed089adcea5cfe40c4e953de0c5db34f2b02" ControlName="Switch / Indicator 24">
       <Property Name="Name">Xed089adcea5cfe40c4e953de0c5db34f2b02</Property>
       <Property Name="Size">12, 185</Property>
@@ -27,7 +62,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xf10da102e7b09e471ceb589e3abcfd3bf5a8" ControlName="Switch / Indicator 23">
       <Property Name="Name">Xf10da102e7b09e471ceb589e3abcfd3bf5a8</Property>
       <Property Name="Size">944, 614</Property>
-      <Property Name="Location">-210, -143</Property>
+      <Property Name="Location">-211, -147</Property>
       <Property Name="SymbolConfiguration">8;16;HMI_Input;;;car_status;1;;;-1;;;Value;;;0</Property>
       <Property Name="ImageFile">Bitmaps\car_onoff_fin.png</Property>
       <Property Name="TransparentColor">White</Property>

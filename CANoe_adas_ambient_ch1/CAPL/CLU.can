@@ -78,6 +78,7 @@ on message can4.PANEL_UDTC_msg //진단
 {
   message CLU_DTC_msg DTC_msg;
   DTC_msg.CLU_diagnosis=1;//진단메세지 추가
+  output(DTC_msg);
 }
 
 on message can4.CGW_VCU_ACCBrk_msg    //브레이크 밟으면 ACC꺼짐
