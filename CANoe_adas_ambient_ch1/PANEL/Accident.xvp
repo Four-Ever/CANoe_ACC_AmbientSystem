@@ -1,34 +1,89 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null">
   <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="accident">
-    <Object Type="Vector.CANalyzer.Panels.Design.TrackBarControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X9c23f3dfeba33e4fa4eae32e4124a1179041" ControlName="Track Bar 1">
-      <Property Name="Name">X9c23f3dfeba33e4fa4eae32e4124a1179041</Property>
-      <Property Name="Size">106, 30</Property>
-      <Property Name="Location">292, 289</Property>
-      <Property Name="TabIndex">2</Property>
-      <Property Name="MaximumDouble">1</Property>
-      <Property Name="LargeChangeDouble">1</Property>
-      <Property Name="MaximumSize">100000, 30</Property>
-      <Property Name="Maximum">1</Property>
-      <Property Name="LargeChange">1</Property>
-      <Property Name="SymbolConfiguration">8;16;scenario;;;start;1;;;-1;;;Value;;;0</Property>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X0d3aaa7be238be4d78ea3d7e3dc207578e80" ControlName="Switch / Indicator 6">
+      <Property Name="Name">X0d3aaa7be238be4d78ea3d7e3dc207578e80</Property>
+      <Property Name="Size">23, 30</Property>
+      <Property Name="Location">472, 351</Property>
+      <Property Name="SymbolConfiguration">8;16;SEAT_Value;;;dr_seat_state;1;;;-1;;;Value;;;0</Property>
+      <Property Name="TabIndex">6</Property>
+      <Property Name="Activation">Left</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;2&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;2;0/Lower/0;1/Lower/1</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+      <Property Name="SwitchValuesRx">1;2;0;1</Property>
     </Object>
-    <Object Type="Vector.CANalyzer.Panels.Design.LEDBand, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xd129fd91e9c20e42a8e9e21e37f8249e46f8" ControlName="LED Band 2">
-      <Property Name="Name">Xd129fd91e9c20e42a8e9e21e37f8249e46f8</Property>
-      <Property Name="Size">80, 20</Property>
-      <Property Name="Location">206, 95</Property>
-      <Property Name="LedBandHeight">10</Property>
-      <Property Name="Color">Green</Property>
-      <Property Name="LedBandLength">60</Property>
-      <Property Name="StartingPoint">10;10</Property>
-      <Property Name="SymbolConfiguration"></Property>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xea5c161be3ff5e4629eb46fed1d30f6c0a39" ControlName="Switch / Indicator 5">
+      <Property Name="Name">Xea5c161be3ff5e4629eb46fed1d30f6c0a39</Property>
+      <Property Name="Size">23, 30</Property>
+      <Property Name="Location">501, 351</Property>
+      <Property Name="SymbolConfiguration">8;16;SEAT_Value;;;pass_seat_state;1;;;-1;;;Value;;;0</Property>
+      <Property Name="TabIndex">5</Property>
+      <Property Name="Activation">Left</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;2&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;2;0/Lower/0;1/Lower/1</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+      <Property Name="SwitchValuesRx">1;2;0;1</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xe1065146e92bbe462eeaf23e30c3263b2013" ControlName="Switch / Indicator 4">
+      <Property Name="Name">Xe1065146e92bbe462eeaf23e30c3263b2013</Property>
+      <Property Name="Size">23, 30</Property>
+      <Property Name="Location">530, 351</Property>
+      <Property Name="SymbolConfiguration">8;16;AIRBAG_Value;;;dr_airbag_state;1;;;-1;;;Value;;;0</Property>
+      <Property Name="TabIndex">4</Property>
+      <Property Name="Activation">Left</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;2&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;2;0/Lower/0;1/Lower/1</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+      <Property Name="SwitchValuesRx">1;2;0;1</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xc3496cd8e8540e4235ea29be83219d05592a" ControlName="Switch / Indicator 3">
+      <Property Name="Name">Xc3496cd8e8540e4235ea29be83219d05592a</Property>
+      <Property Name="Size">378, 250</Property>
+      <Property Name="Location">5, 148</Property>
+      <Property Name="SymbolConfiguration">8;16;SEAT_Value;;;pass_seat_state;1;;;-1;;;Value;;;0</Property>
+      <Property Name="ImageFile">Bitmaps\backward_accident_seat_removebg.png</Property>
+      <Property Name="IsProportional">False</Property>
+      <Property Name="TabIndex">3</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;2&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;2;0/Lower/0;1/Lower/1</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+      <Property Name="SwitchValuesRx">1;2;0;1</Property>
+    </Object>
+    <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X7bcf9e6aeb7d9e4175e970aeead2e22f604a" ControlName="Switch / Indicator 2">
+      <Property Name="Name">X7bcf9e6aeb7d9e4175e970aeead2e22f604a</Property>
+      <Property Name="Size">378, 250</Property>
+      <Property Name="Location">221, -10</Property>
+      <Property Name="SymbolConfiguration">8;16;AIRBAG_Value;;;dr_airbag_state;1;;;-1;;;Value;;;0</Property>
+      <Property Name="ImageFile">Bitmaps\airback-Photoroom-removebg-preview.png</Property>
+      <Property Name="IsProportional">False</Property>
+      <Property Name="TabIndex">2</Property>
+      <Property Name="Epsilon">0</Property>
+      <Property Name="Increment">1</Property>
+      <Property Name="StartValue">0</Property>
+      <Property Name="SwitchValuesVTXml">&lt;Version&gt;2&lt;/Version&gt;&lt;Count&gt;2&lt;/Count&gt;&lt;RxValue&gt;0&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;0&lt;/TxValue&gt;&lt;RxValue&gt;1&lt;/RxValue&gt;&lt;LowerUpper&gt;Lower&lt;/LowerUpper&gt;&lt;TxValue&gt;1&lt;/TxValue&gt;</Property>
+      <Property Name="SwitchValuesVT">1;2;0/Lower/0;1/Lower/1</Property>
+      <Property Name="SwitchValues">1;2;0;1</Property>
+      <Property Name="SwitchValuesRx">1;2;0;1</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X9e91c332eba9ce43beeb538e85d029a7d500" ControlName="Switch / Indicator 1">
       <Property Name="Name">X9e91c332eba9ce43beeb538e85d029a7d500</Property>
-      <Property Name="Size">399, 233</Property>
-      <Property Name="Location">65, 26</Property>
-      <Property Name="SymbolConfiguration">8;16;scenario;;;start;1;;;-1;;;Value;;;0</Property>
-      <Property Name="ImageFile">Bitmaps\Airbag_Sceanario.png</Property>
+      <Property Name="Size">378, 250</Property>
+      <Property Name="Location">5, 64</Property>
+      <Property Name="SymbolConfiguration">8;16;SEAT_Value;;;dr_seat_state;1;;;-1;;;Value;;;0</Property>
+      <Property Name="ImageFile">Bitmaps\backward_accident_seat_removebg.png</Property>
       <Property Name="IsProportional">False</Property>
       <Property Name="TabIndex">1</Property>
       <Property Name="Epsilon">0</Property>
@@ -40,7 +95,7 @@
       <Property Name="SwitchValuesRx">1;2;0;1</Property>
     </Object>
     <Property Name="Name">Panel</Property>
-    <Property Name="Size">580, 463</Property>
+    <Property Name="Size">590, 398</Property>
     <Property Name="Location">0, 0</Property>
     <Property Name="BackColor">255, 255, 255, 255</Property>
   </Object>
