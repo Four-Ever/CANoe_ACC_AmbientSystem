@@ -505,6 +505,15 @@ on message can3.P_CAN::VCU_CSleep_msg
   output(msgOut);
 }
 
+on message can4.UI_CAN::PANEL_CDTC_msg
+{
+  message C_CAN::CGW_PANEL_CDTC_msg msgOut;
+  msgOut.Scenario_Accelrequest = this.Scenario_Accelrequest;
+  msgOut.Scenario_Brakerequest = this.Scenario_Brakerequest;
+  msgOut.can = 2;
+  output(msgOut);
+}
+
 //UI_CAN start
 
 on message can3.P_CAN::VCU_UWake_msg
