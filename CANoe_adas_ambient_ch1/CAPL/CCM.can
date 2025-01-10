@@ -6,7 +6,7 @@ includes
 
 variables
 {
-  msTimer loopTimer;
+  //msTimer testTimer;
   int gCounter;
   
   byte isActive = 0; // wake/sleep
@@ -23,42 +23,37 @@ variables
 
 on start
 {
-  setTimer(loopTimer, 10);
+  
+  //setTimer(testTimer, 10);
 }
 
-on message P_CAN::VCU_AWake_msg
+on message can3.VCU_AWake_msg
 {
   isActive = 1;
 }
 
 
-on message P_CAN::VCU_ASleep_msg
+on message can3.VCU_ASleep_msg
 {
   isActive = 0;
 }
 
-on message P_CAN::CGW_ACC_AlterSpeed_msg
+on message can3.CGW_ACC_AlterSpeed_msg
 {
   //if (isActive) {
     byteCCM_target_acl = this.ACC_accel_trk;
     byteCCM_target_brk = this.ACC_brk_pbar;
+
+    $P_CAN::CCM::CCM_Accel_msg::CCU_accel_trk = byteCCM_target_acl;
+    $P_CAN::CCM::CCM_Brk_msg::CCU_brk_pbar = byteCCM_target_brk;
   //}
 }
 
-on message P_CAN::CGW_PANEL_ADTC_msg
+
+on message can3.CGW_PANEL_PDTC_msg
 {
-  isDTC_required = 1;
-}      
-on timer loopTimer
-{
-  //if (isActive) {
-    $CCM::CCU_accel_trk = byteCCM_target_acl;
-    $CCM::CCU_brk_pbar = byteCCM_target_brk;
-    
-    $CCM::CCM_diagnosis = dwCCM_DTCcode;
-    if (isDTC_required == 1) {
-      //output(ACC_DTC_msg);
-      isDTC_required = 0;
-    }
-  //}
+  message CCM_DTC_msg CCMDTC;
+  CCMDTC.CCM_diagnosis=1;  ///정상이면 1, 비정상이면2
+  output(CCMDTC);
+
 }
