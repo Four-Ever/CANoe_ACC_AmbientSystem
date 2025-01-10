@@ -10,11 +10,25 @@ variables
   int Car_status = 0;
   int Acc_status = 0;
 }
+
+on start
+{
+  HMI_status = 0;
+  Car_status = 0;
+  Acc_status = 0;
+  @sysvar::HMI_Input::acc_lv=0;
+  @sysvar::HMI_Input::acc_status = 0;
+  @sysvar::HMI_Input::car_status = 0;
+}
+
+
+
 ///각 메세지마다 wakeup 받았다는거 추가해야함.
 on message can4.CGW_VCU_UWake_msg
 {  
   if(this.VCU_HMI_wakeup==1)
   {
+    write("HMI Im alive");
     HMI_status=1;
   }
 }
@@ -29,7 +43,7 @@ on message can4.CGW_VCU_USleep_msg
 on message can4.PANEL_UDTC_msg //진단
 {
   message HMI_DTC_msg DTC_msg;
-  DTC_msg.HMI_diagnosis=0;//진단메세지 추가
+  DTC_msg.HMI_diagnosis=1;//진단메세지 추가
   output(DTC_msg);
 }
 //시동 ON
@@ -67,7 +81,7 @@ on sysvar sysvar::HMI_Input::acc_on
   message HMI_ACC_Power_msg ACC_Power_msg; //HMI_ACC_Power_msg 클래스의 ACC_Power_msg 인스턴스
   int acc_onoff =0;
   acc_onoff= sysgetvariableint(sysvar::HMI_Input::acc_on); ///누른게 1
-  if(acc_onoff==1) //버튼 눌렀을 때
+  if(Car_status==1 && acc_onoff==1) //버튼 눌렀을 때
   {
     if(Acc_status==0)//acc on
     {
