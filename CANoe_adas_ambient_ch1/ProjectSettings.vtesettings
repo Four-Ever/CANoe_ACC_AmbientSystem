@@ -220,6 +220,9 @@
 &lt;NodeProperties&gt;
 &lt;NodeKey&gt;{RootSymbolItem/{SysVarGroupItem/VCU_Tx&lt;/NodeKey&gt;
 &lt;/NodeProperties&gt;
+&lt;NodeProperties&gt;
+&lt;NodeKey&gt;{RootSymbolItem/{SysVarGroupItem/SEAT_Value&lt;/NodeKey&gt;
+&lt;/NodeProperties&gt;
 &lt;/NodeTreeProperties&gt;
 &lt;/ViewProperties&gt;
 &lt;/ViewProperties&gt;
@@ -922,7 +925,11 @@
 &lt;/ColumnProperties&gt;
 &lt;/ColumnsProperties&gt;
 &lt;Key&gt;1133967835442/VariableSymbols&lt;/Key&gt;
-&lt;NodeTreeProperties /&gt;
+&lt;NodeTreeProperties&gt;
+&lt;NodeProperties&gt;
+&lt;NodeKey&gt;{RootSymbolItem/{SysVarGroupItem/VCU_Rx&lt;/NodeKey&gt;
+&lt;/NodeProperties&gt;
+&lt;/NodeTreeProperties&gt;
 &lt;/ViewProperties&gt;
 &lt;/ViewProperties&gt;
 &lt;/SymbolSelectionProperties&gt;</d2p1:Value>
