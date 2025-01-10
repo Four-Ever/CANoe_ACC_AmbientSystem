@@ -79,21 +79,11 @@ void turn_on()
   
   //$ACC::ACC_brk_off = 0;
   //$ACC::ACC_level = byteACC_level;
-  if (byteCar_speed_kph < 30) {
-    byteACC_tarVel_kph = 30;
-  }
-  else if (byteCar_speed_kph > 120) {
-    byteACC_tarVel_kph = 120;
-  }
-  else {
-    byteACC_tarVel_kph = byteCar_speed_kph;
-  }
+  //$ACC::ACC_des_speed_kmh = byteCar_speed_kph;
   
   DState_msg.ACC_brk_off = 0;
   Level_msg.ACC_level = byteACC_level;
-  
-  //$ACC::ACC_des_speed_kmh = byteACC_tarVel_kph;
-  Des_msg.ACC_des_speed_kmh = byteACC_tarVel_kph;
+  Des_msg.ACC_des_speed_kmh = byteCar_speed_kph;
 }
 
 void turn_off()
@@ -107,7 +97,6 @@ void turn_off()
   DState_msg.ACC_brk_off = 1;
   Level_msg.ACC_level = byteACC_level;
   
-  output(Level_msg);
   output(DState_msg); //event
 }
 
@@ -193,7 +182,7 @@ void cal_target_Acmd(byte flag)
 }
 
 
-on message can6.CGW_VCU_AWake_msg
+on message A_CAN::CGW_VCU_AWake_msg
 {
   isActive = 1;
   isACC_On = 0;
@@ -201,7 +190,7 @@ on message can6.CGW_VCU_AWake_msg
 }
 
 
-on message can6.CGW_VCU_ASleep_msg
+on message A_CAN::CGW_VCU_ASleep_msg
 {
   isActive = 0; // wake/sleep
   isACC_On = 0; // On/Off
@@ -216,16 +205,7 @@ on message can6.CGW_VCU_ASleep_msg
 }
 
 
-on message can6.CGW_PANEL_ADTC_msg
-{
-  message ACC_DTC_msg ACCDTC;
-  ACCDTC.ACC_diagnosis = 1;
-  output(ACCDTC);
-
-}
-
-
-on message can6.CGW_HMI_ACC_Power_msg
+on message A_CAN::CGW_HMI_ACC_Power_msg
 {
   //if (isActive == 1) {
     if(this.byte(0) == 0x1) {
@@ -239,7 +219,7 @@ on message can6.CGW_HMI_ACC_Power_msg
 }
 
 
-on message can6.* // can3. 와 같이 수정?
+on message A_CAN.* // can3. 와 같이 수정?
 {
   //if (isActive == 1 && isACC_On == 1) {
   //if (isActive == 1)
@@ -273,19 +253,21 @@ on message can6.* // can3. 와 같이 수정?
       case CGW_HMI_ACC_Speed_msg.id:
         if(msg.byte(0) == 0x1) {
           byteACC_tarVel_kph += 2;
+          if(byteACC_tarVel_kph > 120)
+            byteACC_tarVel_kph = 120;
         }
         else if(msg.byte(0) == 0x2) {
           byteACC_tarVel_kph -= 2;
+          if(byteACC_tarVel_kph < 30)
+            byteACC_tarVel_kph = 30;
         }
-        
-        if(byteACC_tarVel_kph > 120)
-          byteACC_tarVel_kph = 120;
-        
-        else if(byteACC_tarVel_kph < 30)
-          byteACC_tarVel_kph = 30;
-        
         Des_msg.ACC_des_speed_kmh = byteACC_tarVel_kph;
         //$ACC::ACC_des_speed_kmh = byteACC_tarVel_kph;
+        break;
+        
+        
+      case CGW_PANEL_ADTC_msg.id:
+        output(DTC_msg);
         break;
         
         
@@ -326,15 +308,6 @@ on timer _1msTimer
     g1ms_getFRdisGap_Counter++;
     g1ms_getVelGap_Counter++;
     g1msCounter++;
-    
-    if (g1msCounter % 10 == 0) {
-      output(Accel_msg);
-      output(Brk_msg);
-    }
-    if (g1msCounter % 100 == 0) {
-      output(Des_msg);
-      output(Level_msg);
-    }
   }
 }
 
