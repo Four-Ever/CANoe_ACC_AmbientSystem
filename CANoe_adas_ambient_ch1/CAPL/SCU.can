@@ -23,13 +23,18 @@ on start{
 }
 
 on message can6.CGW_VCU_AWake_msg{
-  on_flag = 1;
-  write("VCU ON");
+  if(this.VCU_SCU_wakeup == 1){
+    on_flag = 1;
+    write("SCU ALIVE!!");
+  }
 }
 
-/*on message can6.CGW_VCU_ASleep_msg{
-  on_flag = 0;
-}*/
+on message can6.CGW_VCU_ASleep_msg{
+  if(this.VCU_SCU_sleep == 1){
+    on_flag = 0;
+    write("SCU DIE!!");
+  }
+}
 
 on message can6.CGW_VCU_Speed_Overr_msg{
   if(on_flag==1){
