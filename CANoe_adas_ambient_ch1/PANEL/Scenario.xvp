@@ -1,12 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null">
   <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="Scenario">
-    <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X09048a33e0e0be4a04e94fce6c8702870775" ControlName="LCD Control 2">
-      <Property Name="Name">X09048a33e0e0be4a04e94fce6c8702870775</Property>
-      <Property Name="Size">164, 50</Property>
-      <Property Name="Location">355, 116</Property>
-      <Property Name="SymbolConfiguration">8;16;SEAT_Value;;;pass_seat_OCC;1;;;-1;;;Value;;;0</Property>
-    </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X8f40d189e290de46feebfe9e19b158fad93a" ControlName="LCD Control 1">
       <Property Name="Name">X8f40d189e290de46feebfe9e19b158fad93a</Property>
       <Property Name="Size">164, 50</Property>

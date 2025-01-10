@@ -221,7 +221,7 @@
 &lt;NodeKey&gt;{RootSymbolItem/{SysVarGroupItem/VCU_Tx&lt;/NodeKey&gt;
 &lt;/NodeProperties&gt;
 &lt;NodeProperties&gt;
-&lt;NodeKey&gt;{RootSymbolItem/{SysVarGroupItem/SEAT_Value&lt;/NodeKey&gt;
+&lt;NodeKey&gt;{RootSymbolItem/{SysVarGroupItem/LeadCarSimulation&lt;/NodeKey&gt;
 &lt;/NodeProperties&gt;
 &lt;/NodeTreeProperties&gt;
 &lt;/ViewProperties&gt;
@@ -237,7 +237,7 @@
           <d2p1:Value>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;SymbolSelectionProperties xmlns:i="http://www.w3.org/2001/XMLSchema-instance"&gt;
 &lt;AreDiagQualifiersShown&gt;false&lt;/AreDiagQualifiersShown&gt;
-&lt;CurrentViewId&gt;Variables&lt;/CurrentViewId&gt;
+&lt;CurrentViewId&gt;NetworkSymbols&lt;/CurrentViewId&gt;
 &lt;SearchProperties&gt;
 &lt;SearchTermHistory /&gt;
 &lt;/SearchProperties&gt;
@@ -448,7 +448,11 @@
 &lt;/ColumnProperties&gt;
 &lt;/ColumnsProperties&gt;
 &lt;Key&gt;1133967835442/NetworkSymbols&lt;/Key&gt;
-&lt;NodeTreeProperties /&gt;
+&lt;NodeTreeProperties&gt;
+&lt;NodeProperties&gt;
+&lt;NodeKey&gt;{RootSymbolItem/CANoeDB_A_CAN{VNetworkItem/{SignalGroupItem&lt;/NodeKey&gt;
+&lt;/NodeProperties&gt;
+&lt;/NodeTreeProperties&gt;
 &lt;/ViewProperties&gt;
 &lt;ViewProperties&gt;
 &lt;ColumnsProperties&gt;
@@ -927,7 +931,7 @@
 &lt;Key&gt;1133967835442/VariableSymbols&lt;/Key&gt;
 &lt;NodeTreeProperties&gt;
 &lt;NodeProperties&gt;
-&lt;NodeKey&gt;{RootSymbolItem/{SysVarGroupItem/VCU_Rx&lt;/NodeKey&gt;
+&lt;NodeKey&gt;{RootSymbolItem/{SysVarGroupItem/LeadCarSimulation&lt;/NodeKey&gt;
 &lt;/NodeProperties&gt;
 &lt;/NodeTreeProperties&gt;
 &lt;/ViewProperties&gt;
