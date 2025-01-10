@@ -54,7 +54,7 @@ variables
   float D_SAFE = 3.0; // m
   
   
-  float KP = 0.5;
+  float KP = 0.15;
   float KD = 0.2;
   
   message A_CAN::ACC_Accel_msg Accel_msg;
@@ -107,8 +107,8 @@ void turn_off()
   Level_msg.ACC_level = byteACC_level;
   Des_msg.ACC_des_dis_m = 0;
   Des_msg.ACC_des_speed_kmh = 0;
-  Brk_msg.ACC_brk_pbar = 0;
-  Accel_msg.ACC_accel_trk = 0;
+  Brk_msg.ACC_brk_pbar = 110;
+  Accel_msg.ACC_accel_trk = 110;
   
   output(Brk_msg);
   output(Accel_msg);
@@ -189,6 +189,9 @@ void cal_target_Acmd(byte flag)
     
     if (intdeltaDis < 0) {
       ftar_tolead_Accel = intdeltaDis * KP;
+    }
+    else {
+       ftar_tolead_Accel = ACCEL_MAX;
     }
     //deltaDis = interpretAsFloat(intdeltaDis* KP); 
     //deltaVel = (fFCar_speed - fcur_speed) * KD;
