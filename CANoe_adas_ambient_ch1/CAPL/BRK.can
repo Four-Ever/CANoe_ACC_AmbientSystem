@@ -33,3 +33,11 @@ on start
    setTimerCyclic(BRKTimer, 5);
 }
 
+on message can2.CGW_PANEL_CDTC_msg
+{
+   message BRK_DTC_msg msgOut;
+    msgOut.BRK_diagnosis = 1;
+  output(msgOut);
+  
+  
+}
