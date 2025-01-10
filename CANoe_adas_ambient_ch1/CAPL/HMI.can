@@ -38,6 +38,11 @@ on message can4.CGW_VCU_USleep_msg
   if(this.VCU_HMI_sleep==1)
   {
     HMI_status=0;
+    Car_status = 0;
+    Acc_status = 0;
+    @sysvar::HMI_Input::acc_lv=0;
+    @sysvar::HMI_Input::acc_status = 0;
+    @sysvar::HMI_Input::car_status = 0;
   }
 }
 on message can4.PANEL_UDTC_msg //진단
