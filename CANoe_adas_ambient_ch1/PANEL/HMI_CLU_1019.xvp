@@ -464,7 +464,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X0d6d0717e01ade4804e95f5e2eb4a8e84104" ControlName="Static Text 1">
       <Property Name="Name">X0d6d0717e01ade4804e95f5e2eb4a8e84104</Property>
       <Property Name="Size">32, 15</Property>
-      <Property Name="Location">928, 100</Property>
+      <Property Name="Location">933, 100</Property>
       <Property Name="Text">ACC</Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X9c9caa63eb555e40d7e9efdebd9a94e560b9" ControlName="Switch / Indicator 4">
