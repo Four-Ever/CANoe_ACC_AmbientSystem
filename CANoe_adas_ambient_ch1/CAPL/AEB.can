@@ -30,6 +30,7 @@ on start
   aebState = 0;
   airbagState = 0;
   k = 0.008;
+  
 }
 
 // 작동 시작 이벤트
@@ -84,18 +85,22 @@ on message can6.A_CAN::CGW_PANEL_ADTC_msg
 
 // 로직 30주기
 // 충돌 감지AML , 긴급제동시 AML
+
 on timer tmrCycle_1
 {
+  
   int stopDistance = 0;
+
   //int amlStartDist = 0;
   //write("Power:  %d Front %d",isPower,isFront);
+
   if (isPower == 1)
   {
     if (isFront == 1)
     {
       stopDistance = (speed*speed) * k;
-      //write("stopDistance : %d fronDistance : %d",stopDistance,frontDistance);
-      if (stopDistance > frontDistance)
+      write("stopDistance : %d fronDistance : %d",stopDistance,frontDistance);
+      if (stopDistance >= frontDistance)
       {  
         /*
         message AEB_Brk_msg brakeMsgOut;
@@ -111,7 +116,7 @@ on timer tmrCycle_1
           output(brakeMsgOut);
           ////
           aebState = 1;
-          write("AEB ON");
+          write("119AEB ON");
         }
         // TODO : 주기가 너무 길어서 안가면 수정   
         $AEB::AEB_BCU_amlctrl_req = 1; //주기 200
@@ -127,7 +132,7 @@ on timer tmrCycle_1
           brakeMsgOut.AEB_VCU_brk_pbar = 0;
           output(brakeMsgOut);
           aebState = 0;
-          write("AEB OFF");
+          write("135AEB OFF");
         }
         // 주기가 너무 길어서 안가면 수정
         $AEB::AEB_BCU_amlctrl_req = 0;
@@ -142,10 +147,11 @@ on timer tmrCycle_1
           airbagMsgOut.AEB_BCU_airbagctrl_req = 1;
           output(airbagMsgOut);
           // airbag터지면 AEB 동작 종료
-          isPower = 0;
+          //isPower = 0;
           write("air bag");
           airbagState = 1;
         }
+        /*
         if (aebState == 0)
         {
           message AEB_Brk_msg brakeMsgOut;
@@ -155,6 +161,8 @@ on timer tmrCycle_1
           aebState = 1;
           write("AEB ON");
         }
+        */
+        
       }
 
     }
@@ -169,9 +177,34 @@ on timer tmrCycle_1
           brakeMsgOut.AEB_VCU_brk_pbar = 0;
           output(brakeMsgOut);
           aebState = 0;
-          write("AEB OFF");
+          write("180AEB OFF");
         }
         
       }
   } 
+
 }
+
+
+
+
+
+/*
+on timer tmrCycle_1
+{
+  
+  int stopDistance = 0;
+if (isPower == 1 &&aebState == 0){
+    message AEB_Brk_msg brakeMsgOut;
+          brakeMsgOut.AEB_VCU_brk_pbar = 1;
+          output(brakeMsgOut);
+          ////
+          aebState = 1;
+          write("AEB ON");
+  
+
+  aebState = 1;
+}
+}
+*/
+
