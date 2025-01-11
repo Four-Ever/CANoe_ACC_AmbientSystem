@@ -50,6 +50,9 @@ on message can6.A_CAN::CGW_VCU_ASleep_msg
   isFront = 0;
   aebState = 0;
   airbagState = 0;
+  $AEB::AEB_BCU_amlctrl_req = 0;
+  $AEB::AEB_CLU_aebled = 0;
+  
 }
 
 // 차량 속도 30주기
@@ -64,7 +67,7 @@ on message can6.A_CAN::SCU_Front_msg
 {
   frontDistance = this.SCU_Frdis_m;
   isFront = this.SCU_PreVehicle;
-  //if (impulse >=20)
+  if (this.SCU_Frcrash_ns >=20)
     impulse = this.SCU_Frcrash_ns;
 }
 
