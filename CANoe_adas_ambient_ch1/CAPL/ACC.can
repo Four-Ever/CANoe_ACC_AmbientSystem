@@ -66,9 +66,6 @@ on preStart
 
 on start
 {
-  Brk_msg.ACC_brk_pbar = 110;
-  Accel_msg.ACC_accel_trk = 110;
-  
   setTimerCyclic(loopTimer, 100);
   setTimerCyclic(_1msTimer, 1);
   
@@ -388,16 +385,12 @@ on timer _1msTimer
     g1msCounter++;
     
     if (g1msCounter > 0 && g1msCounter % 10 == 0) {
-      if (isACC_On) {
-        output(Accel_msg);
-        output(Brk_msg);
-      }
-      else {
+      if (isACC_On == 0) {
         Accel_msg.ACC_accel_trk = 110;
         Brk_msg.ACC_brk_pbar = 110;
-        output(Accel_msg);
-        output(Brk_msg);
-      }
+      }      
+      output(Accel_msg);
+      output(Brk_msg);
     }
     if (g1msCounter > 0 && g1msCounter % 100 == 0) {
       if (isACC_On) {
