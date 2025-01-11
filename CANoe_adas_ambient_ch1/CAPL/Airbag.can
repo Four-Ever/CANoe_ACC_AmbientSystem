@@ -84,14 +84,14 @@ on message can1.BCU_Airbag_msg // 충돌에 의한 에어백 전개 요청 (BCU 
   // if(Power_on_off_flag){
     
   //}
-  if(this.BCU_dr_airbagstate) // 운전자 에어백 상태
+  if(this.BCU_dr_airbagstate && @sysvar::AIRBAG_Value::dr_airbag_condi == normal) // 운전자 에어백 상태
   {
     @sysvar::AIRBAG_Value::dr_airbag_state = accident_state;
   }
-  if(this.BCU_pass_airbagstate) // 조수석 에어백 상태
+  if(this.BCU_pass_airbagstate && @sysvar::AIRBAG_Value::pass_airbag_condi == normal ) // 조수석 에어백 상태
   {
     // 조수석 에어백 고장상태 진단 코드 2번 발생 중.
-    // @sysvar::AIRBAG_Value::pass_airbag_state = accident_state;
+    @sysvar::AIRBAG_Value::pass_airbag_state = accident_state;
   }
 }
 
