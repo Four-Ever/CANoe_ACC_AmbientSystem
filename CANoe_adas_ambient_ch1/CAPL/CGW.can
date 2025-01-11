@@ -23,6 +23,12 @@ variables
   //int ACC_Accel_msg_flag = 0, ACC_Brk_msg_flag = 0;
 }
 
+on preStart
+{
+  G_ACC_AS.ACC_accel_trk = 110;
+  G_ACC_AS.ACC_brk_pbar = 110;
+}
+
 on Start
 {
   setTimerCyclic(cycle1ms,1);
