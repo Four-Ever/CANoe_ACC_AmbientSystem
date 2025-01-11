@@ -17,6 +17,8 @@ on timer VCUTimer{
 
 
 on start {  
+  $CGW::AEB_VCU_brk_pbar=0;
+  @sysvar::VCU_Rx::AEB_brk=0; 
   setTimerCyclic(VCUTimer, 5);
 }
 
@@ -158,6 +160,10 @@ on message CAN3.CGW_HMI_VCU_Power_msg {  //msg 들어올때만 시스템변수�
   //sLEEP msg 전송
   if (@sysvar::VCU_Rx::HMI_engine_off ==1){
     changesleep();
+    $CGW::AEB_VCU_brk_pbar=0;
+    @sysvar::VCU_Rx::AEB_brk=0; 
+    @sysvar::VCU_Rx::HMI_engine_on=0;
+    
   }
 }
 
