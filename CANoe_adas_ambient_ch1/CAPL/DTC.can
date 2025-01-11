@@ -273,3 +273,33 @@ on sysvar DTC::resetBtn
 
 }
 
+on preStop
+{
+     @DTC::vcuState = 0;
+    @DTC::ccmState = 0;
+    @DTC::brkState = 0;
+    @DTC::aclState = 0;
+    @DTC::amlState = 0;
+    @DTC::bcuState = 0;
+    @DTC::seatState = 0;
+    @DTC::airbagState = 0;
+    @DTC::accState = 0;
+    @DTC::aebState = 0;
+    @DTC::scuState = 0;
+    @DTC::hmiState = 0;
+    @DTC::cluState = 0;
+    
+    @DTC::vcuCode = 0;
+    @DTC::ccmCode = 0;
+    @DTC::brkCode = 0;
+    @DTC::aclCode = 0;
+    @DTC::amlCode = 0;
+    @DTC::bcuCode = 0;
+    @DTC::seatCode = 0;
+    @DTC::airbagCode = 0;
+    @DTC::accCode = 0;
+    @DTC::aebCode = 0;
+    @DTC::scuCode = 0;
+    @DTC::hmiCode = 0;
+    @DTC::cluCode = 0;   
+}
