@@ -11,7 +11,7 @@ variables
   msTimer ACLTimer;
 }
 
-on timer ACLTimer{
+on timer ACLTimer{   //PEDAL Depth 계산
   if (@sysvar::Panel::Ped_acl==1){
     acltemp=acltemp+0.05;
   }
@@ -21,24 +21,43 @@ on timer ACLTimer{
   if (acltemp >100){
     acltemp=100;
   }
-  //write("%lf    ", acltemp);
+
   tmp = (int)acltemp;
   $C_CAN::ACL::ACL_Accel_msg::ACL_ped_per=tmp;
-  //write("---------%d, %lf", tmp, acltemp);
 
 }
 
 on start
 {
-   setTimerCyclic(ACLTimer, 5);
+  //$C_CAN::ACL::ACL_Accel_msg::ACL_ped_per=0;
+  setTimerCyclic(ACLTimer, 5);
 }
 
-on message can2.CGW_PANEL_CDTC_msg
+on message can2.CGW_PANEL_CDTC_msg  //진단메세지 송신
 {
    message ACL_DTC_msg msgOut;
     msgOut.ACL_diagnosis = 1;
   output(msgOut);
   
   
+}
+
+on message can2.C_CAN::CGW_VCU_CWake_msg //  ECU 작동 시작
+{
+  if($C_CAN::CGW::CGW_VCU_CWake_msg::VCU_ACL_wakeup == 1)
+  {
+    write("Accel Im alive");
+
+  }
+  
+  
+}
+on message can2.C_CAN::CGW_VCU_CSleep_msg //  ECU 작동 종료
+{
+  if($C_CAN::CGW::CGW_VCU_CSleep_msg::VCU_ACL_sleep ==1)
+  {
+    acltemp=0;
+    write("Accel Im End");
+  }
 }
 
