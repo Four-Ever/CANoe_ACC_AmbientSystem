@@ -124,6 +124,13 @@ on sysvar_update sysvar::SEAT_Value::dr_seat_OCC // 2 sec
   }
 }
 
+on sysvar_update sysvar::SEAT_Value::pass_seat_OCC // 1 Computer에서 테스트 하기 용도.
+{
+  if(@sysvar::SEAT_Value::pass_seat_OCC == 1){
+    local_pass_seat_OCC = 1;
+    setTimer(pass_seat_Belt_state_timer, 2000);
+  }
+}
 //on sysvar_update sysvar::SEAT_Value::pass_seat_OCC // 2 sec
 on message can1.CGW_PANEL_Boarding_msg// 시나리오 패널 서버 분리를 위한 처리
 {
@@ -166,7 +173,8 @@ on message can1.CGW_VCU_BSleep_msg // Seat ECU 작동 종료
   {
     write("Seat Im End");
     Power_on_off_flag = False;
-    local_pass_seat_OCC = 0;
+    init();
+    
   }
 }
 on message can1.CGW_PANEL_BDTC_msg // Seat ECU 진단 정보 요청
