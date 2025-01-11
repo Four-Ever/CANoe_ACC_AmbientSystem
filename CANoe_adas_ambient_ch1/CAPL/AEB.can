@@ -87,20 +87,32 @@ on message can6.A_CAN::CGW_PANEL_ADTC_msg
 on timer tmrCycle_1
 {
   int stopDistance = 0;
+  //int amlStartDist = 0;
   //write("Power:  %d Front %d",isPower,isFront);
   if (isPower == 1)
   {
     if (isFront == 1)
     {
       stopDistance = (speed*speed) * k;
-      write("stopDistance : %d fronDistance : %d",stopDistance,frontDistance);
+      //write("stopDistance : %d fronDistance : %d",stopDistance,frontDistance);
       if (stopDistance > frontDistance)
       {  
+        /*
         message AEB_Brk_msg brakeMsgOut;
         brakeMsgOut.AEB_VCU_brk_pbar = 1;
         output(brakeMsgOut);
         aebState = 1;
         write("AEB ON");
+        */
+        if (aebState == 0)
+        {
+          message AEB_Brk_msg brakeMsgOut;
+          brakeMsgOut.AEB_VCU_brk_pbar = 1;
+          output(brakeMsgOut);
+          ////
+          aebState = 1;
+          write("AEB ON");
+        }
         // TODO : 주기가 너무 길어서 안가면 수정   
         $AEB::AEB_BCU_amlctrl_req = 1; //주기 200
         $AEB::AEB_CLU_aebled = 1; // 주기 100
@@ -108,13 +120,14 @@ on timer tmrCycle_1
       
       else
       {
-        write("AEB OFF");
+        //write("AEB OFF");
         if (aebState == 1)
         {
           message AEB_Brk_msg brakeMsgOut;
-          brakeMsgOut.AEB_VCU_brk_pbar = 1;
+          brakeMsgOut.AEB_VCU_brk_pbar = 0;
           output(brakeMsgOut);
           aebState = 0;
+          write("AEB OFF");
         }
         // 주기가 너무 길어서 안가면 수정
         $AEB::AEB_BCU_amlctrl_req = 0;
@@ -133,12 +146,14 @@ on timer tmrCycle_1
           write("air bag");
           airbagState = 1;
         }
-        if (aebState == 1)
+        if (aebState == 0)
         {
           message AEB_Brk_msg brakeMsgOut;
           brakeMsgOut.AEB_VCU_brk_pbar = 1;
           output(brakeMsgOut);
-          aebState = 0;
+          ////
+          aebState = 1;
+          write("AEB ON");
         }
       }
 
@@ -151,9 +166,10 @@ on timer tmrCycle_1
         if (aebState == 1)
         {
           message AEB_Brk_msg brakeMsgOut;
-          brakeMsgOut.AEB_VCU_brk_pbar = 1;
+          brakeMsgOut.AEB_VCU_brk_pbar = 0;
           output(brakeMsgOut);
           aebState = 0;
+          write("AEB OFF");
         }
         
       }
