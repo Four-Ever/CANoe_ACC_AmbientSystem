@@ -37,13 +37,19 @@ on message can6.A_CAN::CGW_VCU_AWake_msg
 {
   isPower = 1;
 
+
 }
 
 // 작동 종료 이벤트
 on message can6.A_CAN::CGW_VCU_ASleep_msg
 {
+  speed = 0;
+  impulse = 0;
+  frontDistance = 0;
   isPower = 0;
-  
+  isFront = 0;
+  aebState = 0;
+  airbagState = 0;
 }
 
 // 차량 속도 30주기
