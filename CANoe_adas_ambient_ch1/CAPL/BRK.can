@@ -11,7 +11,7 @@ variables
   msTimer BRKTimer;
 }
 
-on timer BRKTimer{
+on timer BRKTimer{     //pedal depth 계산
   if (@sysvar::Panel::Ped_brk==1){
     brktemp=brktemp+0.05;
   }
@@ -21,10 +21,9 @@ on timer BRKTimer{
   if (brktemp >100){
     brktemp=100;
   }
-  //write("%lf    ", brktemp);
+
   tmp = (int)brktemp;
   $C_CAN::BRK::BRK_Brk_msg::BRK_ped_per=tmp;
-  //write("%d", tmp);
 
 }
 
@@ -33,11 +32,30 @@ on start
    setTimerCyclic(BRKTimer, 5);
 }
 
-on message can2.CGW_PANEL_CDTC_msg
+on message can2.CGW_PANEL_CDTC_msg   //진단코드 전송
 {
    message BRK_DTC_msg msgOut;
     msgOut.BRK_diagnosis = 1;
   output(msgOut);
   
   
+}
+
+on message can2.C_CAN::CGW_VCU_CWake_msg //  ECU 작동 시작
+{
+  if($C_CAN::CGW::CGW_VCU_CWake_msg::VCU_BRK_wakeup == 1)
+  {
+    write("Brake Im alive");
+
+  }
+  
+  
+}
+on message can2.C_CAN::CGW_VCU_CSleep_msg //  ECU 작동 종료
+{
+  if($C_CAN::CGW::CGW_VCU_CSleep_msg::VCU_BRK_sleep ==1)
+  {
+    brktemp=0;
+    write("Brake Im End");
+  }
 }
