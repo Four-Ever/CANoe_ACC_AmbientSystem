@@ -7,20 +7,25 @@ includes
 
 variables
 {
-  int on_flag =0; //합칠 때 0으로 변경
-  int leadcar_flag = 0;
+  int on_flag; //합칠 때 0으로 변경
+  int leadcar_flag ;
   int AEB_distance = 0;
 }
 
-on start{
- 
+void init(){
+  on_flag = 0;
+  leadcar_flag = 0;
   $A_CAN::SCU::SCU_Frdis_m = 250; // 값 2바이트로 변경, 패널 값을 제한하게끔 시스템변수 -> 변수하나 넣어서 처리
   $SCU::SCU_Frcrash_ns = 0;
   $SCU::SCU_PreVehicle = 0;
   $SCU::SCU_Rcrash_ns = 0;
-  //on_flag = 1;
-  
-  write("SCU on start step");
+  @LeadCarSimulation::MyCar_Pos = 0;
+}
+
+on start{
+ 
+  init();
+  //write("SCU on start step");
 }
 
 on message can6.CGW_VCU_AWake_msg{
@@ -32,8 +37,8 @@ on message can6.CGW_VCU_AWake_msg{
 
 on message can6.CGW_VCU_ASleep_msg{
   if(this.VCU_SCU_sleep == 1){
-    on_flag = 0;
-    leadcar_flag = 0;
+    //sleep 시 값 초기화
+    init();
     write("SCU DIE!!");
   }
 }
@@ -47,7 +52,7 @@ on message can6.CGW_VCU_Speed_Overr_msg{
 
 on message can6.CGW_PANEL_FCar_msg{ // 선행차 등장
  if(on_flag==1){
-   @LeadCarSimulation::MyCar_Pos = 0;
+   //@LeadCarSimulation::MyCar_Pos = 0;
    @LeadCarSimulation::Set_LeadCar_Pos = 200;
    @LeadCarSimulation::LeadCar_Pos = @LeadCarSimulation::MyCar_Pos + @LeadCarSimulation::Set_LeadCar_Pos;
    leadcar_flag = 1;
