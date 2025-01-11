@@ -33,6 +33,7 @@ on message can6.CGW_VCU_AWake_msg{
 on message can6.CGW_VCU_ASleep_msg{
   if(this.VCU_SCU_sleep == 1){
     on_flag = 0;
+    leadcar_flag = 0;
     write("SCU DIE!!");
   }
 }
@@ -114,6 +115,7 @@ on message can6.CGW_PANEL_RColl_msg{
     if(this.Scenario_Rear_collision == 1){ // 박았을 떄
       $SCU::SCU_Rcrash_ns = 22; // 데이터베이스 분리해야 사용가능   
       on_flag = 0; // 종료
+      leadcar_flag = 0;
     }
   }
 
