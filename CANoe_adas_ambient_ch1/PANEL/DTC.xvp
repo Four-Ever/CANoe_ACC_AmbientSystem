@@ -4,7 +4,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LEDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X09855ed2e54b3e44fde9fa0ef3e2730f5f18" ControlName="LED Control 13">
       <Property Name="Name">X09855ed2e54b3e44fde9fa0ef3e2730f5f18</Property>
       <Property Name="Size">50, 50</Property>
-      <Property Name="Location">460, 294</Property>
+      <Property Name="Location">445, 294</Property>
       <Property Name="ReadOnlyControl">True</Property>
       <Property Name="TabIndex">26</Property>
       <Property Name="TabStopActive">False</Property>
@@ -16,7 +16,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LEDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xc5f5e580e37f9e438cea005e115080868878" ControlName="LED Control 12">
       <Property Name="Name">Xc5f5e580e37f9e438cea005e115080868878</Property>
       <Property Name="Size">50, 50</Property>
-      <Property Name="Location">460, 238</Property>
+      <Property Name="Location">445, 238</Property>
       <Property Name="ReadOnlyControl">True</Property>
       <Property Name="TabIndex">25</Property>
       <Property Name="TabStopActive">False</Property>
@@ -28,7 +28,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LEDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xcd2121c9e3e4de4b78ea3ece53f7eaee491a" ControlName="LED Control 11">
       <Property Name="Name">Xcd2121c9e3e4de4b78ea3ece53f7eaee491a</Property>
       <Property Name="Size">50, 50</Property>
-      <Property Name="Location">460, 182</Property>
+      <Property Name="Location">445, 182</Property>
       <Property Name="ReadOnlyControl">True</Property>
       <Property Name="TabIndex">24</Property>
       <Property Name="TabStopActive">False</Property>
@@ -40,7 +40,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LEDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X091adc99eabe1e46bfe93a5e9cfd9f77e664" ControlName="LED Control 10">
       <Property Name="Name">X091adc99eabe1e46bfe93a5e9cfd9f77e664</Property>
       <Property Name="Size">50, 50</Property>
-      <Property Name="Location">460, 126</Property>
+      <Property Name="Location">445, 126</Property>
       <Property Name="ReadOnlyControl">True</Property>
       <Property Name="TabIndex">23</Property>
       <Property Name="TabStopActive">False</Property>
@@ -52,7 +52,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LEDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X2075cdd2e379ce4600ead05ef014c46877d7" ControlName="LED Control 9">
       <Property Name="Name">X2075cdd2e379ce4600ead05ef014c46877d7</Property>
       <Property Name="Size">50, 50</Property>
-      <Property Name="Location">460, 70</Property>
+      <Property Name="Location">445, 70</Property>
       <Property Name="ReadOnlyControl">True</Property>
       <Property Name="TabIndex">22</Property>
       <Property Name="TabStopActive">False</Property>
@@ -64,7 +64,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LEDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xa1575564ee784e4aefeaf2be797064cad949" ControlName="LED Control 8">
       <Property Name="Name">Xa1575564ee784e4aefeaf2be797064cad949</Property>
       <Property Name="Size">50, 50</Property>
-      <Property Name="Location">460, 14</Property>
+      <Property Name="Location">445, 14</Property>
       <Property Name="ReadOnlyControl">True</Property>
       <Property Name="TabIndex">21</Property>
       <Property Name="TabStopActive">False</Property>
@@ -147,43 +147,44 @@
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xda400569e4a3fe45edeab6ce1fd9b9918aae" ControlName="Static Text 27">
       <Property Name="Name">Xda400569e4a3fe45edeab6ce1fd9b9918aae</Property>
-      <Property Name="Size">44, 50</Property>
-      <Property Name="Location">675, 294</Property>
+      <Property Name="Size">62, 50</Property>
+      <Property Name="Location">652, 294</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
-      <Property Name="Text">B
+      <Property Name="Text">UI
 
 
 </Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X87e4c138e8d52e4e3beac68e450b997a6319" ControlName="Static Text 26">
       <Property Name="Name">X87e4c138e8d52e4e3beac68e450b997a6319</Property>
-      <Property Name="Size">44, 50</Property>
-      <Property Name="Location">675, 238</Property>
+      <Property Name="Size">62, 50</Property>
+      <Property Name="Location">652, 238</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
-      <Property Name="Text">B
+      <Property Name="Text">UI
+
 
 
 </Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xfe39a0f6ebcc8e4d12e82b6e11ac01b922e5" ControlName="Static Text 25">
       <Property Name="Name">Xfe39a0f6ebcc8e4d12e82b6e11ac01b922e5</Property>
-      <Property Name="Size">47, 50</Property>
-      <Property Name="Location">672, 182</Property>
+      <Property Name="Size">44, 50</Property>
+      <Property Name="Location">667, 182</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
-      <Property Name="Text">C
+      <Property Name="Text">A
 
 </Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X9342559ce7315e4959eb5d1ed997651a1f7f" ControlName="Static Text 24">
       <Property Name="Name">X9342559ce7315e4959eb5d1ed997651a1f7f</Property>
-      <Property Name="Size">47, 50</Property>
-      <Property Name="Location">672, 126</Property>
+      <Property Name="Size">44, 50</Property>
+      <Property Name="Location">667, 126</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
-      <Property Name="Text">C
+      <Property Name="Text">A
 
 
 </Property>
@@ -191,25 +192,26 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xc668bc26eed34e4d0ae8b1deab114b9980ba" ControlName="Static Text 23">
       <Property Name="Name">Xc668bc26eed34e4d0ae8b1deab114b9980ba</Property>
       <Property Name="Size">44, 50</Property>
-      <Property Name="Location">675, 70</Property>
+      <Property Name="Location">670, 70</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
-      <Property Name="Text">P
+      <Property Name="Text">A
+
 </Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xa3763c34e5174e489ce9011e2aa283b56afe" ControlName="Static Text 22">
       <Property Name="Name">Xa3763c34e5174e489ce9011e2aa283b56afe</Property>
       <Property Name="Size">44, 50</Property>
-      <Property Name="Location">675, 14</Property>
+      <Property Name="Location">670, 14</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
-      <Property Name="Text">P
+      <Property Name="Text">B
 </Property>
     </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xec125cb2e02b7e4716e9653e39591d9b42d9" ControlName="Static Text 13">
       <Property Name="Name">Xec125cb2e02b7e4716e9653e39591d9b42d9</Property>
       <Property Name="Size">137, 50</Property>
-      <Property Name="Location">524, 294</Property>
+      <Property Name="Location">509, 294</Property>
       <Property Name="BorderStyle">FixedSingle</Property>
       <Property Name="TextAlign">MiddleCenter</Property>
       <Property Name="Font">Microsoft Sans Serif, 30pt</Property>
@@ -219,7 +221,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X3e7b3bb1e4b1ce4053e9fdce9dc00b74b478" ControlName="Static Text 12">
       <Property Name="Name">X3e7b3bb1e4b1ce4053e9fdce9dc00b74b478</Property>
       <Property Name="Size">137, 50</Property>
-      <Property Name="Location">524, 238</Property>
+      <Property Name="Location">509, 238</Property>
       <Property Name="BorderStyle">FixedSingle</Property>
       <Property Name="TextAlign">MiddleCenter</Property>
       <Property Name="Font">Microsoft Sans Serif, 30pt</Property>
@@ -229,7 +231,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X93ff7e73e75e6e4b49eb8a5ee71063de6078" ControlName="Static Text 11">
       <Property Name="Name">X93ff7e73e75e6e4b49eb8a5ee71063de6078</Property>
       <Property Name="Size">137, 50</Property>
-      <Property Name="Location">524, 182</Property>
+      <Property Name="Location">509, 182</Property>
       <Property Name="BorderStyle">FixedSingle</Property>
       <Property Name="TextAlign">MiddleCenter</Property>
       <Property Name="Font">Microsoft Sans Serif, 30pt</Property>
@@ -239,7 +241,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X12979329e73b8e4c26ebd05e8cba3daa1891" ControlName="Static Text 10">
       <Property Name="Name">X12979329e73b8e4c26ebd05e8cba3daa1891</Property>
       <Property Name="Size">137, 50</Property>
-      <Property Name="Location">524, 126</Property>
+      <Property Name="Location">509, 126</Property>
       <Property Name="BorderStyle">FixedSingle</Property>
       <Property Name="TextAlign">MiddleCenter</Property>
       <Property Name="Font">Microsoft Sans Serif, 30pt</Property>
@@ -250,7 +252,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xad502344efd41e4663e92bfe93d7af959a8b" ControlName="Static Text 9">
       <Property Name="Name">Xad502344efd41e4663e92bfe93d7af959a8b</Property>
       <Property Name="Size">137, 50</Property>
-      <Property Name="Location">524, 70</Property>
+      <Property Name="Location">509, 70</Property>
       <Property Name="BorderStyle">FixedSingle</Property>
       <Property Name="TextAlign">MiddleCenter</Property>
       <Property Name="Font">Microsoft Sans Serif, 30pt</Property>
@@ -260,7 +262,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X4369a90ce2b96e4312e8b60efb385a0e4605" ControlName="Static Text 8">
       <Property Name="Name">X4369a90ce2b96e4312e8b60efb385a0e4605</Property>
       <Property Name="Size">137, 50</Property>
-      <Property Name="Location">524, 14</Property>
+      <Property Name="Location">509, 14</Property>
       <Property Name="BorderStyle">FixedSingle</Property>
       <Property Name="TextAlign">MiddleCenter</Property>
       <Property Name="Font">Microsoft Sans Serif, 30pt</Property>
@@ -270,7 +272,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X9a644e66e79bae480ce8905e979e7b1e822c" ControlName="LCD Control 13">
       <Property Name="Name">X9a644e66e79bae480ce8905e979e7b1e822c</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">702, 294</Property>
+      <Property Name="Location">697, 294</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -281,7 +283,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xdf37f568e5626e4368ea8ade316dcc24ed41" ControlName="LCD Control 12">
       <Property Name="Name">Xdf37f568e5626e4368ea8ade316dcc24ed41</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">702, 238</Property>
+      <Property Name="Location">697, 238</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -292,7 +294,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X81baa298e5d9ae4cdae8458eaa0d140ffeb0" ControlName="LCD Control 11">
       <Property Name="Name">X81baa298e5d9ae4cdae8458eaa0d140ffeb0</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">702, 182</Property>
+      <Property Name="Location">697, 182</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -303,7 +305,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xcd739c24e4aa0e4d65eabbce891c70da133c" ControlName="LCD Control 10">
       <Property Name="Name">Xcd739c24e4aa0e4d65eabbce891c70da133c</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">702, 126</Property>
+      <Property Name="Location">697, 126</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -314,7 +316,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X93105053eb487e4479ea782e13821daa2ef4" ControlName="LCD Control 9">
       <Property Name="Name">X93105053eb487e4479ea782e13821daa2ef4</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">702, 70</Property>
+      <Property Name="Location">697, 70</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -325,7 +327,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xb0d40791e1804e490ce820be694b4a2adeba" ControlName="LCD Control 8">
       <Property Name="Name">Xb0d40791e1804e490ce820be694b4a2adeba</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">702, 14</Property>
+      <Property Name="Location">697, 14</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -348,7 +350,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X1624bff8e7d4be4039eb533e71150e65f1c2" ControlName="Static Text 20">
       <Property Name="Name">X1624bff8e7d4be4039eb533e71150e65f1c2</Property>
       <Property Name="Size">44, 50</Property>
-      <Property Name="Location">241, 350</Property>
+      <Property Name="Location">248, 350</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
       <Property Name="Text">B
@@ -359,7 +361,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xaa0b07ebef878e404deac06ec543a3784dd2" ControlName="Static Text 19">
       <Property Name="Name">Xaa0b07ebef878e404deac06ec543a3784dd2</Property>
       <Property Name="Size">44, 50</Property>
-      <Property Name="Location">241, 294</Property>
+      <Property Name="Location">248, 294</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
       <Property Name="Text">B
@@ -370,7 +372,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X0d9c47fbe21c0e45e3e9211e28b2c365b6ab" ControlName="Static Text 18">
       <Property Name="Name">X0d9c47fbe21c0e45e3e9211e28b2c365b6ab</Property>
       <Property Name="Size">44, 50</Property>
-      <Property Name="Location">241, 238</Property>
+      <Property Name="Location">248, 238</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
       <Property Name="Text">B
@@ -381,7 +383,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xdde9d74be2293e4f96eb3c6e1428d7cf7c37" ControlName="Static Text 17">
       <Property Name="Name">Xdde9d74be2293e4f96eb3c6e1428d7cf7c37</Property>
       <Property Name="Size">47, 50</Property>
-      <Property Name="Location">238, 182</Property>
+      <Property Name="Location">245, 182</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
       <Property Name="Text">C
@@ -391,7 +393,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X8229e40ae5069e4581ea28de54cac33e4f2a" ControlName="Static Text 16">
       <Property Name="Name">X8229e40ae5069e4581ea28de54cac33e4f2a</Property>
       <Property Name="Size">47, 50</Property>
-      <Property Name="Location">238, 126</Property>
+      <Property Name="Location">245, 126</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
       <Property Name="Text">C
@@ -402,7 +404,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X0f22f7aae3dcbe4a54ea5a8ee7445959966f" ControlName="Static Text 15">
       <Property Name="Name">X0f22f7aae3dcbe4a54ea5a8ee7445959966f</Property>
       <Property Name="Size">44, 50</Property>
-      <Property Name="Location">241, 70</Property>
+      <Property Name="Location">248, 70</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
       <Property Name="Text">P
@@ -411,7 +413,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.StaticTextControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xf434aeb3eb7bae4c45eb95de2c28701753b8" ControlName="Static Text 14">
       <Property Name="Name">Xf434aeb3eb7bae4c45eb95de2c28701753b8</Property>
       <Property Name="Size">44, 50</Property>
-      <Property Name="Location">241, 14</Property>
+      <Property Name="Location">248, 14</Property>
       <Property Name="TextAlign">MiddleRight</Property>
       <Property Name="Font">Microsoft Sans Serif, 40pt</Property>
       <Property Name="Text">P
@@ -420,7 +422,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xc3e29b58e642ee4b22e9f3beb335f5ec46e0" ControlName="Button 1">
       <Property Name="Name">Xc3e29b58e642ee4b22e9f3beb335f5ec46e0</Property>
       <Property Name="Size">144, 38</Property>
-      <Property Name="Location">593, 362</Property>
+      <Property Name="Location">588, 362</Property>
       <Property Name="TabIndex">2</Property>
       <Property Name="Font">Microsoft Sans Serif, 30pt</Property>
       <Property Name="Text">Reset</Property>
@@ -502,7 +504,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X518efaf4e3bfbe4d2aeb313ee44f620792cb" ControlName="LCD Control 7">
       <Property Name="Name">X518efaf4e3bfbe4d2aeb313ee44f620792cb</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">268, 350</Property>
+      <Property Name="Location">275, 350</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -513,7 +515,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X562af184eadace405ce981be9b2adec1f198" ControlName="LCD Control 6">
       <Property Name="Name">X562af184eadace405ce981be9b2adec1f198</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">268, 294</Property>
+      <Property Name="Location">275, 294</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -524,7 +526,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xcf3edcade1242e4a5bebfa5e142fdf92182b" ControlName="LCD Control 5">
       <Property Name="Name">Xcf3edcade1242e4a5bebfa5e142fdf92182b</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">268, 238</Property>
+      <Property Name="Location">275, 238</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -535,7 +537,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X77e58f06e602ae4683ebb61ee8f11d688d67" ControlName="LCD Control 4">
       <Property Name="Name">X77e58f06e602ae4683ebb61ee8f11d688d67</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">268, 182</Property>
+      <Property Name="Location">275, 182</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -546,7 +548,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xc6d38e0ae6b5ce49ede9349ee3ce1cfae877" ControlName="LCD Control 3">
       <Property Name="Name">Xc6d38e0ae6b5ce49ede9349ee3ce1cfae877</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">268, 126</Property>
+      <Property Name="Location">275, 126</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -557,7 +559,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xf69ddd63e70a4e4ea3e8e43e89212d07c19b" ControlName="LCD Control 2">
       <Property Name="Name">Xf69ddd63e70a4e4ea3e8e43e89212d07c19b</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">268, 70</Property>
+      <Property Name="Location">275, 70</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
@@ -568,7 +570,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.LCDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X7d197552ed33fe4fbbe9299e467850b37c07" ControlName="LCD Control 1">
       <Property Name="Name">X7d197552ed33fe4fbbe9299e467850b37c07</Property>
       <Property Name="Size">164, 50</Property>
-      <Property Name="Location">268, 14</Property>
+      <Property Name="Location">275, 14</Property>
       <Property Name="BackColor">White</Property>
       <Property Name="ColorOff">White</Property>
       <Property Name="ColorOn">Black</Property>
