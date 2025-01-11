@@ -58,6 +58,11 @@ variables
   message A_CAN::ACC_level_msg Level_msg;
 }
 
+on preStart
+{
+  Brk_msg.ACC_brk_pbar = 110;
+  Accel_msg.ACC_accel_trk = 110;
+}
 
 on start
 {
