@@ -47,8 +47,11 @@ variables
   float ACCEL_MAX = 5.0;
   float DECEL_MAX = 7.0;
   
-  float KP = 0.3;
-  float KD = 0.2;
+  float KP = 0.35;
+  float KD = 0.15;
+  
+  float KPdis = 50;
+  float KDdis = 0.03;
     
   message A_CAN::ACC_Accel_msg Accel_msg;
   message A_CAN::ACC_Brk_msg Brk_msg;
@@ -133,36 +136,23 @@ void cal_Fvelocity()
   float deltaFRdis_m = 0;
   float fcurFRdis_m = 0;
   float fpreFRdis_m = 0;
-  if (g1ms_getFRdisGap_Counter > 0) {
-      fcurFRdis_m = bytecurFRdis_m;
-      fpreFRdis_m = bytepreFRdis_m;
-      deltaFRdis_m = fcurFRdis_m - fpreFRdis_m;
-      
-      deltaFRdis_m = deltaFRdis_m * g1ms_getFRdisGap_Counter / 1000;
-  }
   
-  //fFCar_speed = fcur_speed;// + deltaFRdis_m;
-  fFCar_speed = fcur_speed + deltaFRdis_m;
+  fcurFRdis_m = bytecurFRdis_m;
+  fpreFRdis_m = bytepreFRdis_m;
+  deltaFRdis_m = fcurFRdis_m - fpreFRdis_m;
+  
+  deltaFRdis_m = deltaFRdis_m * g1ms_getFRdisGap_Counter / 1000;
 
+  fFCar_speed = fcur_speed + deltaFRdis_m;
+  
   g1ms_getFRdisGap_Counter = 0;
-  //write("pre : %d, cur : %d", bytepreFRdis_m, bytecurFRdis_m);
   bytepreFRdis_m = bytecurFRdis_m;
 }
 
 void cal_target_dis()
 {
-  //float cal_tarDis;  
-  //cal_tarDis = fcur_speed * TIMEGAP[byteACC_level] + D_SAFE;
   byteACC_tarDis = ACC_DIS[byteACC_level];
-  //if (cal_tarDis > 250)
-  //  byteACC_tarDis = 250;
-
-  //else 
-  //  byteACC_tarDis = cal_tarDis;
-  
-  //Des_msg.ACC_des_dis_m = byteACC_tarDis;
   Des_msg.ACC_des_dis_m = byteACC_tarDis;
-  
 }
 
 float fmin(float fA, float fB)
@@ -181,30 +171,17 @@ void cal_target_Acmd(byte flag)
   ftar_speed = byteACC_tarVel_kph / 3.6;
   
   ftar_Accel = KP * (ftar_speed - fcur_speed) - KD * fAccel;
-  if (abs(ftar_Accel) < 1) ftar_Accel = ftar_speed - fcur_speed;
+  if (abs(ftar_speed - fcur_speed) <= 1) ftar_Accel = ftar_speed - fcur_speed; 
   
   if (flag == 0)
   {
     int intdeltaDis;
     intdeltaDis = (bytecurFRdis_m - byteACC_tarDis);
-    //write("intdeltaDis %d ", intdeltaDis);
     
-    deltaVel = (fFCar_speed - fcur_speed) * KP;
+    deltaVel = (fFCar_speed - fcur_speed) * KPdis;
+    deltaDis = intdeltaDis * KDdis;
     
-    //if (intdeltaDis < 0) {
-    deltaDis = intdeltaDis * KD;
     ftar_tolead_Accel = deltaDis + deltaVel;
-    //}
-    //else {
-    //   ftar_tolead_Accel = ACCEL_MAX;
-    //}
-    //deltaDis = interpretAsFloat(intdeltaDis* KP); 
-    //deltaVel = (fFCar_speed - fcur_speed) * KD;
-    //ftar_tolead_Accel = deltaDis + deltaVel;
-    //ftar_tolead_Accel;
-    //write("byteACC_tarDis : %d, bytecurFRdis_m : %d, fFCar_speed : %f, fcur_speed : %f", byteACC_tarDis, bytecurFRdis_m, fFCar_speed, fcur_speed);
-    //write("ftar_Accel : %f, ftar_tolead_Accel : %f", ftar_Accel, ftar_tolead_Accel); 
-
     ftar_Accel = fmin(ftar_Accel, ftar_tolead_Accel);
   }
   
@@ -229,7 +206,7 @@ on message can6.CGW_VCU_AWake_msg
   if(this.VCU_ACC_wakeup == 1) {
     isActive = 1;
     isACC_On = 0;
-    byteACC_level = 0; // init
+    byteACC_level = 0;
     write("ACC ALIVE!!");
   }
 }
@@ -295,7 +272,7 @@ on message can6.CGW_HMI_ACC_Power_msg
 }
 
 
-on message can6.* // can3. 와 같이 수정?
+on message can6.*
 {
   if (isActive == 1) {
     if(this.id == CGW_VCU_Speed_Overr_msg.id) {
@@ -407,7 +384,7 @@ on timer loopTimer
 {
   if (isActive == 1 && isACC_On == 1) {
     cal_target_dis();
-    if (isFVehicle)
+    if (isFVehicle && bytepreFRdis_m <= 200)
     {
       if (byteCar_speed_kph < 5) { // 선행차 있는 상황에서 정차하고 있는 상황
         gCounter++;
