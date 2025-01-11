@@ -26,15 +26,19 @@ on start
 ///각 메세지마다 wakeup 받았다는거 추가해야함.
 on message can4.CGW_VCU_UWake_msg
 {  
+  message HMI_VCU_Power_msg VCU_Power_msg;
   if(this.VCU_HMI_wakeup==1)
   {
     write("HMI Im alive");
     HMI_status=1;
+    VCU_Power_msg.HMI_Engine_start = 1;
+    VCU_Power_msg.HMI_Engine_sleep = 0;
   }
 }
 
 on message can4.CGW_VCU_USleep_msg
 {  
+  message HMI_VCU_Power_msg VCU_Power_msg;
   if(this.VCU_HMI_sleep==1)
   {
     HMI_status=0;
@@ -43,6 +47,9 @@ on message can4.CGW_VCU_USleep_msg
     @sysvar::HMI_Input::acc_lv=0;
     @sysvar::HMI_Input::acc_status = 0;
     @sysvar::HMI_Input::car_status = 0;
+    VCU_Power_msg.HMI_Engine_start = 0;
+    VCU_Power_msg.HMI_Engine_sleep = 1;
+    
   }
 }
 on message can4.PANEL_UDTC_msg //진단
