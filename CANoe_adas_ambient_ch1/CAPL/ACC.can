@@ -15,7 +15,6 @@ variables
   int g1msCounter = 0;
   
   int gCounter = 0;
-
   
   byte isActive = 0; // wake/sleep
   byte isACC_On = 0; // On/Off
@@ -29,8 +28,6 @@ variables
   byte bytepreFRdis_m = 0;
   byte isFVehicle = 0;
   byte isACC_Override = 0;
-  
-  byte isDTC_required = 0;
   dword dwACC_DTCcode = 1;
 
   byte ACC_DIS[4] = {0, 180, 150, 120}; // sec
@@ -50,13 +47,9 @@ variables
   float ACCEL_MAX = 5.0;
   float DECEL_MAX = 7.0;
   
-  float TIMEGAP[4] = {0, 3.0, 2.0, 1.0}; // sec
-  float D_SAFE = 3.0; // m
-  
-  
-  float KP = 0.15;
+  float KP = 0.3;
   float KD = 0.2;
-  
+    
   message A_CAN::ACC_Accel_msg Accel_msg;
   message A_CAN::ACC_Brk_msg Brk_msg;
   message A_CAN::ACC_Des_msg Des_msg;
@@ -68,6 +61,9 @@ variables
 
 on start
 {
+  Brk_msg.ACC_brk_pbar = 110;
+  Accel_msg.ACC_accel_trk = 110;
+  
   setTimerCyclic(loopTimer, 100);
   setTimerCyclic(_1msTimer, 1);
   
@@ -80,8 +76,6 @@ void turn_on()
   isACC_On = 1;
   byteACC_level = 2;
   
-  //$ACC::ACC_brk_off = 0;
-  //$ACC::ACC_level = byteACC_level;
   if (byteCar_speed_kph < 30) {
     byteACC_tarVel_kph = 30;
   }
@@ -96,6 +90,8 @@ void turn_on()
   Level_msg.ACC_level = byteACC_level;
   
   Des_msg.ACC_des_speed_kmh = byteACC_tarVel_kph;
+  Brk_msg.ACC_brk_pbar = 110;
+  Accel_msg.ACC_accel_trk = 110;
 }
 
 void turn_off()
@@ -124,7 +120,7 @@ void cal_accelration()
   fcur_speed = byteCar_speed_kph / 3.6;
 
   if (g1ms_getVelGap_Counter > 0)
-    fAccel = (fcur_speed - fpre_speed) / g1ms_getVelGap_Counter;
+    fAccel = (fcur_speed - fpre_speed) * g1ms_getVelGap_Counter / 1000;
 
   g1ms_getVelGap_Counter = 0;
 }
@@ -133,17 +129,19 @@ void cal_accelration()
 void cal_Fvelocity()
 {
   float deltaFRdis_m = 0;
+  float fcurFRdis_m = 0;
+  float fpreFRdis_m = 0;
   if (g1ms_getFRdisGap_Counter > 0) {
-      int intFRdis_m;
-      intFRdis_m = bytecurFRdis_m - bytepreFRdis_m;
-      //write("intFRdis_m %d", intFRdis_m);
-      //deltaFRdis_m = interpretAsFloat(intFRdis_m / g1ms_getFRdisGap_Counter);
-      //deltaFRdis_m = deltaFRdis_m / 1000;
+      fcurFRdis_m = bytecurFRdis_m;
+      fpreFRdis_m = bytepreFRdis_m;
+      deltaFRdis_m = fcurFRdis_m - fpreFRdis_m;
+      
+      deltaFRdis_m = deltaFRdis_m * g1ms_getFRdisGap_Counter / 1000;
   }
-  //write("DeltaFRdis_m %f", deltaFRdis_m);
   
-  fFCar_speed = fcur_speed;// + deltaFRdis_m;
-  
+  //fFCar_speed = fcur_speed;// + deltaFRdis_m;
+  fFCar_speed = fcur_speed + deltaFRdis_m;
+
   g1ms_getFRdisGap_Counter = 0;
   //write("pre : %d, cur : %d", bytepreFRdis_m, bytecurFRdis_m);
   bytepreFRdis_m = bytecurFRdis_m;
@@ -179,20 +177,25 @@ void cal_target_Acmd(byte flag)
   float deltaVel;
   
   ftar_speed = byteACC_tarVel_kph / 3.6;
+  
   ftar_Accel = KP * (ftar_speed - fcur_speed) - KD * fAccel;
-    
+  if (abs(ftar_Accel) < 1) ftar_Accel = ftar_speed - fcur_speed;
+  
   if (flag == 0)
   {
     int intdeltaDis;
     intdeltaDis = (bytecurFRdis_m - byteACC_tarDis);
     //write("intdeltaDis %d ", intdeltaDis);
     
-    if (intdeltaDis < 0) {
-      ftar_tolead_Accel = intdeltaDis * KP;
-    }
-    else {
-       ftar_tolead_Accel = ACCEL_MAX;
-    }
+    deltaVel = (fFCar_speed - fcur_speed) * KP;
+    
+    //if (intdeltaDis < 0) {
+    deltaDis = intdeltaDis * KD;
+    ftar_tolead_Accel = deltaDis + deltaVel;
+    //}
+    //else {
+    //   ftar_tolead_Accel = ACCEL_MAX;
+    //}
     //deltaDis = interpretAsFloat(intdeltaDis* KP); 
     //deltaVel = (fFCar_speed - fcur_speed) * KD;
     //ftar_tolead_Accel = deltaDis + deltaVel;
@@ -235,13 +238,32 @@ on message can6.CGW_VCU_ASleep_msg
   if(this.VCU_ACC_sleep == 1) {
     turn_off();
     
-    isActive = 0; // wake/sleep
-    
+    g1ms_getFRdisGap_Counter = 0;
+    g1ms_getVelGap_Counter = 0;
+    g1msCounter = 0;
+    gCounter = 0;
+
     byteACC_level = 0;
     byteACC_tarVel_kph = 0;
+    byteACC_tarDis = 0;
+  
     byteCar_speed_kph = 0;
+    bytecurFRdis_m = 0;
+    bytepreFRdis_m = 0;
     isFVehicle = 0;
     isACC_Override = 0;
+
+    fcur_speed = 0; // m/s
+    fpre_speed = 0; // m/s
+    fFCar_speed = 0; // m/s
+    ftar_speed = 0;
+  
+    fAccel = 0;
+    ftar_tolead_Accel = 0;
+    ftar_Accel = 0;
+    
+    isACC_On = 0; // On/Off
+    isActive = 0; // wake/sleep
     
     write("ACC DIE!!");
   }
@@ -253,7 +275,6 @@ on message can6.CGW_PANEL_ADTC_msg
   message ACC_DTC_msg ACCDTC;
   ACCDTC.ACC_diagnosis = 1;
   output(ACCDTC);
-
 }
 
 
@@ -264,8 +285,9 @@ on message can6.CGW_HMI_ACC_Power_msg
       turn_on();
     }
     else if(this.byte(0) == 0x2) {
-      if(isACC_On == 1)
+      if(isACC_On == 1) {
         turn_off();
+      }
     }
   }
 }
@@ -288,12 +310,14 @@ on message can6.* // can3. 와 같이 수정?
       switch(msg.id) {
         case CGW_HMI_ACC_Level_msg.id:
           if(msg.byte(0) == 0x1) {
-            if(++byteACC_level > 3)
+            if(++byteACC_level > 3) {
               byteACC_level = 3;
+            }
           }
           else if(msg.byte(0) == 0x2) {
-            if(--byteACC_level < 1)
+            if(--byteACC_level < 1) {
               byteACC_level = 1;
+            }
           }
           Level_msg.ACC_level = byteACC_level;
           
@@ -308,11 +332,13 @@ on message can6.* // can3. 와 같이 수정?
             byteACC_tarVel_kph -= 2;
           }
           
-          if(byteACC_tarVel_kph > 120)
+          if(byteACC_tarVel_kph > 120) {
             byteACC_tarVel_kph = 120;
+          }
           
-          else if(byteACC_tarVel_kph < 30)
+          else if(byteACC_tarVel_kph < 30) {
             byteACC_tarVel_kph = 30;
+          }
           
           Des_msg.ACC_des_speed_kmh = byteACC_tarVel_kph;
   
@@ -385,9 +411,9 @@ on timer loopTimer
     cal_target_dis();
     if (isFVehicle)
     {
-      if (byteCar_speed_kph < 5) { // R_3.RA_5
+      if (byteCar_speed_kph < 5) { // 선행차 있는 상황에서 정차하고 있는 상황
         gCounter++;
-        if (gCounter >= 1800) {// 3sec
+        if (gCounter >= 1800) {// 3min
           turn_off();
         }
       }
