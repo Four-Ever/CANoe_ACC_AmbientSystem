@@ -12,6 +12,7 @@ variables
 }
 
 on timer BRKTimer{     //pedal depth 계산
+  message BRK_FBrk_msg  fullbrk;
   if (@sysvar::Panel::Ped_brk==1){
     brktemp=brktemp+0.05;
   }
@@ -24,6 +25,14 @@ on timer BRKTimer{     //pedal depth 계산
 
   tmp = (int)brktemp;
   $C_CAN::BRK::BRK_Brk_msg::BRK_ped_per=tmp;
+  
+  if (@sysvar::Panel::Ped_fullbrk==1){
+    fullbrk.BRK_fullstatus=1;
+  }
+  else {
+    fullbrk.BRK_fullstatus=0;
+  }
+   output(fullbrk);
 
 }
 

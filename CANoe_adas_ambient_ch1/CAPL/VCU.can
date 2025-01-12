@@ -12,6 +12,14 @@ variables
 on timer VCUTimer{
   $P_CAN::VCU::VCU_State_msg::VCU_speed_kph = @sysvar::VCU_Tx::speed;
   $P_CAN::VCU::VCU_State_msg::VCU_rpm = @sysvar::VCU_Tx::rpm;
+  //브레이크등 패널
+  if (@sysvar::VCU_Rx::ACC_brk ==0 && @sysvar::VCU_Rx::AEB_brk==0 && @sysvar::VCU_Rx::dr_brk_ped == 0 && @sysvar::VCU_Rx::dr_brkfull == 0 ){
+      @sysvar::Panel::brk_light=0;
+  }
+  else {
+      @sysvar::Panel::brk_light=1;
+  }
+  
   
 }
 
