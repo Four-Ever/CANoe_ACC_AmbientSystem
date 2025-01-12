@@ -91,7 +91,7 @@ on timer tmrCycle_1
   
   int stopDistance = 0;
 
-  //int amlStartDist = 0;
+  int amlStartDist = 0;
   //write("Power:  %d Front %d",isPower,isFront);
 
   if (isPower == 1)
@@ -99,8 +99,19 @@ on timer tmrCycle_1
     if (isFront == 1)
     {
       stopDistance = (speed*speed) * k;
-      write("stopDistance : %d fronDistance : %d",stopDistance,frontDistance);
-      if (stopDistance >= frontDistance)
+      amlStartDist = stopDistance * 1.5;
+      write("stopDistance : %d fronDistance : %d amlStartDist : %d",stopDistance,frontDistance,amlStartDist);
+      if (airbagState == 1 && speed == 0 && aebState == 1)
+      {
+        message AEB_Brk_msg brakeMsgOut;
+          brakeMsgOut.AEB_VCU_brk_pbar = 0;
+          output(brakeMsgOut);
+          aebState = 0;
+          write("109AEB OFF");
+               
+      }
+      //if (stopDistance >= frontDistance && speed !=0)
+      if (amlStartDist >= frontDistance && speed !=0)
       {  
         /*
         message AEB_Brk_msg brakeMsgOut;
@@ -109,7 +120,7 @@ on timer tmrCycle_1
         aebState = 1;
         write("AEB ON");
         */
-        if (aebState == 0)
+        if (aebState == 0 && stopDistance >= frontDistance)
         {
           message AEB_Brk_msg brakeMsgOut;
           brakeMsgOut.AEB_VCU_brk_pbar = 1;
@@ -151,8 +162,8 @@ on timer tmrCycle_1
           write("air bag");
           airbagState = 1;
         }
-        /*
-        if (aebState == 0)
+        
+        if (aebState == 0 && stopDistance >= frontDistance)
         {
           message AEB_Brk_msg brakeMsgOut;
           brakeMsgOut.AEB_VCU_brk_pbar = 1;
@@ -161,7 +172,7 @@ on timer tmrCycle_1
           aebState = 1;
           write("AEB ON");
         }
-        */
+        
         
       }
 
