@@ -5,7 +5,7 @@
       <Property Name="Name">Xb8c068f3ee142e48f5ea15ce24316d6dfac6</Property>
       <Property Name="Size">188, 110</Property>
       <Property Name="Location">246, 91</Property>
-      <Property Name="SymbolConfiguration">8;16;Dev_Option;;;DEBUG_PRINT;1;;;-1;;;Value;;;0</Property>
+      <Property Name="SymbolConfiguration">8;16;Car_Rear;;;Rear_Crash;1;;;-1;;;Value;;;0</Property>
       <Property Name="ImageFile">Bitmaps\CRASH_empty-horz-removebg-preview.png</Property>
       <Property Name="IsProportional">False</Property>
       <Property Name="TabIndex">2</Property>
