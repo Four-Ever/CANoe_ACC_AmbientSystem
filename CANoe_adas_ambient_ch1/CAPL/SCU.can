@@ -21,6 +21,7 @@ void init(){
   $SCU::SCU_PreVehicle = 0;
   $SCU::SCU_Rcrash_ns = 0;
   @LeadCarSimulation::MyCar_Pos = 0;
+  @LeadCarSimulation::LeadCar_Pos = 0;
 }
 
 on start{
@@ -49,10 +50,10 @@ on message can6.CGW_VCU_Speed_Overr_msg{
     carspeed_m_30ms = this.VCU_speed_kph *0.008333;
     @LeadCarSimulation::MyCar_Pos += carspeed_m_30ms; //kph -> m/30ms
     if(this.VCU_speed_kph * carspeed_m_30ms <30){
-       AEB_distance = 20;
+       AEB_distance = 29;
     }
     else{
-      AEB_distance = (int)(this.VCU_speed_kph * carspeed_m_30ms);
+      AEB_distance = (int)(this.VCU_speed_kph * carspeed_m_30ms)-1;
     }
     
   }
@@ -75,7 +76,7 @@ on sysvar_update LeadCarSimulation::LeadCar_Movement_Sg{
     @LeadCarSimulation::LeadCar_Pos += (@LeadCarSimulation::LeadCar_Movement_Sg*0.008333);
     //@LeadCarSimulation::MyCar_Pos +=@LeadCarSimulation::LeadCar_Movement_Sg;
     distance = (int)(@LeadCarSimulation::LeadCar_Pos - @LeadCarSimulation::MyCar_Pos);
-    //write("distance = %d",distance);
+    write("distance = %f, MYcar = %f, Leadcar = %f",(@LeadCarSimulation::LeadCar_Pos - @LeadCarSimulation::MyCar_Pos), @LeadCarSimulation::MyCar_Pos, @LeadCarSimulation::LeadCar_Pos);
     if(distance >=255)
       $SCU::SCU_Frdis_m = 255;
     else if(distance <=0)
@@ -130,6 +131,7 @@ on message can6.CGW_PANEL_RColl_msg{
       $SCU::SCU_Rcrash_ns = 22; // 데이터베이스 분리해야 사용가능   
       on_flag = 0; // 종료
       leadcar_flag = 0;
+      @Car_Rear::Rear_Crash = 1;
     }
   }
 
