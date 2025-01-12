@@ -27,6 +27,9 @@ variables
   byte bytecurFRdis_m = 0;
   byte bytepreFRdis_m = 0;
   byte isFVehicle = 0;
+  
+  byte byteRcrash_ns = 0;
+  
   byte isACC_Override = 0;
   dword dwACC_DTCcode = 1;
 
@@ -103,6 +106,7 @@ void turn_off()
 {
   isACC_On = 0;
   byteACC_level = 0;
+  byteRcrash_ns = 0;
   
   DState_msg.ACC_brk_off = 1;
   Level_msg.ACC_level = byteACC_level;
@@ -178,10 +182,25 @@ void cal_target_Acmd(byte flag)
     int intdeltaDis;
     intdeltaDis = (bytecurFRdis_m - byteACC_tarDis);
     
+    // 개선 로직
     deltaVel = (fFCar_speed - fcur_speed) * KPdis;
     deltaDis = intdeltaDis * KDdis;
     
     ftar_tolead_Accel = deltaDis + deltaVel;
+    
+    /*
+    // 속도 변화를 빠르게 볼 수 있는 기존 로직
+    if (intdeltaDis < 0) { 
+      deltaVel = (fFCar_speed - fcur_speed) * KP;
+      deltaDis = intdeltaDis * KD;
+    
+      ftar_tolead_Accel = deltaDis + deltaVel;
+    }
+    else {
+      ftar_tolead_Accel = ACCEL_MAX;
+    }
+    */
+    
     ftar_Accel = fmin(ftar_Accel, ftar_tolead_Accel);
   }
   
@@ -340,6 +359,12 @@ on message can6.*
   
         case SCU_Front_msg.id:
           bytecurFRdis_m = msg.byte(0);
+          byteRcrash_ns = msg.byte(1);
+          
+          if(byteRcrash_ns > 0) { // 전방 충돌 시 종료
+            turn_off(); 
+          }
+          
           isFVehicle = (msg.byte(2) & 0x1);
           cal_Fvelocity();
   

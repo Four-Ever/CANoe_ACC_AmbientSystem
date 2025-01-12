@@ -9,7 +9,8 @@ variables
 {
   int on_flag; //합칠 때 0으로 변경
   int leadcar_flag ;
-  int AEB_distance = 0;
+  int AEB_distance = 60;
+  double carspeed_m_30ms;
 }
 
 void init(){
@@ -45,8 +46,15 @@ on message can6.CGW_VCU_ASleep_msg{
 
 on message can6.CGW_VCU_Speed_Overr_msg{
   if(on_flag==1){
-    @LeadCarSimulation::MyCar_Pos += (this.VCU_speed_kph *0.008333); //kph -> m/30ms
-    AEB_distance = (int)(this.VCU_speed_kph * this.VCU_speed_kph * 0.008333 - 10);
+    carspeed_m_30ms = this.VCU_speed_kph *0.008333;
+    @LeadCarSimulation::MyCar_Pos += carspeed_m_30ms; //kph -> m/30ms
+    if(this.VCU_speed_kph * carspeed_m_30ms <30){
+       AEB_distance = 20;
+    }
+    else{
+      AEB_distance = (int)(this.VCU_speed_kph * carspeed_m_30ms);
+    }
+    
   }
 }
 
@@ -67,6 +75,7 @@ on sysvar_update LeadCarSimulation::LeadCar_Movement_Sg{
     @LeadCarSimulation::LeadCar_Pos += (@LeadCarSimulation::LeadCar_Movement_Sg*0.008333);
     //@LeadCarSimulation::MyCar_Pos +=@LeadCarSimulation::LeadCar_Movement_Sg;
     distance = (int)(@LeadCarSimulation::LeadCar_Pos - @LeadCarSimulation::MyCar_Pos);
+    //write("distance = %d",distance);
     if(distance >=255)
       $SCU::SCU_Frdis_m = 255;
     else if(distance <=0)
@@ -93,7 +102,7 @@ on sysvar_update LeadCarSimulation::LeadCar_Movement_Sg{
 
 on message can6.CGW_PANEL_FColl_msg{
  if(on_flag==1 && leadcar_flag == 1){
-   @LeadCarSimulation::LeadCar_Pos = @LeadCarSimulation::MyCar_Pos + 10;
+   @LeadCarSimulation::LeadCar_Pos = @LeadCarSimulation::MyCar_Pos + 0; // 쾅! 0으로 수정
  }
   
 }
@@ -101,7 +110,7 @@ on message can6.CGW_PANEL_FColl_msg{
 on message can6.CGW_PANEL_AEB_msg{
  if(on_flag==1 && leadcar_flag == 1){
 
-   @LeadCarSimulation::LeadCar_Pos = @LeadCarSimulation::MyCar_Pos + AEB_distance; //로직구현
+   @LeadCarSimulation::LeadCar_Pos = @LeadCarSimulation::MyCar_Pos + AEB_distance; //로직구현 최솟값 보장하여 박는일 없게
  }
   
 }

@@ -129,5 +129,3 @@ void init(){
   Power_on_off_flag = False;
   @sysvar::HMI_Input::ambi_color = ctrl_off; // 불 OFF
 }
-
-// HMI @sysvar::HMI_Input::ambi_color 초기값 6으로 설정 요청(혜림)
