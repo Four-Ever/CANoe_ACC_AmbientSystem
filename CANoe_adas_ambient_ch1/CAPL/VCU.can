@@ -188,7 +188,7 @@ on message CAN3.CGW_ACL_Accel_msg {
 on message CAN3.CGW_BRK_Brk_msg {
   @sysvar::VCU_Rx::dr_brk_ped= this.BRK_ped_per;
   
-  if (@sysvar::VCU_Rx::dr_brk_ped > 0){
+  if (@sysvar::VCU_Rx::dr_brk_ped > 0 || @sysvar::VCU_Rx::dr_brkfull > 0){
     message VCU_ACCBrk_msg ACCOnBrk;
     ACCOnBrk.VCU_ACC_brksleep.phys=1;  //운전자가 조작중임을 acc 한테 알림
     output(ACCOnBrk);
@@ -203,7 +203,7 @@ on message CAN3.CGW_BRK_Brk_msg {
 on message CAN3.CGW_BRK_FBrk_msg {
   @sysvar::VCU_Rx::dr_brkfull = this.BRK_fullstatus;
   
-  if (@sysvar::VCU_Rx::dr_brkfull > 0){
+  if (@sysvar::VCU_Rx::dr_brkfull > 0 || @sysvar::VCU_Rx::dr_brk_ped > 0 ){
     message VCU_ACCBrk_msg ACCOnBrk2;
     ACCOnBrk2.VCU_ACC_brksleep.phys=1;  //운전자가 조작중임을 acc 한테 알림
     output(ACCOnBrk2);
