@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="SEAT_Value" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="dr_panel_seatbelt_state" comment="dr_panel_seatbelt_state" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="pass_panel_seatbelt_state" comment="pass_panel_seatbelt_state" bitcount="32" isSigned="false" encoding="65001" type="int" startValue="0" minValue="0" minValuePhys="0" maxValue="4" maxValuePhys="4" />
+    </namespace>
+  </namespace>
+</systemvariables>

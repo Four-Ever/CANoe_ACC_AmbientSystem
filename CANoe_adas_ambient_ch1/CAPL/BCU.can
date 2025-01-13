@@ -110,7 +110,7 @@ on message can1.SEAT_State_msg // 운전자 및 조수석 착석 상태 from Sea
   local_SEAT_drvseatOCC = this.SEAT_drvseatOCC;
   local_SEAT_astseatOCC = this.SEAT_astseatOCC;
 }
-on message can1.SEAT_Belt_state_msg // 운전자 및 벨트 착용 상태 from Seat (주기 갱신)
+on message can1.SEAT_Belt_state_msg // 운전자 및 조수석 벨트 착용 상태 from Seat (주기 갱신)
 {
   local_SEAT_drvseatBelt = this.SEAT_drvseatBelt;
   local_SEAT_astseatBelt = this.SEAT_astseatBelt;
@@ -125,12 +125,12 @@ on message can1.SEAT_Ast_Condi_msg // 보조석 좌석 시트 고장 상태 from
   local_SEAT_astabnormal = this.SEAT_astabnormal;
   local_SEAT_astnormal = this.SEAT_astnormal;
 }
-on message can1.Airbag_Dr_Condi_msg // 운전자 및 조수석 에어백 상태 from Airbag
+on message can1.Airbag_Dr_Condi_msg // 운전자 에어백 상태 from Airbag
 {
   local_Airbag_drvabnormal = this.Airbag_drvabnormal;
   local_Airbag_drvnormal = this.Airbag_drvnormal;
 }
-on message can1.Airbag_Ast_Condi_msg // 운전자 및 조수석 에어백 상태 from Airbag 갱신
+on message can1.Airbag_Ast_Condi_msg // 조수석 에어백 상태 from Airbag 갱신
 {
   local_Airbag_astabnormal = this.Airbag_astabnormal;
   local_Airbag_astnormal = this.Airbag_astnormal;
@@ -202,6 +202,7 @@ on message can1.CGW_Speed_Rear_msg // 차량 속도 : From VCU, 후방 충격력
         msg.BCU_pass_seatstate = 1;
       } 
       output(msg);
+      @sysvar::Car_Rear::Rear_Crash = 1;
   }
 }
 on message can1.CGW_ACC_DState_msg1 // 운전자 개입에 의한 ACC off from ACC event
@@ -234,7 +235,7 @@ on message can1.CGW_VCU_BWake_msg // BCU ECU 작동 시작 (from  VCU, Event)
     AEB_BCU_amlctrl_req_flag = 0;
     CGW_ACC_level_msg_flag = 0;
     BCU_Seat_msg_flag = 0;
-
+    @sysvar::Car_Rear::Rear_Crash = 0;
   }
 }
 on message can1.CGW_VCU_BSleep_msg // BCU ECU 작동 종료 (from VCU, Event)
@@ -248,6 +249,7 @@ on message can1.CGW_VCU_BSleep_msg // BCU ECU 작동 종료 (from VCU, Event)
     AEB_BCU_amlctrl_req_flag = 0;
     CGW_ACC_level_msg_flag = 0;
     BCU_Seat_msg_flag = 0;
+    @sysvar::Car_Rear::Rear_Crash = 0;
 
     msg.BCU_CLU_drseatwarning = 0;
     msg.BCU_CLU_passseatwarning = 0;
@@ -272,6 +274,7 @@ void init()
   AEB_BCU_amlctrl_req_flag = 0;
   CGW_ACC_level_msg_flag = 0;
   BCU_Seat_msg_flag = 0;
+  @sysvar::Car_Rear::Rear_Crash = 0;
 }
 void aml_color_init()
 {
