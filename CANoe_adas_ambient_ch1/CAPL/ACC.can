@@ -33,7 +33,13 @@ variables
   byte isACC_Override = 0;
   dword dwACC_DTCcode = 1;
 
-  byte ACC_DIS[4] = {0, 180, 150, 120}; // sec
+  byte ACC_DIS[4] = {0, 20, 15, 10}; // sec
+  
+  //test
+  float TIMEGAP[4] = {0, 2.5, 2.0, 1.5};
+  float D_SAFE = 3.0;
+  float fACC_tarDis = 0;
+  //test
   
   float fcur_speed = 0; // m/s
   float fpre_speed = 0; // m/s
@@ -52,7 +58,7 @@ variables
   float KP = 0.35;
   float KD = 0.15;
   
-  float KPdis = 50;
+  float KPdis = 65;
   float KDdis = 0.03;
     
   message A_CAN::ACC_Accel_msg Accel_msg;
@@ -154,7 +160,18 @@ void cal_Fvelocity()
 
 void cal_target_dis()
 {
+  float cal_tarDis;
+  cal_tarDis = fcur_speed * TIMEGAP[byteACC_level] + D_SAFE;
+  
+  if (cal_tarDis > 250)
+    fACC_tarDis = 250;
+
+  else 
+    fACC_tarDis = cal_tarDis;
+  
   byteACC_tarDis = ACC_DIS[byteACC_level];
+  
+  //Des_msg.ACC_des_dis_m = fACC_tarDis;
   Des_msg.ACC_des_dis_m = byteACC_tarDis;
 }
 
