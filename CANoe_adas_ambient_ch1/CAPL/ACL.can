@@ -33,7 +33,7 @@ on start
   setTimerCyclic(ACLTimer, 5);
 }
 
-on message can2.CGW_PANEL_CDTC_msg  //진단메세지 송신
+on message can2.CGW_DTC_CDTC_msg  //진단메세지 송신
 {
    message ACL_DTC_msg msgOut;
     msgOut.ACL_diagnosis = 1;

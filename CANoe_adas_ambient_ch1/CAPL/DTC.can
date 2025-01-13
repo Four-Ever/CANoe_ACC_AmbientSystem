@@ -14,7 +14,22 @@ on start
   gSocket = UdpSocket::Open(ip_Endpoint(0.0.0.0:8001));
   gSocket.ReceiveFrom(gRxBuf, elcount(gRxBuf)); 
 }
-
+on message can5.CGW_PANEL_DTC_EN_msg{
+  // DTC enable이 5번 버스에 뜨면,
+  message DTC_ADTC_msg ADTC;
+  message DTC_BDTC_msg BDTC;
+  message DTC_CDTC_msg CDTC;
+  message DTC_PDTC_msg PDTC;
+  message DTC_UDTC_msg UDTC;
+  
+  // 진단요청 메시지 송신
+  output(ADTC);
+  output(BDTC);
+  output(CDTC);
+  output(PDTC);
+  output(UDTC);
+  
+}
 
 on message CGW_PCAN_DTC_msg1
 {

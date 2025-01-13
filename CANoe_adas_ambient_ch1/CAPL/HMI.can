@@ -52,7 +52,7 @@ on message can4.CGW_VCU_USleep_msg
     
   }
 }
-on message can4.PANEL_UDTC_msg //진단
+on message can4.CGW_DTC_UDTC_msg //진단
 {
   message HMI_DTC_msg DTC_msg;
   DTC_msg.HMI_diagnosis=1;//진단메세지 추가

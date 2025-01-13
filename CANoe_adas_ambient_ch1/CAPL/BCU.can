@@ -257,7 +257,7 @@ on message can1.CGW_VCU_BSleep_msg // BCU ECU 작동 종료 (from VCU, Event)
   }
   
 }
-on message can1.CGW_PANEL_BDTC_msg // 진단 정보 요청 (from VCU, Event)
+on message can1.CGW_DTC_BDTC_msg // 진단 정보 요청 (from VCU, Event)
 {
   //if($CGW::Scenario_BCUrequest == 1){
     message BCU_DTC_msg bcu_dtc_msg;

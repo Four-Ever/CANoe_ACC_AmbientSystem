@@ -43,7 +43,7 @@ on message can3.CGW_ACC_AlterSpeed_msg
 }
 
 
-on message can3.CGW_PANEL_PDTC_msg
+on message can3.CGW_DTC_PDTC_msg
 {
   message CCM_DTC_msg CCMDTC;
   CCMDTC.CCM_diagnosis=1;  ///정상이면 1, 비정상이면2

@@ -138,7 +138,7 @@ on message can6.CGW_PANEL_RColl_msg{
 
 }
 
-on message can6.CGW_PANEL_ADTC_msg{ // 내부 메시지 SCU로 수정하긴 해야됨
+on message can6.CGW_DTC_ADTC_msg{ // 내부 메시지 SCU로 수정하긴 해야됨
   //if(on_flag == 1){
     message SCU_DTC_msg DTC_info;
     DTC_info.SCU_diagnosis = 0x001; // 문제없음

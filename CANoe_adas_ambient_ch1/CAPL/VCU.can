@@ -150,7 +150,7 @@ void changesleep(){
 }
 
 //진단정보 요청//->0109수정
-on message CAN3.P_CAN::CGW_PANEL_PDTC_msg {
+on message CAN3.P_CAN::CGW_DTC_PDTC_msg {
   message VCU_DTC_msg VCUDTC;
   VCUDTC.VCU_diagnosis.phys=1;  ///정상이면 1, 비정상이면2
   output(VCUDTC);
