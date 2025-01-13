@@ -327,7 +327,8 @@ on sysvar DTC::sendBtn
   if(@DTC::scuState == 0) now_msg.scu_dtc_data = -1;
   if(@DTC::hmiState == 0) now_msg.hmi_dtc_data = -1;
   if(@DTC::cluState == 0) now_msg.clu_dtc_data = -1;
-  gSocket.SendTo( IP_Endpoint(192.168.1.10:9001), now_msg, 4 * 13); 
+  
+  if(@DTC::sendBtn == 1) gSocket.SendTo( IP_Endpoint(192.168.1.10:9001), now_msg, 4 * 13); 
 }
 
 on preStop
