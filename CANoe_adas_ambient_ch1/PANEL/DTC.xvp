@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Panel Type="Vector.CANalyzer.Panels.PanelSerializer, Vector.CANalyzer.Panels.Serializer, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null">
   <Object Type="Vector.CANalyzer.Panels.Runtime.Panel, Vector.CANalyzer.Panels.Common, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Panel" ControlName="DTC">
+    <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xdae16acee560ae46d1e8571ea8835eff650a" ControlName="Button 2">
+      <Property Name="Name">Xdae16acee560ae46d1e8571ea8835eff650a</Property>
+      <Property Name="Size">144, 38</Property>
+      <Property Name="Location">509, 362</Property>
+      <Property Name="TabIndex">27</Property>
+      <Property Name="Font">Microsoft Sans Serif, 30pt</Property>
+      <Property Name="Text">Send</Property>
+      <Property Name="SymbolConfiguration">8;16;DTC;;;sendBtn;1;;;-1;;;Value;;;0</Property>
+    </Object>
     <Object Type="Vector.CANalyzer.Panels.Design.LEDControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X09855ed2e54b3e44fde9fa0ef3e2730f5f18" ControlName="LED Control 13">
       <Property Name="Name">X09855ed2e54b3e44fde9fa0ef3e2730f5f18</Property>
       <Property Name="Size">50, 50</Property>
@@ -422,7 +431,7 @@
     <Object Type="Vector.CANalyzer.Panels.Design.ButtonControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="Xc3e29b58e642ee4b22e9f3beb335f5ec46e0" ControlName="Button 1">
       <Property Name="Name">Xc3e29b58e642ee4b22e9f3beb335f5ec46e0</Property>
       <Property Name="Size">144, 38</Property>
-      <Property Name="Location">588, 362</Property>
+      <Property Name="Location">711, 362</Property>
       <Property Name="TabIndex">2</Property>
       <Property Name="Font">Microsoft Sans Serif, 30pt</Property>
       <Property Name="Text">Reset</Property>
