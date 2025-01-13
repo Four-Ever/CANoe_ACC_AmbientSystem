@@ -124,7 +124,7 @@ on message can1.CGW_PANEL_BDTC_msg // 진단 정보 요청
   //if($CGW::Scenario_Airbagrequest == 1){
   message Airbag_DTC_msg airbag_dtc_msg;
   // 진단 내용 정의 필요
-  // 2 : 조수석 에어백 고장 상태
+  // 조수석 에어백 고장 상태 B1927 => 2로 표현
   airbag_dtc_msg.Airbag_diagnosis = 2;
   // if(@sysvar::AIRBAG_Value::dr_airbag_state == accident_state) airbag_dtc_msg.Airbag_diagnosis = 3;
   output(airbag_dtc_msg); // 전송
