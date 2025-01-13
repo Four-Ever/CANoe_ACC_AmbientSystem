@@ -97,6 +97,7 @@ on sysvar_update LeadCarSimulation::LeadCar_Movement_Sg{
     }
     else{
       $SCU::SCU_PreVehicle = 0;
+
     }
   }
 }
