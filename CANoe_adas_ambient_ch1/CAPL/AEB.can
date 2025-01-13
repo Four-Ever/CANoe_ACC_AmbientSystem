@@ -36,7 +36,11 @@ on start
 // 작동 시작 이벤트
 on message can6.A_CAN::CGW_VCU_AWake_msg
 {
-  isPower = 1;
+  if($A_CAN::CGW::CGW_VCU_AWake_msg::VCU_AEB_wakeup == 1)
+  {
+    write("power on"); 
+    isPower = 1;
+  }
 
 
 }
@@ -44,16 +48,19 @@ on message can6.A_CAN::CGW_VCU_AWake_msg
 // 작동 종료 이벤트
 on message can6.A_CAN::CGW_VCU_ASleep_msg
 {
-  speed = 0;
-  impulse = 0;
-  frontDistance = 0;
-  isPower = 0;
-  isFront = 0;
-  aebState = 0;
-  airbagState = 0;
-  $AEB::AEB_BCU_amlctrl_req = 0;
-  $AEB::AEB_CLU_aebled = 0;
-  
+  if($A_CAN::CGW::CGW_VCU_ASleep_msg::VCU_AEB_sleep ==1)
+  {
+    speed = 0;
+    impulse = 0;
+    frontDistance = 0;
+    isPower = 0;
+    isFront = 0;
+    aebState = 0;
+    airbagState = 0;
+    $AEB::AEB_BCU_amlctrl_req = 0;
+    $AEB::AEB_CLU_aebled = 0;
+    write("power off");
+  }
 }
 
 // 차량 속도 30주기
@@ -218,4 +225,3 @@ if (isPower == 1 &&aebState == 0){
 }
 }
 */
-
