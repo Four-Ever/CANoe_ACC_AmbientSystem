@@ -33,7 +33,7 @@ variables
   byte isACC_Override = 0;
   dword dwACC_DTCcode = 1;
 
-  byte ACC_DIS[4] = {0, 20, 15, 10}; // sec
+  byte ACC_DIS[4] = {0, 50, 40, 30}; // sec
   
   //test
   float TIMEGAP[4] = {0, 2.5, 2.0, 1.5};
@@ -58,8 +58,8 @@ variables
   float KP = 0.35;
   float KD = 0.15;
   
-  float KPdis = 65;
-  float KDdis = 0.03;
+  float KPdis = 80;
+  float KDdis = 0.3;
     
   message A_CAN::ACC_Accel_msg Accel_msg;
   message A_CAN::ACC_Brk_msg Brk_msg;
@@ -201,6 +201,9 @@ void cal_target_Acmd(byte flag)
     // 개선 로직
     deltaVel = (fFCar_speed - fcur_speed) * KPdis;
     deltaDis = intdeltaDis * KDdis;
+    
+    if (deltaDis > 3.0)
+      deltaDis = 3.0;
     
     ftar_tolead_Accel = deltaDis + deltaVel;
     
@@ -426,7 +429,7 @@ on timer loopTimer
 {
   if (isActive == 1 && isACC_On == 1) {
     cal_target_dis();
-    if (isFVehicle && bytepreFRdis_m <= 200)
+    if (isFVehicle && bytepreFRdis_m <= 100)
     {
       if (byteCar_speed_kph < 5) { // 선행차 있는 상황에서 정차하고 있는 상황
         gCounter++;

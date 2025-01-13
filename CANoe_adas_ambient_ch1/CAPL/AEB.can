@@ -98,7 +98,7 @@ on timer tmrCycle_1
   {
     if (isFront == 1)
     {
-      stopDistance = (speed*speed) * k;
+      stopDistance = (speed*speed) * k * 0.2;
       amlStartDist = stopDistance * 1.5;
       write("stopDistance : %d fronDistance : %d amlStartDist : %d",stopDistance,frontDistance,amlStartDist);
       if (airbagState == 1 && speed == 0 && aebState == 1)
