@@ -36,13 +36,23 @@ BS_:
 BU_: CGW DTC PANEL CLU HMI SCU AEB ACC AIRBAG SEAT BCU AML ACL BRK CCM VCU
 
 
+BO_ 1774 CGW_PANEL_DTC_EN_msg: 1 CGW
+ SG_ Scenario_DTC_Enable : 0|1@1+ (1,0) [0|1] ""  DTC
+
+BO_ 1518 CGW_DTC_UDTC_msg: 8 CGW
+ SG_ Scenario_HMIrequest : 1|1@1+ (1,0) [0|1] "" Vector__XXX
+ SG_ Scenario_CLUrequest : 0|1@1+ (1,0) [0|1] "" Vector__XXX
+
+BO_ 1773 PANEL_DTC_EN_msg: 1 PANEL
+ SG_ Scenario_DTC_Enable : 0|1@1+ (1,0) [0|1] ""  CGW
+
 BO_ 1270 CGW_PANEL_Boarding_msg: 1 CGW
  SG_ Scenario_Boarding_pass : 0|1@1+ (1,0) [0|1] ""  BCU
 
 BO_ 1526 PANEL_Boarding_msg: 1 PANEL
  SG_ Scenario_Boarding_pass : 0|1@1+ (1,0) [0|1] ""  CGW
 
-BO_ 750 CGW_PANEL_CDTC_msg: 1 CGW
+BO_ 750 CGW_DTC_CDTC_msg: 1 CGW
  SG_ Scenario_Accelrequest : 1|1@1+ (1,0) [0|1] ""  BRK,ACL
  SG_ Scenario_Brakerequest : 0|1@1+ (1,0) [0|1] ""  BRK,ACL
 
@@ -83,7 +93,7 @@ BO_ 1381 CGW_30ms_msg: 4 CGW
  SG_ VCU_rpm : 8|13@1+ (1,0) [0|8191] ""  SCU,CLU
  SG_ VCU_speed_kph : 0|8@1+ (1,0) [0|0] ""  SCU,CLU
 
-BO_ 1262 CGW_PANEL_BDTC_msg: 1 CGW
+BO_ 1262 CGW_DTC_BDTC_msg: 1 CGW
  SG_ Scenario_Airbagrequest : 3|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
  SG_ Scenario_Seatrequest : 2|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
  SG_ Scenario_BCUrequest : 1|1@1+ (1,0) [0|1] ""  SEAT,BCU,AML,AIRBAG
@@ -144,7 +154,7 @@ BO_ 1761 CGW_PCAN_DTC_msg1: 8 CGW
  SG_ CCM_diagnosis : 32|32@1+ (1,0) [0|0] ""  DTC
  SG_ VCU_diagnosis : 0|32@1+ (1,0) [0|4294967295] ""  DTC
 
-BO_ 1006 CGW_PANEL_ADTC_msg: 1 CGW
+BO_ 1006 CGW_DTC_ADTC_msg: 1 CGW
  SG_ Scenario_ECUrequest : 2|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
  SG_ Scenario_AEBrequest : 1|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
  SG_ Scenario_ACCrequest : 0|1@1+ (1,0) [0|1] ""  SCU,AEB,ACC
@@ -190,7 +200,7 @@ BO_ 850 CGW_VCU_Speed_Overr_msg: 2 CGW
  SG_ VCU_ACC_override : 8|1@1+ (1,0) [0|1] ""  SCU,CLU,BCU,AEB,ACC
  SG_ VCU_speed_kph : 0|8@1+ (1,0) [0|0] ""  SCU,CLU,BCU,AEB,ACC
 
-BO_ 494 CGW_PANEL_PDTC_msg: 1 CGW
+BO_ 494 CGW_DTC_PDTC_msg: 1 CGW
  SG_ Scenario_VCUrequest : 1|1@1+ (1,0) [0|1] ""  VCU
  SG_ Scenario_CCMrequest : 0|1@1+ (1,0) [0|1] ""  VCU
 
@@ -222,26 +232,26 @@ BO_ 305 CGW_BRK_FBrk_msg: 1 CGW
 BO_ 306 CGW_BRK_Brk_msg: 1 CGW
  SG_ BRK_ped_per : 0|8@1+ (1,0) [0|0] ""  VCU
 
-BO_ 1511 PANEL_ADTC_msg: 1 PANEL
+BO_ 1770 DTC_ADTC_msg: 1 DTC
  SG_ Scenario_ECUrequest : 2|1@1+ (1,0) [0|1] ""  CGW
  SG_ Scenario_AEBrequest : 1|1@1+ (1,0) [0|1] ""  CGW
  SG_ Scenario_ACCrequest : 0|1@1+ (1,0) [0|1] ""  CGW
 
-BO_ 1510 PANEL_UDTC_msg: 1 PANEL
- SG_ Scenario_HMIrequest : 1|1@1+ (1,0) [0|1] ""  CLU
- SG_ Scenario_CLUrequest : 0|1@1+ (1,0) [0|1] ""  CLU
+BO_ 1772 DTC_UDTC_msg: 1 DTC
+ SG_ Scenario_HMIrequest : 1|1@1+ (1,0) [0|1] ""  CGW,CLU
+ SG_ Scenario_CLUrequest : 0|1@1+ (1,0) [0|1] ""  CGW,CLU
 
-BO_ 1509 PANEL_BDTC_msg: 1 PANEL
+BO_ 1771 DTC_BDTC_msg: 1 DTC
  SG_ Scenario_Airbagrequest : 3|1@1+ (1,0) [0|1] ""  CGW
  SG_ Scenario_Seatrequest : 2|1@1+ (1,0) [0|1] ""  CGW
  SG_ Scenario_BCUrequest : 1|1@1+ (1,0) [0|1] ""  CGW
  SG_ Scenario_AMLrequest : 0|1@1+ (1,0) [0|1] ""  CGW
 
-BO_ 1508 PANEL_CDTC_msg: 1 PANEL
+BO_ 1769 DTC_CDTC_msg: 1 DTC
  SG_ Scenario_Accelrequest : 1|1@1+ (1,0) [0|1] ""  CGW
  SG_ Scenario_Brakerequest : 0|1@1+ (1,0) [0|1] ""  CGW
 
-BO_ 1507 PANEL_PDTC_msg: 1 PANEL
+BO_ 1768 DTC_PDTC_msg: 1 DTC
  SG_ Scenario_VCUrequest : 1|1@1+ (1,0) [0|1] ""  CGW
  SG_ Scenario_CCMrequest : 0|1@1+ (1,0) [0|1] ""  CGW
 
@@ -562,11 +572,11 @@ BA_ "GenMsgCycleTime" BO_ 273 0;
 BA_ "GenMsgCycleTime" BO_ 321 1;
 BA_ "GenMsgCycleTime" BO_ 305 0;
 BA_ "GenMsgCycleTime" BO_ 306 1;
-BA_ "GenMsgCycleTime" BO_ 1511 0;
-BA_ "GenMsgCycleTime" BO_ 1510 0;
-BA_ "GenMsgCycleTime" BO_ 1509 0;
-BA_ "GenMsgCycleTime" BO_ 1508 0;
-BA_ "GenMsgCycleTime" BO_ 1507 0;
+BA_ "GenMsgCycleTime" BO_ 1770 0;
+BA_ "GenMsgCycleTime" BO_ 1772 0;
+BA_ "GenMsgCycleTime" BO_ 1771 0;
+BA_ "GenMsgCycleTime" BO_ 1769 0;
+BA_ "GenMsgCycleTime" BO_ 1768 0;
 BA_ "GenMsgCycleTime" BO_ 1521 0;
 BA_ "GenMsgCycleTime" BO_ 1524 0;
 BA_ "GenMsgCycleTime" BO_ 1523 0;

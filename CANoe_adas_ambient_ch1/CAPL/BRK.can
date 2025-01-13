@@ -41,7 +41,7 @@ on start
    setTimerCyclic(BRKTimer, 5);
 }
 
-on message can2.CGW_PANEL_CDTC_msg   //진단코드 전송
+on message can2.CGW_DTC_CDTC_msg   //진단코드 전송
 {
    message BRK_DTC_msg msgOut;
     msgOut.BRK_diagnosis = 1;

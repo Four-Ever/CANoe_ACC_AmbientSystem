@@ -312,9 +312,11 @@ on message can4.UI_CAN::HMI_VCU_Power_msg
   output(msgOut);
 }
 
-on message can4.UI_CAN::PANEL_PDTC_msg
+//obd5번에서 받아서
+on message can5.OBD_CAN::DTC_PDTC_msg
 {
-  message P_CAN::CGW_PANEL_PDTC_msg msgOut;
+  //p 3번에 뿌림
+  message P_CAN::CGW_DTC_PDTC_msg msgOut;
   msgOut.Scenario_CCMrequest = this.Scenario_CCMrequest;
   msgOut.Scenario_VCUrequest = this.Scenario_VCUrequest;
   msgOut.can = 3;
@@ -361,9 +363,11 @@ on message can3.P_CAN::VCU_BSleep_msg
   output(msgOut); 
 }
 
-on message can4.UI_CAN::PANEL_BDTC_msg
+//obd 5번에서받아서
+on message can5.OBD_CAN::DTC_BDTC_msg
 {
-  message B_CAN::CGW_PANEL_BDTC_msg msgOut;
+  //b 1번에 뿌림
+  message B_CAN::CGW_DTC_BDTC_msg msgOut;
   msgOut.Scenario_AMLrequest = this.Scenario_AMLrequest;
   msgOut.Scenario_Airbagrequest = this.Scenario_Airbagrequest;
   msgOut.Scenario_BCUrequest = this.Scenario_BCUrequest;
@@ -480,6 +484,16 @@ on message can6.A_CAN::SCU_DTC_msg
   output(msgOut);
 }
 
+//obd 5번에서 받아서
+on message can5.OBD_CAN::DTC_UDTC_msg{
+  //UI 4번에 뿌림
+  message UI_CAN::CGW_DTC_UDTC_msg msgOut;
+  msgOut.Scenario_CLUrequest = this.Scenario_CLUrequest;
+  msgOut.Scenario_HMIrequest = this.Scenario_HMIrequest;
+  msgOut.can = 4;
+  output(msgOut);  
+}
+
 on message can4.UI_CAN::HMI_DTC_msg//UI_CAN::HMI_DTC_msg
 {
   message OBD_CAN::CGW_UICAN_DTC_msg1 msgOut;
@@ -518,9 +532,11 @@ on message can3.P_CAN::VCU_CSleep_msg
   output(msgOut);
 }
 
-on message can4.UI_CAN::PANEL_CDTC_msg
+//obd 5번에서 받아서
+on message can5.OBD_CAN::DTC_CDTC_msg
 {
-  message C_CAN::CGW_PANEL_CDTC_msg msgOut;
+  //c 2번에 뿌림
+  message C_CAN::CGW_DTC_CDTC_msg msgOut;
   msgOut.Scenario_Accelrequest = this.Scenario_Accelrequest;
   msgOut.Scenario_Brakerequest = this.Scenario_Brakerequest;
   msgOut.can = 2;
@@ -654,12 +670,24 @@ on message can4.UI_CAN::PANEL_RColl_msg
   output(msgOut);
 }
 
-on message can4.UI_CAN::PANEL_ADTC_msg
+//OBDCAN 5번 버스의 DTC요청 신호를 받아서,
+on message can5.OBD_CAN::DTC_ADTC_msg
 {  
-  message A_CAN::CGW_PANEL_ADTC_msg msgOut;
+  // ACAN에 뿌려
+  message A_CAN::CGW_DTC_ADTC_msg msgOut;
   msgOut.Scenario_ACCrequest= this.Scenario_ACCrequest;
   msgOut.Scenario_AEBrequest= this.Scenario_AEBrequest;
   msgOut.Scenario_ECUrequest= this.Scenario_ECUrequest;
   msgOut.can = 6;
   output(msgOut);
+}
+
+// UICAN 4번can버스의 enable 신호를 받아서, 
+on message can4.UI_CAN::PANEL_DTC_EN_msg
+{
+  //OBDCAN 5번 can버스로 송신 
+  message OBD_CAN::CGW_PANEL_DTC_EN_msg DTC_enable;
+  DTC_enable.can = 5;
+  output(DTC_enable);
+  
 }

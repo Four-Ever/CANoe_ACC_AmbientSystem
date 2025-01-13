@@ -73,7 +73,7 @@ on message can6.A_CAN::SCU_Front_msg
 }
 
 // 진단 요청 이벤트
-on message can6.A_CAN::CGW_PANEL_ADTC_msg
+on message can6.A_CAN::CGW_DTC_ADTC_msg
 {
   message AEB_DTC_msg msgOut;
   

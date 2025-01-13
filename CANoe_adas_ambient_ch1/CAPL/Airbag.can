@@ -119,7 +119,7 @@ on message can1.CGW_VCU_BSleep_msg // Airbag ECU 작동 종료
     @sysvar::AIRBAG_Value::pass_airbag_state = default_state;
   }
 }
-on message can1.CGW_PANEL_BDTC_msg // 진단 정보 요청
+on message can1.CGW_DTC_BDTC_msg // 진단 정보 요청
 {
   //if($CGW::Scenario_Airbagrequest == 1){
   message Airbag_DTC_msg airbag_dtc_msg;

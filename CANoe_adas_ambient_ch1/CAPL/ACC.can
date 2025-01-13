@@ -288,7 +288,7 @@ on message can6.CGW_VCU_ASleep_msg
 }
 
 
-on message can6.CGW_PANEL_ADTC_msg
+on message can6.CGW_DTC_ADTC_msg
 {
   message ACC_DTC_msg ACCDTC;
   ACCDTC.ACC_diagnosis = 1;

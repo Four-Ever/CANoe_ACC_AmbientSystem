@@ -114,7 +114,7 @@ on message can1.CGW_VCU_BSleep_msg // AML ECU 작동 종료
   }
   
 }
-on message can1.CGW_PANEL_BDTC_msg // AML 진단 정보 요청
+on message can1.CGW_DTC_BDTC_msg // AML 진단 정보 요청
 {
   //if($CGW::Scenario_AMLrequest == 1)
   //{
