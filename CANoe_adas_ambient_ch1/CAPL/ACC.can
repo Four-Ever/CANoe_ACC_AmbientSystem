@@ -35,7 +35,6 @@ variables
 
   byte ACC_DIS[4] = {0, 180, 150, 120}; // sec
   
-  
   float fcur_speed = 0; // m/s
   float fpre_speed = 0; // m/s
   float fFCar_speed = 0; // m/s
@@ -249,6 +248,7 @@ on message can6.CGW_VCU_ASleep_msg
     bytecurFRdis_m = 0;
     bytepreFRdis_m = 0;
     isFVehicle = 0;
+    
     isACC_Override = 0;
 
     fcur_speed = 0; // m/s
@@ -413,8 +413,9 @@ on timer loopTimer
     {
       if (byteCar_speed_kph < 5) { // 선행차 있는 상황에서 정차하고 있는 상황
         gCounter++;
-        if (gCounter >= 1800) {// 3min
+        if (gCounter >= 30) {// 3min
           turn_off();
+          gCounter = 0;
         }
       }
       else {
