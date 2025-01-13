@@ -6,7 +6,13 @@ includes
 
 variables
 {
-  
+  UdpSocket gSocket;
+  char gRxBuf[1024];
+}
+on start
+{
+  gSocket = UdpSocket::Open(ip_Endpoint(0.0.0.0:8001));
+  gSocket.ReceiveFrom(gRxBuf, elcount(gRxBuf)); 
 }
 
 
@@ -272,6 +278,57 @@ on sysvar DTC::resetBtn
   }
 
 }
+on sysvar DTC::sendBtn
+{
+  struct DTC_info
+  {
+    long vcu_dtc_data;
+    long ccm_dtc_data;
+    long brk_dtc_data;
+    long acl_dtc_data;
+    long aml_dtc_data;
+    long bcu_dtc_data;
+    long seat_dtc_data;
+    long airbag_dtc_data;
+    long acc_dtc_data;
+    long aeb_dtc_data;
+    long scu_dtc_data;
+    long hmi_dtc_data;
+    long clu_dtc_data;
+  };
+  struct DTC_info now_msg;
+  now_msg.vcu_dtc_data = @DTC::vcuCode;
+  now_msg.ccm_dtc_data = @DTC::ccmCode;
+  now_msg.brk_dtc_data =@DTC::brkCode;
+  now_msg.acl_dtc_data=@DTC::aclCode;
+  now_msg.aml_dtc_data=@DTC::amlCode;
+  now_msg.bcu_dtc_data=@DTC::bcuCode;
+  now_msg.seat_dtc_data=@DTC::seatCode;
+  now_msg.airbag_dtc_data=@DTC::airbagCode;
+  now_msg.acc_dtc_data=@DTC::accCode;
+  now_msg.aeb_dtc_data=@DTC::aebCode;
+  now_msg.scu_dtc_data=@DTC::scuCode;
+  now_msg.hmi_dtc_data=@DTC::hmiCode;
+  now_msg.clu_dtc_data=@DTC::cluCode;
+    
+  
+  // 진단 데이터 수신 받지 못했다면
+
+  if(@DTC::vcuState == 0) now_msg.vcu_dtc_data = -1;
+  if(@DTC::ccmState == 0) now_msg.ccm_dtc_data = -1;
+  if(@DTC::brkState == 0) now_msg.brk_dtc_data = -1;
+  if(@DTC::aclState == 0) now_msg.acl_dtc_data = -1;
+  if(@DTC::amlState == 0) now_msg.aml_dtc_data = -1;
+  if(@DTC::bcuState == 0) now_msg.bcu_dtc_data = -1;
+  if(@DTC::seatState == 0) now_msg.seat_dtc_data = -1;
+  if(@DTC::airbagState == 0) now_msg.airbag_dtc_data = -1;
+  if(@DTC::accState == 0) now_msg.acc_dtc_data = -1;
+  if(@DTC::aebState == 0) now_msg.aeb_dtc_data = -1;
+  if(@DTC::scuState == 0) now_msg.scu_dtc_data = -1;
+  if(@DTC::hmiState == 0) now_msg.hmi_dtc_data = -1;
+  if(@DTC::cluState == 0) now_msg.clu_dtc_data = -1;
+  gSocket.SendTo( IP_Endpoint(192.168.1.10:9001), now_msg, 4 * 13); 
+}
 
 on preStop
 {
@@ -302,4 +359,74 @@ on preStop
     @DTC::scuCode = 0;
     @DTC::hmiCode = 0;
     @DTC::cluCode = 0;   
+    gSocket.Close();
+}
+
+/*
+on key 'a'
+{
+  
+  struct DTC_info
+  {
+    long vcu_dtc_data;
+    long ccm_dtc_data;
+    long brk_dtc_data;
+    long acl_dtc_data;
+    long aml_dtc_data;
+    long bcu_dtc_data;
+    long seat_dtc_data;
+    long airbag_dtc_data;
+    long acc_dtc_data;
+    long aeb_dtc_data;
+    long scu_dtc_data;
+    long hmi_dtc_data;
+    long clu_dtc_data;
+  };
+  struct DTC_info now_msg;
+  now_msg.vcu_dtc_data = @DTC::vcuCode;
+  now_msg.ccm_dtc_data = @DTC::ccmCode;
+  now_msg.brk_dtc_data =@DTC::brkCode;
+  now_msg.acl_dtc_data=@DTC::aclCode;
+  now_msg.aml_dtc_data=@DTC::amlCode;
+  now_msg.bcu_dtc_data=@DTC::bcuCode;
+  now_msg.seat_dtc_data=@DTC::seatCode;
+  now_msg.airbag_dtc_data=@DTC::airbagCode;
+  now_msg.acc_dtc_data=@DTC::accCode;
+  now_msg.aeb_dtc_data=@DTC::aebCode;
+  now_msg.scu_dtc_data=@DTC::scuCode;
+  now_msg.hmi_dtc_data=@DTC::hmiCode;
+  now_msg.clu_dtc_data=@DTC::cluCode;
+    
+  
+  // 진단 데이터 수신 받지 못했다면
+
+  if(@DTC::vcuState == 0) now_msg.vcu_dtc_data = -1;
+  if(@DTC::ccmState == 0) now_msg.ccm_dtc_data = -1;
+  if(@DTC::brkState == 0) now_msg.brk_dtc_data = -1;
+  if(@DTC::aclState == 0) now_msg.acl_dtc_data = -1;
+  if(@DTC::amlState == 0) now_msg.aml_dtc_data = -1;
+  if(@DTC::bcuState == 0) now_msg.bcu_dtc_data = -1;
+  if(@DTC::seatState == 0) now_msg.seat_dtc_data = -1;
+  if(@DTC::airbagState == 0) now_msg.airbag_dtc_data = -1;
+  if(@DTC::accState == 0) now_msg.acc_dtc_data = -1;
+  if(@DTC::aebState == 0) now_msg.aeb_dtc_data = -1;
+  if(@DTC::scuState == 0) now_msg.scu_dtc_data = -1;
+  if(@DTC::hmiState == 0) now_msg.hmi_dtc_data = -1;
+  if(@DTC::cluState == 0) now_msg.clu_dtc_data = -1;
+  gSocket.SendTo( IP_Endpoint(192.168.1.10:9001), now_msg, 4 * 13); 
+}
+*/
+
+void OnUdpReceiveFrom(dword socket, long result, 
+      IP_Endpoint remoteEndpoint, 
+      char buffer[], dword size)
+{
+  if(result == 0)
+  {
+    char endpointString[30];
+    remoteEndpoint.PrintEndPointToString(endpointString);
+    write("sender ip:%s", endpointString);
+    write("recv data:%s", buffer);
+  }
+  gSocket.ReceiveFrom(gRxBuf, elcount(gRxBuf));
 }
