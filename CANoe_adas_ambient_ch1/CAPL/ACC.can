@@ -387,7 +387,7 @@ on timer _1msTimer
     g1msCounter++;
     
     if (g1msCounter > 0 && g1msCounter % 10 == 0) {
-      if (isACC_On == 0) {
+      if (isACC_On == 0 || isACC_Override == 1) {
         Accel_msg.ACC_accel_trk = 110;
         Brk_msg.ACC_brk_pbar = 110;
       }      
