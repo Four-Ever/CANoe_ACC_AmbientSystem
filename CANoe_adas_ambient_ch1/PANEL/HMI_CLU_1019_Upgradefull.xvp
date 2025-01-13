@@ -5,7 +5,7 @@
       <Property Name="Name">X7b8c2dcae2151e41a5eb332ee642e5dd0214</Property>
       <Property Name="Size">188, 110</Property>
       <Property Name="Location">1201, 483</Property>
-      <Property Name="SymbolConfiguration">8;16;Dev_Option;;;DEBUG_PRINT;1;;;-1;;;Value;;;0</Property>
+      <Property Name="SymbolConfiguration">8;16;Car_Rear;;;Rear_Crash;1;;;-1;;;Value;;;0</Property>
       <Property Name="ImageFile">Bitmaps\CRASH_empty-horz-removebg-preview.png</Property>
       <Property Name="IsProportional">False</Property>
       <Property Name="TabIndex">53</Property>
@@ -20,8 +20,8 @@
     <Object Type="Vector.CANalyzer.Panels.Design.SwitchControl, Vector.CANalyzer.Panels.CommonControls, Version=18.0.150.0, Culture=neutral, PublicKeyToken=null" Name="X1c484c4ceee0ae4bdceb0ace00b5088992f1" ControlName="Switch / Indicator 29">
       <Property Name="Name">X1c484c4ceee0ae4bdceb0ace00b5088992f1</Property>
       <Property Name="Size">459, 311</Property>
-      <Property Name="Location">980, 406</Property>
-      <Property Name="SymbolConfiguration">8;16;Dev_Option;;;DEBUG_PRINT;1;;;-1;;;Value;;;0</Property>
+      <Property Name="Location">980, 444</Property>
+      <Property Name="SymbolConfiguration">8;16;Panel;;;brk_light;1;;;-1;;;Value;;;0</Property>
       <Property Name="ImageFile">Bitmaps\Car_rearLight_ani.bmp</Property>
       <Property Name="IsProportional">False</Property>
       <Property Name="TabIndex">52</Property>
