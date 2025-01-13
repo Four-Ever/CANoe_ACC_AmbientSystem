@@ -53,10 +53,13 @@ on preStop{ // 종료 직전 수행
 on timer drv_seat_Belt_state_timer // 2초 뒤 안전 벨트
 {
   @sysvar::SEAT_Value::dr_seat_Belt_state = 1;
+  @sysvar::SEAT_Value::dr_panel_seatbelt_state = 2; // 벨트 착용
+  
 }
 on timer pass_seat_Belt_state_timer // 2초 뒤 안전 벨트
 {
   @sysvar::SEAT_Value::pass_seat_Belt_state = 1;
+  @sysvar::SEAT_Value::pass_panel_seatbelt_state = 2; // 벨트 착용
 }
 
 on timer SEAT_State_timer{ // 사용자 착석 상태
@@ -117,26 +120,10 @@ on timer SEAT_Ast_Condi_timer{ // 조수석 좌석시트 동작 가능 상태
   //setTimer(SEAT_Ast_Condi_timer, 1000);
 }
 ///////////////////////////////
-on sysvar_update sysvar::SEAT_Value::dr_seat_Belt_state
-{
-  Dr_Seat_State_Change();
-}
-on sysvar_update sysvar::SEAT_Value::dr_seat_state
-{
-  Dr_Seat_State_Change();
-}
-on sysvar_update sysvar::SEAT_Value::pass_seat_Belt_state
-{
-  Pass_Seat_State_Change();
-}
-on sysvar_update sysvar::SEAT_Value::pass_seat_state
-{
-  Pass_Seat_State_Change();
-}
 
 on sysvar_update sysvar::SEAT_Value::dr_seat_OCC // 2 sec
 {
-  Dr_Seat_State_Change();
+  //Dr_Seat_State_Change();
   if(@sysvar::SEAT_Value::dr_seat_OCC == 1){
     setTimer(drv_seat_Belt_state_timer, 2000);
   }
@@ -144,18 +131,20 @@ on sysvar_update sysvar::SEAT_Value::dr_seat_OCC // 2 sec
 
 on sysvar_update sysvar::SEAT_Value::pass_seat_OCC // 1 Computer에서 테스트 하기 용도.
 {
-  Pass_Seat_State_Change();
+  //Pass_Seat_State_Change();
   if(@sysvar::SEAT_Value::pass_seat_OCC == 1){
     local_pass_seat_OCC = 1;
+    @sysvar::SEAT_Value::pass_panel_seatbelt_state = 1;
     setTimer(pass_seat_Belt_state_timer, 2000);
   }
 }
 //on sysvar_update sysvar::SEAT_Value::pass_seat_OCC // 2 sec
 on message can1.CGW_PANEL_Boarding_msg// 시나리오 패널 서버 분리를 위한 처리
 {
-    Pass_Seat_State_Change();
+    //Pass_Seat_State_Change();
   //if(@sysvar::SEAT_Value::pass_seat_OCC == 1){
     local_pass_seat_OCC = 1;
+    @sysvar::SEAT_Value::pass_panel_seatbelt_state = 1;
     setTimer(pass_seat_Belt_state_timer, 2000);
   //}
 }
@@ -167,9 +156,11 @@ on message can1.BCU_Seat_msg // 충돌에 의한 좌석 제어 요청 (BCU -> Se
 //  }
      if(this.BCU_dr_seatstate && @sysvar::SEAT_Value::dr_seat_condi == normal){ // 운전자 착석 상태
       @sysvar::SEAT_Value::dr_seat_state = accident_state;
+      @sysvar::SEAT_Value::dr_panel_seatbelt_state = 3;
     }
     if(this.BCU_pass_seatstate && @sysvar::SEAT_Value::pass_seat_condi == normal){ // 조수석 착석 상태
       @sysvar::SEAT_Value::pass_seat_state = accident_state;
+      @sysvar::SEAT_Value::pass_panel_seatbelt_state = 3;
     }
 }
 
@@ -178,17 +169,12 @@ on message can1.CGW_VCU_BWake_msg // Seat ECU 작동 시작
   if($B_CAN::CGW::CGW_VCU_BWake_msg::VCU_Seat_wakeup == 1)
   {
     write("Seat Im alive");
+    init();
     Power_on_off_flag = True;
     // 정상 상태
-    @sysvar::SEAT_Value::dr_seat_condi = normal;
-    @sysvar::SEAT_Value::pass_seat_condi = normal;
-    @sysvar::SEAT_Value::dr_seat_state = default_state;
-    @sysvar::SEAT_Value::pass_seat_state = default_state;
-    @sysvar::SEAT_Value::dr_panel_seatbelt_state = 0; // 기본값 0
-    @sysvar::SEAT_Value::pass_panel_seatbelt_state = 0;
     @sysvar::SEAT_Value::dr_seat_OCC = True; // 시동이 걸렸으므로 운전자 탑승하고 있다고 판단
-    
-
+    @sysvar::SEAT_Value::dr_panel_seatbelt_state = 1; // 기본값 0
+    @sysvar::SEAT_Value::pass_panel_seatbelt_state = 0;
   }
 }
 on message can1.CGW_VCU_BSleep_msg // Seat ECU 작동 종료
@@ -196,8 +182,8 @@ on message can1.CGW_VCU_BSleep_msg // Seat ECU 작동 종료
   if($B_CAN::CGW::CGW_VCU_BSleep_msg::VCU_Seat_sleep ==1)
   {
     write("Seat Im End");
-    Power_on_off_flag = False;
     init();
+    Power_on_off_flag = False;
     
   }
 }
@@ -227,6 +213,7 @@ void init()
   local_pass_seat_OCC=0;
   @sysvar::SEAT_Value::dr_panel_seatbelt_state = 0; // 기본값 0
   @sysvar::SEAT_Value::pass_panel_seatbelt_state = 0;
+  
 }
 void Dr_Seat_State_Change() // 패널 시스템 변수 추가
 {
