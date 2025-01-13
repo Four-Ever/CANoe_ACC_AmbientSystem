@@ -248,7 +248,7 @@
       <Property Name="Name">X18084acdeb497e45faea406eedcdecede541</Property>
       <Property Name="Size">96, 126</Property>
       <Property Name="Location">537, 511</Property>
-      <Property Name="SymbolConfiguration">8;16;VCU_Rx;;;dr_brkfull;1;;;-1;;;Value;;;0</Property>
+      <Property Name="SymbolConfiguration">8;16;Panel;;;Ped_fullbrk;1;;;-1;;;Value;;;0</Property>
       <Property Name="ImageFile">Bitmaps\Brake.bmp</Property>
       <Property Name="TabIndex">37</Property>
       <Property Name="IsButton">True</Property>
