@@ -63,7 +63,7 @@ on message can6.CGW_VCU_Speed_Overr_msg{
 on message can6.CGW_PANEL_FCar_msg{ // 선행차 등장
  if(on_flag==1){
    //@LeadCarSimulation::MyCar_Pos = 0;
-   @LeadCarSimulation::Set_LeadCar_Pos = 200;
+   @LeadCarSimulation::Set_LeadCar_Pos = 100;
    @LeadCarSimulation::LeadCar_Pos = @LeadCarSimulation::MyCar_Pos + @LeadCarSimulation::Set_LeadCar_Pos;
    leadcar_flag = 1;
  }
@@ -72,7 +72,7 @@ on message can6.CGW_PANEL_FCar_msg{ // 선행차 등장
 
 on sysvar_update LeadCarSimulation::LeadCar_Movement_Sg{
   if(on_flag==1 && leadcar_flag == 1){
-    int cog_dist = 210;
+    int cog_dist = 110;
     int distance = 0;
     @LeadCarSimulation::LeadCar_Pos += (@LeadCarSimulation::LeadCar_Movement_Sg*0.008333);
     distance = (int)(@LeadCarSimulation::LeadCar_Pos - @LeadCarSimulation::MyCar_Pos);
