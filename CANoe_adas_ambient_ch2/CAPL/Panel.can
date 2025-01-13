@@ -79,16 +79,8 @@ on sysvar LeadCarSimulation::InterruptCar3
 
 on sysvar Car_Indoor::Diagnostic_Req
 {
-  message PANEL_ADTC_msg ADTC;
-  message PANEL_BDTC_msg BDTC;
-  message PANEL_CDTC_msg CDTC;
-  message PANEL_PDTC_msg PDTC;
-  message PANEL_UDTC_msg UDTC;
+  message PANEL_DTC_EN_msg DTC_enable;
   if(@Car_Indoor::Diagnostic_Req == 1){
-    output(ADTC);
-    output(BDTC);
-    output(CDTC);
-    output(PDTC);
-    output(UDTC);
+    output(DTC_enable);
   }
 }
