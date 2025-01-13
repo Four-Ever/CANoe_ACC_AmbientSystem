@@ -13,8 +13,11 @@ on timer VCUTimer{
   $P_CAN::VCU::VCU_State_msg::VCU_speed_kph = @sysvar::VCU_Tx::speed;
   $P_CAN::VCU::VCU_State_msg::VCU_rpm = @sysvar::VCU_Tx::rpm;
   //브레이크등 패널
-  if (@sysvar::VCU_Rx::ACC_brk ==0 && @sysvar::VCU_Rx::AEB_brk==0 && @sysvar::VCU_Rx::dr_brk_ped == 0 && @sysvar::VCU_Rx::dr_brkfull == 0 ){
+  if ((@sysvar::VCU_Rx::ACC_brk ==0 || @sysvar::VCU_Rx::ACC_brk ==110) && @sysvar::VCU_Rx::AEB_brk==0 && @sysvar::VCU_Rx::dr_brk_ped == 0 && @sysvar::VCU_Rx::dr_brkfull == 0 ){
       @sysvar::Panel::brk_light=0;
+  }
+  else if( (@sysvar::VCU_Rx::ACC_accel >0 && @sysvar::VCU_Rx::ACC_accel <=100)||(@sysvar::VCU_Rx::dr_accel_ped>0)){
+    @sysvar::Panel::brk_light=1;
   }
   else {
       @sysvar::Panel::brk_light=1;
@@ -25,7 +28,6 @@ on timer VCUTimer{
 
 
 on start {  
-  $CGW::AEB_VCU_brk_pbar=0;
   @sysvar::VCU_Rx::AEB_brk=0; 
   setTimerCyclic(VCUTimer, 5);
 }
@@ -156,7 +158,7 @@ on message CAN3.P_CAN::CGW_PANEL_PDTC_msg {
 
 
 //HMI 시동
-on message CAN3.CGW_HMI_VCU_Power_msg {  //msg 들어올때만 시스템변수에 대입, 그냥 항상 대입은?
+on message CAN3.CGW_HMI_VCU_Power_msg {  
   @sysvar::VCU_Rx::HMI_engine_on =  this.HMI_Engine_start;
   @sysvar::VCU_Rx::HMI_engine_off = this.HMI_Engine_sleep;
   
