@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<systemvariables version="4">
+  <namespace name="" comment="" interface="">
+    <namespace name="Car_Indoor" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Diagnostic_Req" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="User_boarding" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+    </namespace>
+    <namespace name="LeadCarSimulation" comment="" interface="">
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Appeared_Leadcar" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="100" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="InterruptCar1" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="50" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="InterruptCar2" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="30" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="InterruptCar3" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="10" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="LeadCar_Movement_Sg" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="LeadCar_Pos" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="MyCar_Pos" comment="" bitcount="64" isSigned="true" encoding="65001" type="float" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Rear_Collision" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="0" />
+      <variable anlyzLocal="2" readOnly="false" valueSequence="false" unit="" name="Set_LeadCar_Pos" comment="" bitcount="32" isSigned="true" encoding="65001" type="int" startValue="100" />
+    </namespace>
+  </namespace>
+</systemvariables>
