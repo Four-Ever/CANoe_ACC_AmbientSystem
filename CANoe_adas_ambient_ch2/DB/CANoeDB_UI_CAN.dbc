@@ -43,7 +43,7 @@ BO_ 1518 CGW_DTC_UDTC_msg: 8 CGW
  SG_ Scenario_HMIrequest : 1|1@1+ (1,0) [0|1] "" Vector__XXX
  SG_ Scenario_CLUrequest : 0|1@1+ (1,0) [0|1] "" Vector__XXX
 
-BO_ 1773 PANEL_DTC_EN_msg: 1 PANEL
+BO_ 1517 PANEL_DTC_EN_msg: 1 PANEL
  SG_ Scenario_DTC_Enable : 0|1@1+ (1,0) [0|1] ""  CGW
 
 BO_ 1270 CGW_PANEL_Boarding_msg: 1 CGW
@@ -602,13 +602,13 @@ BA_ "GenMsgCycleTime" BO_ 854 100;
 BA_ "GenMsgCycleTime" BO_ 856 10;
 BA_ "GenMsgCycleTime" BO_ 859 10;
 BA_ "GenMsgCycleTime" BO_ 1256 0;
-BA_ "GenMsgCycleTime" BO_ 1047 1000;
-BA_ "GenMsgCycleTime" BO_ 1046 1000;
+BA_ "GenMsgCycleTime" BO_ 1047 10;
+BA_ "GenMsgCycleTime" BO_ 1046 10;
 BA_ "GenMsgCycleTime" BO_ 1255 0;
-BA_ "GenMsgCycleTime" BO_ 1049 1000;
-BA_ "GenMsgCycleTime" BO_ 1048 1000;
-BA_ "GenMsgCycleTime" BO_ 1044 1000;
-BA_ "GenMsgCycleTime" BO_ 1045 1000;
+BA_ "GenMsgCycleTime" BO_ 1049 10;
+BA_ "GenMsgCycleTime" BO_ 1048 10;
+BA_ "GenMsgCycleTime" BO_ 1044 10;
+BA_ "GenMsgCycleTime" BO_ 1045 10;
 BA_ "GenMsgCycleTime" BO_ 1254 0;
 BA_ "GenMsgCycleTime" BO_ 1153 100;
 BA_ "GenMsgCycleTime" BO_ 1043 0;
