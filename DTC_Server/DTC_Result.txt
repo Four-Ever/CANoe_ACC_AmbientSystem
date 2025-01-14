@@ -1,0 +1,16 @@
+DTC time: 2025-01-14 10:12:09
+VCU Code: 0
+CCM Code: 0
+BRK Code: 0
+ACL Code: 0
+AML Code: 0
+BCU Code: 0
+SEAT Code: 0
+AIRBAG Code: 2
+ACC Code: 0
+AEB Code: 0
+SCU Code: 0
+HMI Code: 0
+CLU Code: 0
+----------------------------
+
