@@ -33,16 +33,18 @@ variables
   // 2초 뒤 안전 벨트 착용
   
   byte Power_on_off_flag = False; // seat 시동 후에만 작동 해야함
+  
+  int period = 10;
 }
 on start{ // init
   init();
   // IL 구현시 아래 부분 제외해야함
   if(@sysvar::Dev_Option::Timer_Enable)
   {
-    setTimerCyclic(SEAT_State_timer, 1000);
-    setTimerCyclic(SEAT_Belt_state_timer, 1000);
-    setTimerCyclic(SEAT_Dr_Condi_timer, 1000);
-    setTimerCyclic(SEAT_Ast_Condi_timer, 1000);
+    setTimerCyclic(SEAT_State_timer, period);
+    setTimerCyclic(SEAT_Belt_state_timer, period);
+    setTimerCyclic(SEAT_Dr_Condi_timer, period);
+    setTimerCyclic(SEAT_Ast_Condi_timer, period);
   }
 }
 on preStop{ // 종료 직전 수행

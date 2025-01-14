@@ -21,14 +21,16 @@ variables
   msTimer Airbag_Dr_Condi_timer; // IL로 구현 가능
   msTimer Airbag_Ast_Condi_timer;
   // byte Power_on_off_flag = False; // Airbag 시동 여부에 관계없이 동작
+  
+  int period = 10;
 }
 on start{ // init
   init();
   // IL 구현시 아래 부분 제외해야함
   if(@sysvar::Dev_Option::Timer_Enable)
   {
-    setTimerCyclic(Airbag_Dr_Condi_timer, 1000); 
-    setTimerCyclic(Airbag_Ast_Condi_timer, 1000);
+    setTimerCyclic(Airbag_Dr_Condi_timer, period); 
+    setTimerCyclic(Airbag_Ast_Condi_timer, period);
   }
 }
 on preStop{ // 종료 직전 수행
